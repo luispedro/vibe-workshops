@@ -1,0 +1,49 @@
+% LaTeX rendering of the content-type cues (see filters/cues.lua for the
+% vocabulary). Included with -H into both the handout PDFs and the beamer deck.
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% DO family -- something to type.
+\definecolor{cueShell}{HTML}{37474F}   % slate: the terminal
+\definecolor{cueClaude}{HTML}{D97757}  % coral: Claude
+% KNOW family -- something to carry away, in decreasing weight.
+\definecolor{cueRemember}{HTML}{B26A00}
+\definecolor{cueAside}{HTML}{5A6B7C}
+\definecolor{cueReference}{HTML}{8A8A8A}
+
+% tcolorbox zeroes \parskip inside the box, which runs multi-paragraph
+% material together. Restore it (locally to the box) alongside the label.
+\newcommand{\cuelabel}[2]{%
+  \setlength{\parskip}{0.5\baselineskip}%
+  {\sffamily\bfseries\scriptsize\color{#1}#2}\par\vspace{2pt}}
+
+% DO: a solid left bar, no surrounding frame -- reads as a prompt, not a box.
+\newtcolorbox{cueshell}{enhanced, breakable, sharp corners,
+  colback=cueShell!4, colframe=cueShell,
+  boxrule=0pt, leftrule=3pt,
+  left=8pt, right=6pt, top=5pt, bottom=5pt,
+  before upper={\cuelabel{cueShell}{⌨\ \ TYPE THIS IN THE SHELL}}}
+
+\newtcolorbox{cueclaude}{enhanced, breakable, sharp corners,
+  colback=cueClaude!6, colframe=cueClaude,
+  boxrule=0pt, leftrule=3pt,
+  left=8pt, right=6pt, top=5pt, bottom=5pt,
+  before upper={\cuelabel{cueClaude}{✳\ \ TYPE THIS TO CLAUDE}}}
+
+% KNOW: a closed box. Weight drops as the material gets more optional.
+\newtcolorbox{cueremember}{enhanced, breakable, sharp corners,
+  colback=cueRemember!8, colframe=cueRemember, boxrule=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  before upper={\cuelabel{cueRemember}{★\ \ REMEMBER}}}
+
+\newtcolorbox{cueaside}{enhanced, breakable, sharp corners,
+  colback=cueAside!5, colframe=cueAside!45, boxrule=0.5pt,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  before upper={\cuelabel{cueAside}{⊳\ \ ASIDE {\textperiodcentered} ADVANCED}}}
+
+\newtcolorbox{cuereference}{enhanced, breakable, sharp corners,
+  colback=white, colframe=cueReference, boxrule=0pt,
+  borderline={0.6pt}{0pt}{cueReference, dashed},
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fontupper=\small,
+  before upper={\cuelabel{cueReference}{☰\ \ REFERENCE {\textperiodcentered} FOR LATER}}}

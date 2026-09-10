@@ -17,3 +17,48 @@
 
 .reveal ul, .reveal ol   { display: block; margin-left: 1em; }
 .reveal li               { margin-bottom: 0.25em; }
+
+/* --- content-type cues ----------------------------------------------------
+   Two families, told apart by shape (see filters/cues.lua):
+
+     DO   -- something to type: solid left bar, no frame. Reads as a prompt.
+     KNOW -- something to carry away: a closed box, losing weight as the
+             material becomes more optional (filled -> tinted -> dashed).      */
+
+.reveal .cue             { margin: 0.5em 0; padding: 0.4em 0.75em; }
+.reveal .cue > :first-child { margin-top: 0; }
+.reveal .cue > :last-child  { margin-bottom: 0; }
+
+/* Code in a DO box is meant to be read off the projector and typed, so it
+   overrides the small size the deck uses for its ASCII diagrams. */
+.reveal .cue pre         { margin: 0; background: transparent; font-size: 0.62em; }
+.reveal .cue pre code    { padding: 0; background: transparent; }
+/* pandoc wraps highlighted code in an extra div.sourceCode whose margin
+   would otherwise open a gap between the label and the first command. */
+.reveal .cue div.sourceCode { margin: 0; }
+
+.reveal .cue-label       { font-size: 0.42em; font-weight: bold;
+                           letter-spacing: 0.09em; text-transform: uppercase;
+                           margin-bottom: 0.25em; }
+
+/* DO: something to type. */
+.reveal .cue-shell       { border-left: 5px solid #37474f; background: #37474f0a; }
+.reveal .cue-shell  .cue-label  { color: #37474f; }
+.reveal .cue-claude      { border-left: 5px solid #d97757; background: #d9775714; }
+.reveal .cue-claude .cue-label  { color: #c05f3f; }
+
+/* KNOW: something to remember, in decreasing weight. */
+.reveal .cue-remember    { border: 2px solid #b26a00; background: #b26a0014;
+                           border-radius: 3px; }
+.reveal .cue-remember .cue-label { color: #8a5200; }
+.reveal .cue-aside       { border: 1px solid #5a6b7c73; background: #5a6b7c0d;
+                           border-radius: 3px; font-size: 0.9em; }
+.reveal .cue-aside .cue-label    { color: #5a6b7c; }
+.reveal .cue-reference   { border: 1px dashed #8a8a8a; background: none;
+                           border-radius: 3px; font-size: 0.85em; color: #555; }
+.reveal .cue-reference .cue-label { color: #777; }
+
+/* The .cue-label font-size is relative, so it must not inherit the shrunken
+   size the boxes that carry one apply to their body text. */
+.reveal .cue-aside .cue-label     { font-size: 0.47em; }
+.reveal .cue-reference .cue-label { font-size: 0.49em; }

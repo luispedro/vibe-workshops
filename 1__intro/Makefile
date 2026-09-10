@@ -13,9 +13,17 @@ BUILD    := build
 FILTERS  := filters
 STYLE    := style
 
-SLIDE_DEPS    := $(SRC) $(FILTERS)/slides.lua $(STYLE)/slides.css
-STUDENT_DEPS  := $(SRC) $(FILTERS)/handout-student.lua $(STYLE)/handout.yaml
-INSTR_DEPS    := $(SRC) $(FILTERS)/handout-instructor.lua $(STYLE)/handout.yaml
+# cues.lua renders the content-type markers (things to type / to remember);
+# it runs after the audience filter so cues inside dropped material never
+# reach the output. See filters/cues.lua.
+CUES_DEPS     := $(FILTERS)/cues.lua
+CUES_TEX      := $(STYLE)/cues.tex
+
+SLIDE_DEPS    := $(SRC) $(FILTERS)/slides.lua $(STYLE)/slides.css $(CUES_DEPS)
+STUDENT_DEPS  := $(SRC) $(FILTERS)/handout-student.lua $(STYLE)/handout.yaml \
+                 $(CUES_DEPS) $(CUES_TEX)
+INSTR_DEPS    := $(SRC) $(FILTERS)/handout-instructor.lua $(STYLE)/handout.yaml \
+                 $(CUES_DEPS) $(CUES_TEX)
 
 PANDOC := pandoc
 
@@ -35,10 +43,12 @@ SLIDE_OPTS := -t revealjs -s --embed-resources \
               --css=$(STYLE)/slides.css \
               -V theme=white -V transition=none -V hash=true \
               -V width=1280 -V height=800 \
-              --lua-filter=$(FILTERS)/slides.lua
+              --lua-filter=$(FILTERS)/slides.lua \
+              --lua-filter=$(FILTERS)/cues.lua
 
 HANDOUT_OPTS := --pdf-engine=xelatex \
                 --metadata-file=$(STYLE)/handout.yaml \
+                -H $(CUES_TEX) \
                 $(HIGHLIGHT) \
                 -V documentclass=article
 
@@ -75,7 +85,9 @@ $(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) | $(BUILD)
 	    -V monofont="DejaVu Sans Mono" \
 	    -V theme=metropolis -V fontsize=9pt \
 	    -M drop_notes=true \
+	    -H $(CUES_TEX) \
 	    --lua-filter=$(FILTERS)/slides.lua \
+	    --lua-filter=$(FILTERS)/cues.lua \
 	    $(SRC)
 
 # --- handouts ----------------------------------------------------------------
@@ -84,21 +96,25 @@ $(BUILD)/$(STEM)__student.pdf: $(STUDENT_DEPS) | $(BUILD)
 	$(PANDOC) $(HANDOUT_OPTS) \
 	    -M subtitle="Workshop 1 — student notes" \
 	    --lua-filter=$(FILTERS)/handout-student.lua \
+	    --lua-filter=$(FILTERS)/cues.lua \
 	    -o $@ $(SRC)
 
 $(BUILD)/$(STEM)__instructor.pdf: $(INSTR_DEPS) | $(BUILD)
 	$(PANDOC) $(HANDOUT_OPTS) \
 	    -M subtitle="Workshop 1 — instructor notes (do not distribute)" \
 	    --lua-filter=$(FILTERS)/handout-instructor.lua \
+	    --lua-filter=$(FILTERS)/cues.lua \
 	    -o $@ $(SRC)
 
 $(BUILD)/$(STEM)__student.docx: $(STUDENT_DEPS) | $(BUILD)
 	$(PANDOC) -M subtitle="Workshop 1 — student notes" \
-	    --toc --lua-filter=$(FILTERS)/handout-student.lua -o $@ $(SRC)
+	    --toc --lua-filter=$(FILTERS)/handout-student.lua \
+	    --lua-filter=$(FILTERS)/cues.lua -o $@ $(SRC)
 
 $(BUILD)/$(STEM)__instructor.docx: $(INSTR_DEPS) | $(BUILD)
 	$(PANDOC) -M subtitle="Workshop 1 — instructor notes (do not distribute)" \
-	    --toc --lua-filter=$(FILTERS)/handout-instructor.lua -o $@ $(SRC)
+	    --toc --lua-filter=$(FILTERS)/handout-instructor.lua \
+	    --lua-filter=$(FILTERS)/cues.lua -o $@ $(SRC)
 
 # --- checks ------------------------------------------------------------------
 

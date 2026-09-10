@@ -63,6 +63,59 @@ Beamer has no notes pane, so `make slides-pdf` strips it instead.
 `make check` guards the direction that matters — it fails the build if
 instructor wording turns up in the student PDF.
 
+## Content-type cues
+
+Audience (above) is orthogonal to *what kind of thing* a block is. The second
+axis is marked the same way, and renders in all three outputs — see
+`filters/cues.lua`. Two families, told apart by shape:
+
+**Things to type** — a solid left bar, no frame, so it reads as a prompt.
+Applied automatically from the code fence, so there is usually nothing to mark
+up by hand:
+
+| Source                              | Renders as                 |
+| ----------------------------------- | -------------------------- |
+| ```` ```bash ```` (or `sh`/`shell`/`console`/`zsh`) | ⌨ *Type this in the shell* |
+| ```` ```claude ````                 | ✳ *Type this to Claude*    |
+
+**Things to remember** — a closed box, losing weight as the material gets more
+optional:
+
+| Source           | Renders as                     | Weight            |
+| ---------------- | ------------------------------ | ----------------- |
+| `::: remember`   | ★ *Remember*                   | filled, boxed     |
+| `::: aside`      | ⊳ *Aside · advanced*           | tinted, thin rule |
+| `::: reference`  | ☰ *Reference · for later*      | dashed outline    |
+
+A code block that is *output* or a diagram rather than something to type gets
+the escape hatch:
+
+````markdown
+```{.no-cue}
+        ┌────────────┐
+```
+````
+
+```markdown
+## Step 4: look at the data
+
+```bash
+git add data
+```
+
+```claude
+> Read the files in data/
+```
+
+::: remember
+The model has no memory between calls.
+:::
+```
+
+Nesting works as expected: cues inside a `::: handout` or `::: instructor`
+block are rendered only where that block survives, because `cues.lua` runs
+after the audience filter.
+
 ## Structure of the source
 
 - `#` headings start a new part (a section slide in the deck)
@@ -78,8 +131,10 @@ Makefile                       build rules
 filters/slides.lua             .instructor -> speaker notes, drop .handout
 filters/handout-student.lua    drop .instructor, unwrap .handout
 filters/handout-instructor.lua keep .instructor as labelled block quotes
-style/slides.css               reveal.js tweaks (left-aligned, ASCII diagrams)
+filters/cues.lua               content-type cues; runs after the audience filter
+style/slides.css               reveal.js tweaks (left-aligned, ASCII diagrams, cues)
 style/handout.yaml             shared LaTeX settings for both handout PDFs
+style/cues.tex                 tcolorbox definitions behind the cues, for the PDFs
 ```
 
 The ASCII diagrams in the Interlude only read correctly in a fixed-width font

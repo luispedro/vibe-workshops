@@ -30,8 +30,10 @@ know
 
 ## A note on this field
 
+::: remember
 This is a very fast moving field. Best practices are still evolving. The
 models/harnesses are constantly changing.
+:::
 
 
 # Accessing LLMs
@@ -47,8 +49,10 @@ models/harnesses are constantly changing.
 
 ## Best practices from the old typed code world still apply
 
+::: remember
 Best practices that applied to human readable code, also apply to AI-generated
 code. If anything, agents make them more powerful.
+:::
 
 ::: handout
 Version control, small commits, tests, clear naming, documented decisions,
@@ -74,22 +78,24 @@ git commit
 
 ## Aside: introducing pixi
 
+::: aside
 Pixi is a declarative package manager
 
 `pixi.toml` + `pixi.lock` completely define the environment. No other state.
 
 This means that if you share with others, they will get the same. With `conda`,
 this was very difficult to achieve in a consistent way.
+:::
 
 ## Step 2: Running claude
 
+```bash
+claude
 ```
-$ claude
 
+```claude
 > Hello, claude
-
 > /model
-
 > /usage
 ```
 
@@ -116,12 +122,14 @@ git commit -m 'DAT add data from urban soil'
 Inspect the data by _eye_ first.
 :::
 
-> **[Claude]** Read the files in data/
->
+```claude
+> Read the files in data/
+
 > Check all the columns.
 > Write a document called data.md with the structure of the data.
 > Is Luis's email accurate?
 > Finally, write a Python script that prints the basic stats.
+```
 
 I would sometimes type this out, but often it would be based on multi-turn
 talking.
@@ -129,7 +137,9 @@ talking.
 
 ## Step 5: basic plots
 
-> **[Claude]** Plot the data
+```claude
+> Plot the data
+```
 
 Deliberately underspecified!
 
@@ -180,8 +190,10 @@ You type
 
 ↓ → tokens **+ context!**
 
+::: remember
 The model has no memory between calls. The *entire* conversation is re-sent
 every single turn.
+:::
 
 ## Pricing
 
@@ -190,8 +202,10 @@ Two basic models:
 1. Per token (typically, slightly different for input vs output)
 2. Subscription with usage limits
 
+::: remember
 Either way, using fewer tokens is better. If paying per-token, it's a direct
 linear relationship; if on a subscription, you want to avoid usage limits.
+:::
 
 ## Scheme 2: caching
 
@@ -200,8 +214,10 @@ the previous bits of conversation.
 
 ## Scheme 3: there is a harness
 
+::: remember
 You are **not** talking to the model.\
 You are talking to a **harness**.
+:::
 
 This is true even on the web, but the code harness does a lot more:
 
@@ -217,7 +233,7 @@ You type
 ↓ tokenised → 8 tokens\
 ↓ harness
 
-```
+```{.no-cue}
 "In the project        ⟵ CLAUDE.md
                        ⟵ "memories"
 CLAUDE.md: ...
@@ -239,7 +255,7 @@ any stored memories, the conversation so far, and the tool definitions. Then the
 
 Scheme 3 showed one command. The important part is that it does not stop at one:
 
-```
+```{.no-cue}
         ┌──────────────────────────────────────┐
         │                                      │
    you type ──→ [ model ] ──→ tool call ──→ [ harness runs it ]
@@ -264,36 +280,56 @@ finally deciding to output user-visible tokens.
 
 ## Bottom line
 
+::: remember
 - the token count is also not what you see on screen
 - every message includes all previous messages
 - you type a tiny fraction of the tokens
 - caching changes things
+:::
 
 ## Limiting context size
 
 Two reasons:
 
+::: remember
 1. because you pay for it (money, or rate limits)
 2. **because models do worse as context grows**
+:::
 
 ## Tools: `/clear` and `/compact`
 
+```claude
+> /clear
+> /compact
+```
+
+::: remember
 - `/clear`: wipe the conversation. Equivalent to exiting and starting a new
   session.
 - `/compact`: summarise the conversation and continue from the summary.
+:::
 
 ## Before you `/clear`
 
+::: remember
 Get the durable part out of the conversation and into something permanent:
 
 - Saving to `CLAUDE.md` (conventions, decisions, how to run things)
 - Saving to other files (`data.md`, notes, docstrings, etc.)
 - Committing to git
+:::
 
 ## Aside: subagents
 
+::: aside
 We have left out subagents and other advanced features, which further complicate
 the picture.
+:::
+
+::: reference
+Subagents, hooks, MCP servers, output styles and custom slash commands are all
+worth reading about once the basics are comfortable. We will not cover them.
+:::
 
 # Back to the case study
 
@@ -301,8 +337,13 @@ the picture.
 
 Some potential prompts
 
-- Plot α-diversity by city
-- Plot a pcoa, coloured by city
+```claude
+> Plot α-diversity by city
+```
+
+```claude
+> Plot a pcoa, coloured by city
+```
 
 ## Wrap-up
 
