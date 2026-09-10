@@ -127,16 +127,21 @@ So splitting a slide in two means splitting a `##` section in two.
 
 ```
 intro-to-coding-agents.md      the source; edit this
-Makefile                       build rules
-filters/slides.lua             .instructor -> speaker notes, drop .handout
-filters/handout-student.lua    drop .instructor, unwrap .handout
-filters/handout-instructor.lua keep .instructor as labelled block quotes
-filters/cues.lua               content-type cues; runs after the audience filter
-style/slides.css               reveal.js tweaks (left-aligned, ASCII diagrams, cues)
-style/handout.yaml             shared LaTeX settings for both handout PDFs
-style/cues.tex                 tcolorbox definitions behind the cues, for the PDFs
+Makefile                       SRC/STEM/WORKSHOP, then includes the shared rules
+../common/workshop.mk          all the build rules, shared by every workshop
+../common/filters/slides.lua             .instructor -> speaker notes, drop .handout
+../common/filters/handout-student.lua    drop .instructor, unwrap .handout
+../common/filters/handout-instructor.lua keep .instructor as labelled block quotes
+../common/filters/cues.lua               content-type cues; runs after the audience filter
+../common/style/slides.css               reveal.js tweaks (left-aligned, ASCII diagrams, cues)
+../common/style/handout.yaml             shared LaTeX settings for both handout PDFs
+../common/style/cues.tex                 tcolorbox definitions behind the cues, for the PDFs
 ```
 
 The ASCII diagrams in the Interlude only read correctly in a fixed-width font
 with box-drawing glyphs, which is why both the CSS and the LaTeX settings pin
 DejaVu Sans Mono.
+
+The build machinery lives in `../common/` and is shared with every other
+workshop in this repo, so a fix there benefits all of them. See `../CLAUDE.md`
+for the conventions shared by both parts.
