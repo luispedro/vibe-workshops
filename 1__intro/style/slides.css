@@ -1,0 +1,19 @@
+/* Slide tweaks: this deck is code- and diagram-heavy, and reveal.js defaults
+   are tuned for sparse text slides. */
+
+.reveal section          { text-align: left; }
+.reveal h1, .reveal h2,
+.reveal h3, .reveal h4   { text-align: left; text-transform: none; }
+.reveal h2               { font-size: 1.6em; }
+
+/* Keep the ASCII diagrams (the tool loop, the harness box) intact: they only
+   read correctly at a fixed width, and reveal.js will happily shrink them. */
+.reveal pre              { width: 100%; box-shadow: none; font-size: 0.42em; }
+.reveal pre code         { max-height: none; padding: 0.6em 0.8em; }
+.reveal code             { font-family: "DejaVu Sans Mono", monospace; }
+
+.reveal blockquote       { width: 100%; font-style: normal; box-shadow: none;
+                           background: #f3f3f3; padding: 0.5em 0.8em; }
+
+.reveal ul, .reveal ol   { display: block; margin-left: 1em; }
+.reveal li               { margin-bottom: 0.25em; }

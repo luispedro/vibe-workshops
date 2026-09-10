@@ -1,8 +1,15 @@
-# Coding Agents Introduction
+---
+title: "Coding Agents: an Introduction"
+subtitle: "Workshop 1"
+author: "Luis Pedro Coelho"
+date: "2026"
+---
 
-## Prerequisites & learning goals
+# Prerequisites & learning goals
 
-- You have installed claude, & can run it on the terminal
+## Prerequisites
+
+- You have installed `claude`, & can run it on the terminal
 - You have a paid account!
 - You know how to use basic git
     - `git init`
@@ -11,46 +18,68 @@
 - Ideally, you know Python
 - You know the basic concept of conda/pixi
 
-This is an intro to using coding agents. At the end of the session, you should know
+## Learning goals
+
+This is an intro to using coding agents. At the end of the session, you should
+know
 
 - how to ask claude for code
-- what CLAUDE.md is (including what `/init` does)
+- what `CLAUDE.md` is (including what `/init` does)
 - what "context" is and how to work with it
 
-## Note
 
-This is a very fast moving field. Best practices are still evolving. The models/harnesses are constantly changing.
+## A note on this field
 
-## Accessing LLMs
+This is a very fast moving field. Best practices are still evolving. The
+models/harnesses are constantly changing.
 
-1. Chat. You probably know this
-2. Auto-complete / basic assistant
-3. Full agent use. The agent runs commands and re-evaluates afterwards, potentially then running further commands without further requests or asks for clarification.
+
+# Accessing LLMs
+
+## Three ways to use an LLM
+
+1. **Chat.** You probably know this
+2. **Auto-complete / basic assistant**
+3. **Full agent use.** The agent runs commands and re-evaluates afterwards,
+   potentially then running further commands without further requests or asks
+   for clarification
+
 
 ## Best practices from the old typed code world still apply
 
-Best practices that applied to human readable code, also apply to AI-generated code. If anything, agents make them more powerful.
+Best practices that applied to human readable code, also apply to AI-generated
+code. If anything, agents make them more powerful.
 
-## Case study
+::: handout
+Version control, small commits, tests, clear naming, documented decisions,
+reproducible environments...
+:::
+
+
+# Case study
+
+## The task
 
 A few MAGs + tables → visualization in Python with Pyodide
 
+
 ## Step 1: set up basics
 
-```
+```bash
 git init
 pixi init
 git add .
 git commit
 ```
 
-### Aside: introducing pixi
+## Aside: introducing pixi
 
 Pixi is a declarative package manager
 
 `pixi.toml` + `pixi.lock` completely define the environment. No other state.
 
-This means that if you share with others, they will get the same. With conda, this was very difficult
+This means that if you share with others, they will get the same. With `conda`,
+this was very difficult to achieve in a consistent way.
 
 ## Step 2: Running claude
 
@@ -76,12 +105,16 @@ Let's set guidelines for claude
 - Commit to main
 - Document any decisions
 
-## Step 4: look at data
+## Step 4: look at the data
 
-```
+```bash
 git add data
 git commit -m 'DAT add data from urban soil'
 ```
+
+::: instructor
+Inspect the data by _eye_ first.
+:::
 
 > **[Claude]** Read the files in data/
 >
@@ -90,7 +123,9 @@ git commit -m 'DAT add data from urban soil'
 > Is Luis's email accurate?
 > Finally, write a Python script that prints the basic stats.
 
-I would sometimes type this out, but often it would be based on multi-turn talking.
+I would sometimes type this out, but often it would be based on multi-turn
+talking.
+
 
 ## Step 5: basic plots
 
@@ -98,20 +133,34 @@ I would sometimes type this out, but often it would be based on multi-turn talki
 
 Deliberately underspecified!
 
-## Interlude: tokens, context, and what is actually happening
 
-Let's start with a simple <u>oversimplified</u> schemes and slowly build up towards a more accurate picture.
+# Interlude: tokens, context, and what is actually happening
 
-### What is a token?
+## Building up a picture
+
+Let's start with a simple [oversimplified]{.underline} scheme and slowly build up
+towards a more accurate picture.
+
+::: handout
+Four schemes, each correcting the previous one:
+
+1. You talk directly to the model
+2. …with caching
+3. …except you talk to a *harness*, which runs tools in a loop
+4. …and the model also talks to itself before answering you
+:::
+
+## What is a token?
 
 1. word
 2. partial word, elements like punctuation
 
-Different systems use different tokenizations, so it's not always one-to-one.
+Different systems use different tokenizations too.
 
-For our purposes, if you think that a token is a word/punctuation, you're probably in the right ballpark.
+For our purposes, if you think that a token is a word/punctuation, you're
+probably in the right ballpark.
 
-### Scheme 1: directly interacting with the model
+## Scheme 1: directly interacting with the model
 
 You type
 
@@ -125,43 +174,47 @@ You type
 
 → `Good` … `, Luis!` ⟵ 6 tokens
 
-*(Diagram: input text is tokenised into ~6 tokens, goes through the model ("magic"), and comes back as ~6 output tokens.)*
+## Scheme 1, second turn
 
 "How are you today?"
 
 ↓ → tokens **+ context!**
 
-The model has no memory between calls. The *entire* conversation is re-sent every single turn. This one fact explains almost everything else in this section.
+The model has no memory between calls. The *entire* conversation is re-sent
+every single turn.
 
-
-#### Pricing
+## Pricing
 
 Two basic models:
 
 1. Per token (typically, slightly different for input vs output)
 2. Subscription with usage limits
 
-Either way, using fewer tokens is better. If paying per-token, it's a direct linear relationship; if on a subscription, you want to avoid usage limits.
+Either way, using fewer tokens is better. If paying per-token, it's a direct
+linear relationship; if on a subscription, you want to avoid usage limits.
 
-### Scheme 2: caching
+## Scheme 2: caching
 
-Providers cache the state, so if you reply fast, you don't pay full price for the previous bits of conversation.
+Providers cache the state, so if you reply fast, you don't pay full price for
+the previous bits of conversation.
 
-### Scheme 3: there is a harness
+## Scheme 3: there is a harness
 
-You are **not** talking to the model
-You are talking to a harness
+You are **not** talking to the model.\
+You are talking to a **harness**.
 
-This is true even on the web but the code harness does a lot more
+This is true even on the web, but the code harness does a lot more:
 
-1. Reads files (CLAUDE.md)
+1. Reads files (`CLAUDE.md`)
 2. Executes commands
+
+## Scheme 3: what actually gets sent
 
 You type
 
 "Look at the files in data/"
 
-↓ tokenised → 8 tokens
+↓ tokenised → 8 tokens\
 ↓ harness
 
 ```
@@ -173,9 +226,16 @@ User typed: ..."
 
 → Run `ls` ⟵
 
-*(Diagram: the harness runs `ls` in its own box and feeds the output back:)* `ls output: ...`
+::: handout
+*(Diagram: the harness runs `ls` in its own box and feeds the output back:)*
+`ls output: ...`
 
-### Scheme 3b: the loop
+Your 8 typed tokens have become a much larger request containing `CLAUDE.md`,
+any stored memories, the conversation so far, and the tool definitions. Then the
+`ls` output is appended and the whole thing is sent *again*.
+:::
+
+## Scheme 3b: the loop
 
 Scheme 3 showed one command. The important part is that it does not stop at one:
 
@@ -191,41 +251,51 @@ Scheme 3 showed one command. The important part is that it does not stop at one:
                     └──→ (decides it is done) ──→ text for you
 ```
 
-Each time round: the model emits a tool call, the harness runs it, **the output is appended to the context**, and the model can decide what to do next until it eventually decides to output text for you.
+Each time round: the model emits a tool call, the harness runs it, **the output
+is appended to the context**, and the model can decide what to do next until it
+eventually decides to output text for you.
 
-### Scheme 4: models talk to themselves
+## Scheme 4: models talk to themselves
 
 Reasoning traces
 
-The model will output tokens that it then uses to output more tokens before finally deciding to output user-visible tokens.
+The model will output tokens that it then uses to output more tokens before
+finally deciding to output user-visible tokens.
 
+## Bottom line
 
-### Bottom line
-
-- the token count is also not what you see on screen.
+- the token count is also not what you see on screen
 - every message includes all previous messages
 - you type a tiny fraction of the tokens
 - caching changes things
 
-Limiting context size
+## Limiting context size
+
+Two reasons:
 
 1. because you pay for it (money, or rate limits)
 2. **because models do worse as context grows**
 
-Tools:
+## Tools: `/clear` and `/compact`
 
-- `/clear`: wipe the conversation. Equivalent to exiting and starting a new session.
+- `/clear`: wipe the conversation. Equivalent to exiting and starting a new
+  session.
 - `/compact`: summarise the conversation and continue from the summary.
 
-Before you `/clear`, you can get the durable part out of the conversation and into something permanent:
+## Before you `/clear`
 
-- Saving to CLAUDE.md (conventions, decisions, how to run things)
-- Saving to other files (`data.md`, notes, docstrings)
+Get the durable part out of the conversation and into something permanent:
+
+- Saving to `CLAUDE.md` (conventions, decisions, how to run things)
+- Saving to other files (`data.md`, notes, docstrings, etc.)
 - Committing to git
 
-### Aside: subagents
+## Aside: subagents
 
-We have left out subagents and other advanced features, which further complicate the picture.
+We have left out subagents and other advanced features, which further complicate
+the picture.
+
+# Back to the case study
 
 ## Step 6: exploration
 
@@ -234,3 +304,10 @@ Some potential prompts
 - Plot α-diversity by city
 - Plot a pcoa, coloured by city
 
+## Wrap-up
+
+You should now know
+
+- how to ask claude for code
+- what `CLAUDE.md` is (including what `/init` does)
+- what "context" is and how to work with it
