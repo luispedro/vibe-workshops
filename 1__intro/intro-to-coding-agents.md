@@ -111,6 +111,19 @@ Let's set guidelines for claude
 - Commit to main
 - Document any decisions
 
+## Two ways to do this
+
+1. Write a `CLAUDE.md` file with the guidelines using a standard text editor
+2. Ask claude to write it for you
+
+```claude
+> Write a CLAUDE.md file with the following guidelines:
+>   - Use pixi, not system tools
+>   - Use matplotlib and polars
+>   - Commit to main
+>   - Document any decisions
+```
+
 ## Step 4: look at the data
 
 ```bash
