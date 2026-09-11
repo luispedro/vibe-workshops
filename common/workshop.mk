@@ -41,6 +41,11 @@ INSTR_DEPS    := $(SRC) $(FILTERS)/handout-instructor.lua $(STYLE)/handout.yaml 
 
 PANDOC := pandoc
 
+# tectonic is a self-contained XeTeX, installed by ../pixi.toml along with
+# pandoc; it fetches LaTeX packages on first use. Outside pixi, a system TeX
+# Live works too: make PDF_ENGINE=xelatex
+PDF_ENGINE ?= tectonic
+
 # pandoc 3.8 renamed --highlight-style to --syntax-highlighting and warns on the
 # old spelling; older pandoc does not know the new one. Ask this pandoc which it
 # takes, so the same Makefile is quiet on both.
@@ -60,7 +65,7 @@ SLIDE_OPTS := -t revealjs -s --embed-resources \
               --lua-filter=$(FILTERS)/slides.lua \
               --lua-filter=$(FILTERS)/cues.lua
 
-HANDOUT_OPTS := --pdf-engine=xelatex \
+HANDOUT_OPTS := --pdf-engine=$(PDF_ENGINE) \
                 --metadata-file=$(STYLE)/handout.yaml \
                 -H $(CUES_TEX) \
                 $(HIGHLIGHT) \
@@ -97,7 +102,7 @@ $(BUILD)/$(STEM)__slides.html: $(SLIDE_DEPS) | $(BUILD)
 $(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) | $(BUILD)
 	$(PANDOC) -t beamer -o $@ \
 	    --slide-level=2 $(HIGHLIGHT) \
-	    --pdf-engine=xelatex \
+	    --pdf-engine=$(PDF_ENGINE) \
 	    -V mainfont="DejaVu Sans" -V sansfont="DejaVu Sans" \
 	    -V monofont="DejaVu Sans Mono" \
 	    -V theme=metropolis -V fontsize=9pt \

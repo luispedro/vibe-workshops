@@ -138,7 +138,12 @@ make docx       # .docx handouts, for editing
 make clean
 ```
 
-Needs `pandoc`, `xelatex`, and DejaVu fonts. First `make slides` needs network
+Run these inside the pixi environment (`pixi shell`, or prefix with
+`pixi run`): `pixi.toml` at the repo root provides pandoc, tectonic (the PDF
+engine, a self-contained XeTeX), DejaVu fonts, poppler and make, pinned by
+`pixi.lock`. Do not rely on system tools. From the root, `pixi run build` /
+`check` / `clean` cover both workshops. The first PDF build needs network for
+tectonic to fetch LaTeX packages. First `make slides` needs network
 to fetch reveal.js; the result is self-contained and works offline. `build/` is
 gitignored repo-wide.
 
@@ -150,4 +155,4 @@ Run `make check` before committing changes that touch `::: instructor` blocks.
   single-author teaching repo and the deck should always build from `main`.
 - Edit the source markdown, not anything in `build/`.
 - Machinery changes go in `common/` and affect both parts, so rebuild both
-  (`make -C 1__intro check && make -C 2__science check`) before committing one.
+  (`pixi run check`, from the repo root) before committing one.

@@ -1,0 +1,33 @@
+# Build environment for every workshop in this repo.
+#
+# Everything the build needs comes from here, not from the system, and
+# pixi.lock pins the exact versions:
+#
+#   pixi run build          # both workshops: deck + both handouts
+#   pixi run check          # both workshops: no instructor leak into student PDF
+#   pixi run make -C 1__intro slides    # any single make target
+#
+# PDFs are typeset with tectonic (a self-contained XeTeX) rather than a system
+# TeX Live. It fetches the LaTeX packages it needs on first use and caches them,
+# so the first PDF build needs network, as does the first `make slides`
+# (reveal.js).
+
+[workspace]
+name = "vibe-workshops"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
+
+[dependencies]
+pandoc = "3.11.*"
+tectonic = "0.17.*"
+# DejaVu carries the box-drawing characters and arrows the diagrams use.
+font-ttf-dejavu = "*"
+font-ttf-dejavu-sans-mono = "*"
+# pdftotext, for `make check`
+poppler = "*"
+make = "*"
+
+[tasks]
+build = "make -C 1__intro && make -C 2__science"
+check = "make -C 1__intro check && make -C 2__science check"
+clean = "make -C 1__intro clean && make -C 2__science clean"

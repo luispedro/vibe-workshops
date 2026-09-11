@@ -26,9 +26,14 @@ make slides-pdf # beamer PDF of the deck (printable / projector fallback)
 make docx       # .docx versions of both handouts, for editing
 ```
 
-Requires `pandoc`, `xelatex`, and the DejaVu fonts. The first `make slides`
-needs network access to fetch reveal.js; after that the deck is a single
-self-contained HTML file that works offline.
+The tools (pandoc, tectonic, the DejaVu fonts, poppler, make) come from the
+pixi environment in `../pixi.toml`, with exact versions pinned in
+`../pixi.lock`; nothing is taken from the system. Run the commands above inside
+`pixi shell`, or prefix them with `pixi run` (e.g. `pixi run make check`).
+
+The first PDF build needs network so tectonic can fetch its LaTeX packages, and
+the first `make slides` needs it to fetch reveal.js. Both are cached, and the
+deck is a single self-contained HTML file that works offline.
 
 ## How the three outputs are separated
 
