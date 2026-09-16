@@ -23,7 +23,7 @@ date: "2026"
 This is an intro to using coding agents. At the end of the session, you should
 know
 
-- how to ask claude for code
+- how to ask `claude` for code
 - what `CLAUDE.md` is (including what `/init` does)
 - what "context" is and how to work with it
 
@@ -40,11 +40,12 @@ models/harnesses are constantly changing.
 
 ## Three ways to use an LLM
 
-1. **Chat.** You probably know this
-2. **Auto-complete / basic assistant**
+1. **Chat.** You probably have used this before.
+2. **Auto-complete / basic assistant**. You will see this in a modern IDE or
+   even Google Docs if you have a Gemini account.
 3. **Full agent use.** The agent runs commands and re-evaluates afterwards,
    potentially then running further commands without further requests or asks
-   for clarification
+   for clarification.
 
 
 ## Best practices from the old typed code world still apply
@@ -101,6 +102,19 @@ claude
 
 - `>` … → chat with super-powers (we'll see it in a minute)
 - `/` → commands for claude code
+
+## Aside: visual conventions
+
+```bash
+ls -l # these are commands you run in the terminal
+```
+
+```claude
+> This is what you type to claude
+```
+
+You can use `CTRL+Z` to suspend a command in the terminal, and `fg` to bring it
+back. This works for `claude` as well.
 
 ## Step 3: guidelines
 
