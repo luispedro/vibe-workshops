@@ -18,6 +18,14 @@ date: "2026"
 - Ideally, you know Python
 - You know the basic concept of conda/pixi
 
+## Aside: workshop mechanics
+
+You should have two post-its: one green and one red. Use them to indicate if you are following along or not.
+
+Sometimes, I will explicitly ask whether you are following along. If you are, put the green post-it up. If not, put the red one up.
+
+If you followed this, put the green post-it up!
+
 ## Learning goals
 
 This is an intro to using coding agents. At the end of the session, you should
@@ -42,10 +50,11 @@ models/harnesses are constantly changing.
 
 1. **Chat.** You probably have used this before.
 2. **Auto-complete / basic assistant**. You will see this in a modern IDE or
-   even Google Docs if you have a Gemini account.
+   even Google Docs or Word if you have the right subscription. You type, the
+   model suggests completions.
 3. **Full agent use.** The agent runs commands and re-evaluates afterwards,
-   potentially then running further commands without further requests or asks
-   for clarification.
+   potentially then running further commands without further requests or
+   requests for clarification.
 
 
 ## Best practices from the old typed code world still apply
@@ -142,7 +151,7 @@ Let's set guidelines for claude
 
 ```bash
 git add data
-git commit -m 'DAT add data from urban soil'
+git commit -m 'DAT add data from dogs'
 ```
 
 ::: instructor
@@ -150,12 +159,11 @@ Inspect the data by _eye_ first.
 :::
 
 ```claude
-> Read the files in data/
-
-> Check all the columns.
-> Write a document called data.md with the structure of the data.
-> Is Luis's email accurate?
-> Finally, write a Python script that prints the basic stats.
+> Read the files in data/ 
+>
+> There is a table & an email from Luis with some incomplete notes
+>
+> Write a document called data.md with the structure of the data
 ```
 
 I would sometimes type this out, but often it would be based on multi-turn
@@ -165,10 +173,31 @@ talking.
 ## Step 5: basic plots
 
 ```claude
-> Plot the data
+> Plot the data. I want to see a stacked bar plot of different qulity categories.
+>
+> Use Python & matplotlib. Use polars to read the data. Use pixi to install dependencies. Commit to main. Document any decisions.
 ```
 
-Deliberately underspecified!
+First example, a fairly specific request: we specify the type of plot and the technologies to use.
+
+
+If Claude does not commit to main, you can ask it to do so:
+
+```claude
+> Commit to main
+```
+
+## Create a CLAUDE.md file
+
+```claude
+> /init
+```
+
+This will generate a file called `CLAUDE.md` with guidelines inferred from the
+conversation so far. You can edit it to add more guidelines (either directly or
+by asking claude to do so).
+
+Commit at the end!
 
 
 # Interlude: tokens, context, and what is actually happening
@@ -365,12 +394,35 @@ worth reading about once the basics are comfortable. We will not cover them.
 Some potential prompts
 
 ```claude
-> Plot α-diversity by city
+> Plot the distribution of quality categories by taxonomy.
 ```
 
 ```claude
-> Plot a pcoa, coloured by city
+> Do it for family and genus as well.
 ```
+
+```claude
+> Plot the quality score (completeness - 5 * contamination) against genome size.
+```
+
+```claude
+> Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot
+  the number of ARGs vs. the quality score.
+```
+
+## Claude commentary
+
+[]!(media/claude-comment-arg.png)
+
+This will likely be different for you (the results are not deterministic). You
+can ask follow up questions, for example
+
+```claude
+> why does it matter that it is part of their normal genomes and not acquired resistance?
+```
+
+Again, the answer will likely be different for you, but for me the answers were
+quite good!
 
 ## Wrap-up
 
@@ -379,3 +431,7 @@ You should now know
 - how to ask claude for code
 - what `CLAUDE.md` is (including what `/init` does)
 - what "context" is and how to work with it
+
+## Discussion. Q&A
+
+Questions?
