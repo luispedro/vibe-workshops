@@ -180,6 +180,12 @@ talking.
 
 First example, a fairly specific request: we specify the type of plot and the technologies to use.
 
+::: instructor
+The typo ("qulity") is deliberate: type it as written. Point out that Claude
+does not care: typos and sloppy phrasing in prompts are fine, no need to go
+back and fix them.
+:::
+
 
 If Claude does not commit to main, you can ask it to do so:
 
@@ -412,7 +418,7 @@ Some potential prompts
 
 ## Claude commentary
 
-[]!(media/claude-comment-arg.png)
+![](media/claude-comment-arg.png)
 
 This will likely be different for you (the results are not deterministic). You
 can ask follow up questions, for example
