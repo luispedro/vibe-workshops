@@ -56,7 +56,13 @@ HIGHLIGHT := $(shell $(PANDOC) --syntax-highlighting=tango -t html </dev/null \
 # --embed-resources inlines reveal.js itself, so the deck is a single file that
 # works with no network at presentation time. It does need network at *build*
 # time, the first time, to fetch reveal.js.
+#
+# Pin an exact reveal.js URL: pandoc's default (unpkg, reveal.js@^4) answers
+# with a relative redirect that pandoc 3.11 mis-resolves, and --embed-resources
+# then silently inlines "Not found" in place of reveal.js.
+REVEALJS_URL ?= https://cdn.jsdelivr.net/npm/reveal.js@5.1.0
 SLIDE_OPTS := -t revealjs -s --embed-resources \
+              -V revealjs-url=$(REVEALJS_URL) \
               --slide-level=2 \
               $(HIGHLIGHT) \
               --css=$(STYLE)/slides.css \
@@ -145,6 +151,8 @@ $(BUILD)/$(STEM)__instructor.docx: $(INSTR_DEPS) | $(BUILD)
 check: student slides
 	@! pdftotext $(BUILD)/$(STEM)__student.pdf - | grep -qi "instructor" \
 	    || { echo "FAIL: instructor material in the student handout"; exit 1; }
+	@! grep -q 'Not%20found' $(BUILD)/$(STEM)__slides.html \
+	    || { echo "FAIL: reveal.js was not embedded in the slides"; exit 1; }
 	@echo "OK: no instructor material leaked into the student handout"
 
 clean:
