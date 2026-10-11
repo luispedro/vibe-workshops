@@ -81,7 +81,12 @@ You should have received these data files in advance.
 
 ::: handout
 The data on dogs comes from a real study:
-<https://doi.org/10.1101/2025.09.17.676595>
+
+> Cuscó A, Duan Y, Gil F, Chklovski A, Kruthi N, Pan S, Forslund S, Lau S,
+> Löber U, Zhao X-M, Coelho LP. *Capturing global pet dog gut microbial
+> diversity and hundreds of near-finished bacterial genomes by using long-read
+> metagenomics in a Shanghai cohort.* bioRxiv (2025).
+> <https://doi.org/10.1101/2025.09.17.676595>
 :::
 
 ## Step 1: set up basics
