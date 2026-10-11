@@ -97,7 +97,8 @@ the escape hatch:
 
 ````markdown
 ```{.no-cue}
-        ┌────────────┐
+total 8
+-rw-r--r-- 1 you you 4096 data.csv
 ```
 ````
 
@@ -132,20 +133,22 @@ So splitting a slide in two means splitting a `##` section in two.
 
 ```
 intro-to-coding-agents.md      the source; edit this
+media/token-growth.py          writes the Scheme 2 plot; built into build/media/
 Makefile                       SRC/STEM/WORKSHOP, then includes the shared rules
 ../common/workshop.mk          all the build rules, shared by every workshop
 ../common/filters/slides.lua             .instructor -> speaker notes, drop .handout
 ../common/filters/handout-student.lua    drop .instructor, unwrap .handout
 ../common/filters/handout-instructor.lua keep .instructor as labelled block quotes
+../common/filters/diagram.lua            ```dot blocks -> Graphviz images (vendored pandoc-ext/diagram)
 ../common/filters/cues.lua               content-type cues; runs after the audience filter
-../common/style/slides.css               reveal.js tweaks (left-aligned, ASCII diagrams, cues)
+../common/style/slides.css               reveal.js tweaks (left-aligned, figures, cues)
 ../common/style/handout.yaml             shared LaTeX settings for both handout PDFs
 ../common/style/cues.tex                 tcolorbox definitions behind the cues, for the PDFs
 ```
 
-The ASCII diagrams in the Interlude only read correctly in a fixed-width font
-with box-drawing glyphs, which is why both the CSS and the LaTeX settings pin
-DejaVu Sans Mono.
+The diagrams in the Interlude are ```` ```dot ```` blocks in the source, drawn
+by Graphviz at build time; the plot is `media/token-growth.py`. See "Diagrams
+and figures" in `../CLAUDE.md`.
 
 The build machinery lives in `../common/` and is shared with every other
 workshop in this repo, so a fix there benefits all of them. See `../CLAUDE.md`

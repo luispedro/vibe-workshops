@@ -6,14 +6,19 @@
 .reveal h3, .reveal h4   { text-align: left; text-transform: none; }
 .reveal h2               { font-size: 1.6em; }
 
-/* Keep the ASCII diagrams (the tool loop, the harness box) intact: they only
-   read correctly at a fixed width, and reveal.js will happily shrink them. */
+/* Code that is not a typed command (output, file contents) stays small and
+   full-width so long lines are not wrapped. */
 .reveal pre              { width: 100%; box-shadow: none; font-size: 0.42em; }
 .reveal pre code         { max-height: none; padding: 0.6em 0.8em; }
 .reveal code             { font-family: "DejaVu Sans Mono", monospace; }
 
 .reveal blockquote       { width: 100%; font-style: normal; box-shadow: none;
                            background: #f3f3f3; padding: 0.5em 0.8em; }
+
+/* Graphviz diagrams and plots: the caption is a footnote to the figure, not
+   another line of slide text. */
+.reveal figure           { margin: 0.4em 0; }
+.reveal figcaption       { font-size: 0.55em; color: #607d8b; margin-top: 0.2em; }
 
 .reveal ul, .reveal ol   { display: block; margin-left: 1em; }
 .reveal li               { margin-bottom: 0.25em; }
@@ -30,7 +35,7 @@
 .reveal .cue > :last-child  { margin-bottom: 0; }
 
 /* Code in a DO box is meant to be read off the projector and typed, so it
-   overrides the small size the deck uses for its ASCII diagrams. */
+   overrides the small size the deck uses for other code. */
 .reveal .cue pre         { margin: 0; background: transparent; font-size: 0.62em; }
 .reveal .cue pre code    { padding: 0; background: transparent; }
 /* pandoc wraps highlighted code in an extra div.sourceCode whose margin

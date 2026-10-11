@@ -20,12 +20,17 @@ platforms = ["linux-64", "osx-64", "osx-arm64"]
 [dependencies]
 pandoc = "3.11.*"
 tectonic = "0.17.*"
-# DejaVu carries the box-drawing characters and arrows the diagrams use.
+# DejaVu carries the arrows and symbols the notes use; the diagrams use it too.
 font-ttf-dejavu = "*"
 font-ttf-dejavu-sans-mono = "*"
 # pdftotext, for `make check`
 poppler = "*"
 make = "*"
+# ```dot blocks in the source (common/filters/diagram.lua), and the plot
+# scripts in */media/*.py
+graphviz = ">=14.1.2,<15"
+matplotlib-base = ">=3.11.2,<4"
+python = ">=3.15.0,<3.16"
 
 [tasks]
 build = "make -C 1__intro && make -C 2__science"

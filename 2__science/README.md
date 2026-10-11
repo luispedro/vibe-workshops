@@ -98,7 +98,8 @@ the escape hatch:
 
 ````markdown
 ```{.no-cue}
-        ┌────────────┐
+total 8
+-rw-r--r-- 1 you you 4096 data.csv
 ```
 ````
 
@@ -138,8 +139,9 @@ Makefile                       SRC/STEM/WORKSHOP, then includes the shared rules
 ../common/filters/slides.lua             .instructor -> speaker notes, drop .handout
 ../common/filters/handout-student.lua    drop .instructor, unwrap .handout
 ../common/filters/handout-instructor.lua keep .instructor as labelled block quotes
+../common/filters/diagram.lua            ```dot blocks -> Graphviz images (vendored pandoc-ext/diagram)
 ../common/filters/cues.lua               content-type cues; runs after the audience filter
-../common/style/slides.css               reveal.js tweaks (left-aligned, ASCII diagrams, cues)
+../common/style/slides.css               reveal.js tweaks (left-aligned, figures, cues)
 ../common/style/handout.yaml             shared LaTeX settings for both handout PDFs
 ../common/style/cues.tex                 tcolorbox definitions behind the cues, for the PDFs
 ```

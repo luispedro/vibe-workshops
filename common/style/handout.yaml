@@ -1,8 +1,8 @@
 # Shared LaTeX settings for both handout PDFs.
 #
-# xelatex + DejaVu is deliberate: the notes use box-drawing characters and
-# arrows (the harness and tool-loop diagrams) that the default Latin Modern
-# fonts do not carry.
+# xelatex + DejaVu is deliberate: the notes use arrows and symbols (⟵, ⟿, the
+# cue labels) that the default Latin Modern fonts do not carry. The diagrams
+# use DejaVu Sans too, so text and figures match.
 mainfont: "DejaVu Serif"
 sansfont: "DejaVu Sans"
 monofont: "DejaVu Sans Mono"

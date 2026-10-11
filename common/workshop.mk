@@ -33,11 +33,29 @@ STYLE    := $(COMMON)/style
 CUES_DEPS     := $(FILTERS)/cues.lua
 CUES_TEX      := $(STYLE)/cues.tex
 
-SLIDE_DEPS    := $(SRC) $(FILTERS)/slides.lua $(STYLE)/slides.css $(CUES_DEPS)
+# Diagrams: a ```dot code block is drawn by Graphviz at build time (SVG in the
+# deck, PDF in the handouts). diagram.lua runs after the audience filter and
+# before cues.lua. See common/filters/diagram.lua.
+DIAGRAM       := --lua-filter=$(FILTERS)/diagram.lua
+
+# Figures: each media/NAME.py is a script that writes the figure to the path
+# it is given, so $(BUILD)/media/NAME.{svg,pdf,png} are regenerated whenever
+# the script changes. The source refers to it with no extension,
+# ![](media/NAME), and each target picks its format with
+# --default-image-extension; --resource-path finds it under $(BUILD).
+PYTHON        := python
+FIG_SCRIPTS   := $(wildcard media/*.py)
+FIGS_SVG      := $(FIG_SCRIPTS:%.py=$(BUILD)/%.svg)
+FIGS_PDF      := $(FIG_SCRIPTS:%.py=$(BUILD)/%.pdf)
+FIGS_PNG      := $(FIG_SCRIPTS:%.py=$(BUILD)/%.png)
+RESOURCES     := --resource-path=.:$(BUILD)
+
+SLIDE_DEPS    := $(SRC) $(FILTERS)/slides.lua $(STYLE)/slides.css $(CUES_DEPS) \
+                 $(FILTERS)/diagram.lua
 STUDENT_DEPS  := $(SRC) $(FILTERS)/handout-student.lua $(STYLE)/handout.yaml \
-                 $(CUES_DEPS) $(CUES_TEX)
+                 $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua
 INSTR_DEPS    := $(SRC) $(FILTERS)/handout-instructor.lua $(STYLE)/handout.yaml \
-                 $(CUES_DEPS) $(CUES_TEX)
+                 $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua
 
 PANDOC := pandoc
 
@@ -68,10 +86,13 @@ SLIDE_OPTS := -t revealjs -s --embed-resources \
               --css=$(STYLE)/slides.css \
               -V theme=white -V transition=none -V hash=true \
               -V width=1280 -V height=800 \
+              $(RESOURCES) --default-image-extension=svg \
               --lua-filter=$(FILTERS)/slides.lua \
+              $(DIAGRAM) \
               --lua-filter=$(FILTERS)/cues.lua
 
 HANDOUT_OPTS := --pdf-engine=$(PDF_ENGINE) \
+                $(RESOURCES) --default-image-extension=pdf \
                 --metadata-file=$(STYLE)/handout.yaml \
                 -H $(CUES_TEX) \
                 $(HIGHLIGHT) \
@@ -97,17 +118,32 @@ docx:       $(BUILD)/$(STEM)__student.docx $(BUILD)/$(STEM)__instructor.docx
 $(BUILD):
 	mkdir -p $(BUILD)
 
+# --- figures -----------------------------------------------------------------
+
+# One rule per format: a single rule listing all three targets would tell make
+# that one run of the script writes all of them.
+$(BUILD)/media/%.svg: media/%.py
+	@mkdir -p $(dir $@)
+	$(PYTHON) $< $@
+$(BUILD)/media/%.pdf: media/%.py
+	@mkdir -p $(dir $@)
+	$(PYTHON) $< $@
+$(BUILD)/media/%.png: media/%.py
+	@mkdir -p $(dir $@)
+	$(PYTHON) $< $@
+
 # --- slides ------------------------------------------------------------------
 
 # Instructor material becomes reveal.js speaker notes: press "s" in the deck.
-$(BUILD)/$(STEM)__slides.html: $(SLIDE_DEPS) | $(BUILD)
+$(BUILD)/$(STEM)__slides.html: $(SLIDE_DEPS) $(FIGS_SVG) | $(BUILD)
 	$(PANDOC) $(SLIDE_OPTS) -o $@ $(SRC)
 
 # Beamer has no speaker-notes pane, so drop_notes strips the instructor
 # material rather than printing it onto the slides.
-$(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) | $(BUILD)
+$(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) $(FIGS_PDF) | $(BUILD)
 	$(PANDOC) -t beamer -o $@ \
 	    --slide-level=2 $(HIGHLIGHT) \
+	    $(RESOURCES) --default-image-extension=pdf \
 	    --pdf-engine=$(PDF_ENGINE) \
 	    -V mainfont="DejaVu Sans" -V sansfont="DejaVu Sans" \
 	    -V monofont="DejaVu Sans Mono" \
@@ -115,34 +151,39 @@ $(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) | $(BUILD)
 	    -M drop_notes=true \
 	    -H $(CUES_TEX) \
 	    --lua-filter=$(FILTERS)/slides.lua \
+	    $(DIAGRAM) \
 	    --lua-filter=$(FILTERS)/cues.lua \
 	    $(SRC)
 
 # --- handouts ----------------------------------------------------------------
 
-$(BUILD)/$(STEM)__student.pdf: $(STUDENT_DEPS) | $(BUILD)
+$(BUILD)/$(STEM)__student.pdf: $(STUDENT_DEPS) $(FIGS_PDF) | $(BUILD)
 	$(PANDOC) $(HANDOUT_OPTS) \
 	    -M subtitle="$(STUDENT_SUB)" \
 	    --lua-filter=$(FILTERS)/handout-student.lua \
+	    $(DIAGRAM) \
 	    --lua-filter=$(FILTERS)/cues.lua \
 	    -o $@ $(SRC)
 
-$(BUILD)/$(STEM)__instructor.pdf: $(INSTR_DEPS) | $(BUILD)
+$(BUILD)/$(STEM)__instructor.pdf: $(INSTR_DEPS) $(FIGS_PDF) | $(BUILD)
 	$(PANDOC) $(HANDOUT_OPTS) \
 	    -M subtitle="$(INSTR_SUB)" \
 	    --lua-filter=$(FILTERS)/handout-instructor.lua \
+	    $(DIAGRAM) \
 	    --lua-filter=$(FILTERS)/cues.lua \
 	    -o $@ $(SRC)
 
-$(BUILD)/$(STEM)__student.docx: $(STUDENT_DEPS) | $(BUILD)
+$(BUILD)/$(STEM)__student.docx: $(STUDENT_DEPS) $(FIGS_PNG) | $(BUILD)
 	$(PANDOC) -M subtitle="$(STUDENT_SUB)" \
+	    $(RESOURCES) --default-image-extension=png \
 	    --toc --lua-filter=$(FILTERS)/handout-student.lua \
-	    --lua-filter=$(FILTERS)/cues.lua -o $@ $(SRC)
+	    $(DIAGRAM) --lua-filter=$(FILTERS)/cues.lua -o $@ $(SRC)
 
-$(BUILD)/$(STEM)__instructor.docx: $(INSTR_DEPS) | $(BUILD)
+$(BUILD)/$(STEM)__instructor.docx: $(INSTR_DEPS) $(FIGS_PNG) | $(BUILD)
 	$(PANDOC) -M subtitle="$(INSTR_SUB)" \
+	    $(RESOURCES) --default-image-extension=png \
 	    --toc --lua-filter=$(FILTERS)/handout-instructor.lua \
-	    --lua-filter=$(FILTERS)/cues.lua -o $@ $(SRC)
+	    $(DIAGRAM) --lua-filter=$(FILTERS)/cues.lua -o $@ $(SRC)
 
 # --- checks ------------------------------------------------------------------
 

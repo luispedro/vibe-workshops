@@ -273,6 +273,17 @@ linear relationship; if on a subscription, you want to avoid usage limits.
 Providers cache the state, so if you reply fast, you don't pay full price for
 the previous bits of conversation.
 
+![Toy numbers: 20 tokens typed and 200 answered per turn.](media/token-growth){width=80%}
+
+::: handout
+Because every turn re-sends the whole conversation, the total sent grows with
+the *square* of the number of turns. With caching, the part the provider has
+already seen is billed at a fraction of the normal price (about 10% for a cache
+read at Anthropic), which flattens the curve but does not make it go away. The
+cache expires after a few minutes of inactivity, after which the next turn pays
+full price again.
+:::
+
 ## Scheme 3: there is a harness
 
 ::: remember
@@ -287,26 +298,33 @@ This is true even on the web, but the code harness does a lot more:
 
 ## Scheme 3: what actually gets sent
 
-You type
+```{.dot width=100%}
+digraph sent {
+  rankdir=LR; bgcolor=transparent; nodesep=0.3; ranksep=0.45;
+  node [fontname="DejaVu Sans", fontsize=16, shape=box, style="rounded,filled",
+        fillcolor=white, color="#37474f", fontcolor="#263238", penwidth=1.5, margin="0.18,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=13, color="#37474f", fontcolor="#37474f", penwidth=1.5, arrowsize=0.8];
 
-"Look at the files in data/"
+  you     [label="you type\n“Look at the files in data/”\n≈ 8 tokens", style="", shape=plain];
+  harness [label="harness", fillcolor="#37474f", fontcolor=white];
+  request [shape=plain, style="", label=<
+    <table border="1" color="#37474f" cellborder="0" cellspacing="0" cellpadding="7">
+      <tr><td align="left"><b>what is sent to the model</b><br align="left"/><font point-size="13">thousands of tokens</font><br align="left"/></td></tr>
+      <tr><td align="left" bgcolor="#eceff1">system prompt</td></tr>
+      <tr><td align="left" bgcolor="#eceff1">tool definitions</td></tr>
+      <tr><td align="left" bgcolor="#eceff1">CLAUDE.md</td></tr>
+      <tr><td align="left" bgcolor="#eceff1">memories</td></tr>
+      <tr><td align="left" bgcolor="#eceff1">conversation so far</td></tr>
+      <tr><td align="left" bgcolor="#f6d9cd"><i>“Look at the files in data/”</i>  <font point-size="13">← your 8</font></td></tr>
+    </table>>];
+  model   [label="model", fillcolor="#d97757", fontcolor=white, color="#d97757"];
+  call    [label="tool call:\nrun ls", fontname="DejaVu Sans Mono"];
 
-↓ tokenised → 8 tokens\
-↓ harness
-
-```{.no-cue}
-"In the project        ⟵ CLAUDE.md
-                       ⟵ "memories"
-CLAUDE.md: ...
-User typed: ..."
+  you -> harness -> request -> model -> call;
+}
 ```
 
-→ Run `ls` ⟵
-
 ::: handout
-*(Diagram: the harness runs `ls` in its own box and feeds the output back:)*
-`ls output: ...`
-
 Your 8 typed tokens have become a much larger request containing `CLAUDE.md`,
 any stored memories, the conversation so far, and the tool definitions. Then the
 `ls` output is appended and the whole thing is sent *again*.
@@ -316,16 +334,26 @@ any stored memories, the conversation so far, and the tool definitions. Then the
 
 Scheme 3 showed one command. The important part is that it does not stop at one:
 
-```{.no-cue}
-        ┌──────────────────────────────────────┐
-        │                                      │
-   you type ──→ [ model ] ──→ tool call ──→ [ harness runs it ]
-                    ↑                              │
-                    │                              │
-                    └───── output appended ────────┘
-                           to the context
-                    │
-                    └──→ (decides it is done) ──→ text for you
+```{.dot width=85%}
+digraph loop {
+  rankdir=LR; bgcolor=transparent; nodesep=0.7; ranksep=0.7;
+  node [fontname="DejaVu Sans", fontsize=16, shape=box, style="rounded,filled",
+        fillcolor=white, color="#37474f", fontcolor="#263238", penwidth=1.5, margin="0.18,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=13, color="#37474f", fontcolor="#37474f", penwidth=1.5, arrowsize=0.8];
+
+  you     [label="you type", shape=plain, style=""];
+  context [label="context\n(everything so far)"];
+  model   [label="model", fillcolor="#d97757", fontcolor=white, color="#d97757"];
+  harness [label="harness\nruns the tool", fillcolor="#37474f", fontcolor=white];
+  done    [label="text for you", shape=plain, style=""];
+
+  you -> context;
+  context -> model [label="sent"];
+  model -> harness [xlabel="tool call  "];
+  harness -> context [label="output\nappended"];
+  model -> done [label="decides\nit is done", style=dashed];
+  {rank=same; model; harness}
+}
 ```
 
 Each time round: the model emits a tool call, the harness runs it, **the output

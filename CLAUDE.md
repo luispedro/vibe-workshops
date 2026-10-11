@@ -104,17 +104,35 @@ optional:
 | `::: aside`      | ⊳ *Aside · advanced*      | tinted, thin rule |
 | `::: reference`  | ☰ *Reference · for later* | dashed outline    |
 
-A code block that is *output* or an ASCII diagram, not something to type, opts
-out with `{.no-cue}`:
+A code block that is *output*, not something to type, opts out with
+`{.no-cue}`:
 
 ````markdown
 ```{.no-cue}
-        ┌────────────┐
+total 8
+-rw-r--r-- 1 you you 4096 data.csv
 ```
 ````
 
 Cues nest inside audience Divs as expected: `cues.lua` runs *after* the audience
 filter, so a cue inside a dropped block is never rendered.
+
+### Diagrams and figures
+
+Do not draw diagrams in ASCII. Two mechanisms, both rendered at build time:
+
+- **Diagrams** (boxes and arrows): a ```` ```dot ```` code block is drawn by
+  Graphviz through `common/filters/diagram.lua` (vendored pandoc-ext/diagram):
+  SVG in the deck, PDF in the handouts. Size it with an attribute,
+  ```` ```{.dot width=85%} ````. Reuse the deck palette: `#d97757` (Claude
+  orange) for the model, `#37474f` for the harness/shell, DejaVu Sans.
+- **Plots** (actual data): a script `media/NAME.py` that writes the figure to
+  the path given as its first argument; the build runs it into
+  `build/media/NAME.{svg,pdf,png}`. Reference it *without* an extension,
+  `![caption](media/NAME){width=80%}`, and each output picks its own format.
+
+Check the result on the slide, not just in the handout: the deck is 1280×800
+and a figure plus a heading and a line of text fills it.
 
 ### Heading levels
 
@@ -140,8 +158,8 @@ make clean
 
 Run these inside the pixi environment (`pixi shell`, or prefix with
 `pixi run`): `pixi.toml` at the repo root provides pandoc, tectonic (the PDF
-engine, a self-contained XeTeX), DejaVu fonts, poppler and make, pinned by
-`pixi.lock`. Do not rely on system tools. From the root, `pixi run build` /
+engine, a self-contained XeTeX), DejaVu fonts, poppler, make, Graphviz and
+Python with matplotlib, pinned by `pixi.lock`. Do not rely on system tools. From the root, `pixi run build` /
 `check` / `clean` cover both workshops. The first PDF build needs network for
 tectonic to fetch LaTeX packages. First `make slides` needs network
 to fetch reveal.js; the result is self-contained and works offline. `build/` is
