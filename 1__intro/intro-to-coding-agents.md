@@ -79,6 +79,11 @@ are in `data/` and the task is to explore them.
 
 You should have received these data files in advance.
 
+::: handout
+The data on dogs comes from a real study:
+<https://doi.org/10.1101/2025.09.17.676595>
+:::
+
 ## Step 1: set up basics
 
 ```bash
