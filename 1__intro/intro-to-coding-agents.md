@@ -97,6 +97,8 @@ This means that if you share with others, they will get the same. With `conda`,
 this was very difficult to achieve in a consistent way.
 :::
 
+This was good in the typed code era, and even more important in the agent era.
+
 ## Step 2: Running claude
 
 ```bash
@@ -174,11 +176,11 @@ talking.
 
 ```claude
 > Plot the data. I want to see a stacked bar plot of different qulity categories.
->
-> Use Python & matplotlib. Use polars to read the data. Use pixi to install dependencies. Commit to main. Document any decisions.
 ```
 
-First example, a fairly specific request: we specify the type of plot and the technologies to use.
+First example, a fairly specific request: we specify the type of plot we want.
+Claude will use Python and matplotlib to generate the plot as per the content
+of CLAUDE.md.
 
 ::: instructor
 The typo ("qulity") is deliberate: type it as written. Point out that Claude
