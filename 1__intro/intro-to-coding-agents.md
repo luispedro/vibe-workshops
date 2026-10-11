@@ -18,7 +18,7 @@ date: "2026"
 - Ideally, you know Python
 - You know the basic concept of conda/pixi
 
-## Aside: workshop mechanics
+## Workshop mechanics
 
 You should have two post-its: one green and one red. Use them to indicate if you are following along or not.
 
@@ -74,8 +74,10 @@ reproducible environments...
 
 ## The task
 
-A few MAGs + tables → visualization in Python with Pyodide
+A few tables → visualization in Python with matplotlib and polars. The tables
+are in `data/` and the task is to explore them.
 
+You should have received these data files in advance.
 
 ## Step 1: set up basics
 
@@ -86,7 +88,7 @@ git add .
 git commit
 ```
 
-## Aside: introducing pixi
+## Introducing pixi
 
 ::: aside
 Pixi is a declarative package manager
@@ -114,7 +116,7 @@ claude
 - `>` … → chat with super-powers (we'll see it in a minute)
 - `/` → commands for claude code
 
-## Aside: visual conventions
+## Workshop visual conventions
 
 ```bash
 ls -l # these are commands you run in the terminal
@@ -168,8 +170,10 @@ Inspect the data by _eye_ first.
 > Write a document called data.md with the structure of the data
 ```
 
+::: handout
 I would sometimes type this out, but often it would be based on multi-turn
 talking.
+:::
 
 
 ## Step 5: basic plots
@@ -179,8 +183,6 @@ talking.
 ```
 
 First example, a fairly specific request: we specify the type of plot we want.
-Claude will use Python and matplotlib to generate the plot as per the content
-of CLAUDE.md.
 
 ::: instructor
 The typo ("qulity") is deliberate: type it as written. Point out that Claude
@@ -195,18 +197,13 @@ If Claude does not commit to main, you can ask it to do so:
 > Commit to main
 ```
 
-## Create a CLAUDE.md file
+## Permission prompts
 
-```claude
-> /init
-```
+Claude may ask for permission to run commands. This is a safety feature.
 
-This will generate a file called `CLAUDE.md` with guidelines inferred from the
-conversation so far. You can edit it to add more guidelines (either directly or
-by asking claude to do so).
+The current default mode is to use an internal safety classifier that decides whether to allow the command.
 
-Commit at the end!
-
+This has changed over time and may change again.
 
 # Interlude: tokens, context, and what is actually happening
 
@@ -263,7 +260,7 @@ every single turn.
 
 Two basic models:
 
-1. Per token (typically, slightly different for input vs output)
+1. Per token (typically, different for input vs output)
 2. Subscription with usage limits
 
 ::: remember
@@ -431,6 +428,16 @@ can ask follow up questions, for example
 
 Again, the answer will likely be different for you, but for me the answers were
 quite good!
+
+## Creating a CLAUDE.md file from the project
+
+We created a `CLAUDE.md` file with the guidelines, but we can also ask claude to create
+one for us based on the project so far. This is useful if you have a
+pre-existing project and want to start using claude.
+
+```claude
+> /init
+```
 
 ## Wrap-up
 
