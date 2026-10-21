@@ -16,9 +16,11 @@ instructor.
     - the workshop will be using Linux, so if they are on Windows they should
       either be proficient with PowerShell and able to work independently, or
       have WSL installed
-- [ ] **Send out the data files**: the table and the email with the incomplete
-      notes. Step 4 runs `git add data`, so tell attendees to have them ready to
-      copy into a `data/` folder in the project they create in Step 1.
+- [ ] **Point attendees to the data files** on GitHub
+      (<https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data>):
+      the table and the email with the incomplete notes. Step 4 runs `git add
+      data`, so tell attendees to download them in advance, ready to copy into
+      a `data/` folder in the project they create in Step 1.
 - [ ] Ask attendees to bring a charged laptop (and a charger).
 
 ## The day before
@@ -36,7 +38,7 @@ instructor.
 ## In the room, before starting
 
 - [ ] Hand out the post-its.
-- [ ] Check that the room network reaches claude.ai, pixi and Zenodo (some
+- [ ] Check that the room network reaches claude.ai, pixi, GitHub and Zenodo (some
       networks block them); have a phone hotspot as a fallback.
 - [ ] Terminal: large font, light theme, an empty project folder with `data/`
       ready to copy in.
@@ -73,10 +75,13 @@ beforehand.
      checklist explains how) or be comfortable translating the commands to
      PowerShell on your own.
 
-2. I am attaching the data files. Keep them somewhere you can find them. During
-   the workshop, we will copy them into a data/ folder in a new project. This
-   simulates the situation where I am your collaborator and I send you some
-   data to work with.
+2. Download the data files (a table and an email) from:
+
+   https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data
+
+   Keep them somewhere you can find them. During the workshop, we will copy
+   them into a data/ folder in a new project. This simulates the situation
+   where I am your collaborator and I send you some data to work with.
 
 3. Bring your laptop, charged, and its charger.
 
@@ -103,7 +108,9 @@ A reminder that the workshop "Coding Agents: an Introduction" is tomorrow,
 - If you have not done the pre-workshop checklist yet, please do it today:
   https://github.com/luispedro/vibe-workshops/blob/main/1__intro/pre-workshop-checklist.md
   If you did it a while ago, run `claude update` to get the latest version.
-- Have the data files ready (see the previous email).
+- Have the data files ready (see the previous email). If you have not
+  downloaded them yet, they are at
+  https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data
 - Bring your laptop, charged, and its charger.
 - Paid Claude plans have usage limits. Avoid heavy use of Claude right before
   the workshop, so you do not run out halfway through!

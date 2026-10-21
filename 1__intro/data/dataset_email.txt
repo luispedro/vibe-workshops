@@ -1,0 +1,7 @@
+Hi student,
+
+This is our dog MAG dataset. It has some basic stats + taxonomy for each MAG. Stats are from CheckM2 and the classification is from GTDB-Tk. 
+
+I think you should be generally able to figure it out, but if you have any questions, feel free to reach out.
+
+Best, Luis
