@@ -119,6 +119,44 @@ The data on dogs comes from a real study:
 > <https://doi.org/10.1101/2025.09.17.676595>
 :::
 
+## Workshop visual conventions
+
+```bash
+ls -l # these are commands you run in the terminal
+```
+
+```claude
+This is what you type to claude
+```
+
+- New line in a prompt without sending it: `\` then Enter
+- Or copy & paste from <https://luispedro.github.io/vibe-workshops/>
+
+You can use `CTRL+Z` to suspend a command in the terminal, and `fg` to bring it
+back. This works for `claude` as well.
+
+::: handout
+Each box is one prompt: type or paste all of it, then press Enter once.
+
+Pressing Enter sends the prompt, so a prompt that spans several lines needs
+`\` then Enter at the end of each line. Shift+Enter also works in many
+terminals, and `/terminal-setup` (inside `claude`) enables it in some others.
+
+Pasting several lines at once is safe: Claude Code receives them as a single
+prompt. A long paste may be shown collapsed, as `[Pasted text …]`; Claude still
+gets all of it.
+
+The web version of these notes, at
+<https://luispedro.github.io/vibe-workshops/>, has a copy button on every box.
+:::
+
+::: instructor
+Copy-pasting the prompts is fine, and saves the room from typos in long
+prompts. Encourage people to treat them as a starting point, though: change the
+wording, ask for a different plot, follow their own curiosity. Seeing how
+Claude reacts to *their* variation teaches more than reproducing mine.
+:::
+
 ## Step 1: set up basics
 
 ```bash
@@ -148,26 +186,19 @@ claude
 ```
 
 ```claude
-> Hello, claude
-> /model
-> /usage
-```
-
-- `>` … → chat with super-powers (we'll see it in a minute)
-- `/` → commands for claude code
-
-## Workshop visual conventions
-
-```bash
-ls -l # these are commands you run in the terminal
+Hello, claude
 ```
 
 ```claude
-> This is what you type to claude
+/model
 ```
 
-You can use `CTRL+Z` to suspend a command in the terminal, and `fg` to bring it
-back. This works for `claude` as well.
+```claude
+/usage
+```
+
+- plain text → chat with super-powers (we'll see it in a minute)
+- `/` → commands for claude code
 
 ## Step 3: guidelines
 
@@ -184,12 +215,17 @@ Let's set guidelines for claude
 2. Ask claude to write it for you
 
 ```claude
-> Write a CLAUDE.md file with the following guidelines:
->   - Use pixi, not system tools
->   - Use matplotlib and polars
->   - Commit to main
->   - Document any decisions
+Write a CLAUDE.md file with the following guidelines:
+  - Use pixi, not system tools
+  - Use matplotlib and polars
+  - Commit to main
+  - Document any decisions
 ```
+
+::: instructor
+First multi-line prompt: remind the room that Enter sends, so either `\` then
+Enter at the end of each line, or paste it from the web handout.
+:::
 
 ## Step 4: look at the data
 
@@ -203,11 +239,11 @@ Inspect the data by _eye_ first.
 :::
 
 ```claude
-> Read the files in data/ 
->
-> There is a table & an email from Luis with some incomplete notes
->
-> Write a document called data.md with the structure of the data
+Read the files in data/
+
+There is a table & an email from Luis with some incomplete notes
+
+Write a document called data.md with the structure of the data
 ```
 
 ::: handout
@@ -219,7 +255,7 @@ talking.
 ## Step 5: basic plots
 
 ```claude
-> Plot the data. I want to see a stacked bar plot of different qulity categories.
+Plot the data. I want to see a stacked bar plot of different qulity categories.
 ```
 
 First example, a fairly specific request: we specify the type of plot we want.
@@ -234,7 +270,7 @@ back and fix them.
 If Claude does not commit to main, you can ask it to do so:
 
 ```claude
-> Commit to main
+Commit to main
 ```
 
 ## Permission prompts
@@ -476,9 +512,9 @@ Two reasons:
 
 ## Tools: `/clear` and `/compact`
 
-```claude
-> /clear
-> /compact
+```{.no-cue}
+/clear
+/compact
 ```
 
 ::: remember
@@ -516,19 +552,19 @@ worth reading about once the basics are comfortable. We will not cover them.
 Some potential prompts
 
 ```claude
-> Plot the distribution of quality categories by taxonomy.
+Plot the distribution of quality categories by taxonomy.
 ```
 
 ```claude
-> Do it for family and genus as well.
+Do it for family and genus as well.
 ```
 
 ```claude
-> Plot the quality score (completeness - 5 * contamination) against genome size.
+Plot the quality score (completeness - 5 * contamination) against genome size.
 ```
 
 ```claude
-> Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot the number of ARGs vs. the quality score.
+Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot the number of ARGs vs. the quality score.
 ```
 
 ## Claude commentary
@@ -542,7 +578,7 @@ This will likely be different for you (the results are not deterministic).
 You can ask follow up questions, for example
 
 ```claude
-> why does it matter that it is part of their normal genomes and not acquired resistance?
+why does it matter that it is part of their normal genomes and not acquired resistance?
 ```
 
 Again, the answer will likely be different for you, but for me the answers were
@@ -555,7 +591,7 @@ one for us based on the project so far. This is useful if you have a
 pre-existing project and want to start using claude.
 
 ```claude
-> /init
+/init
 ```
 
 ## Wrap-up

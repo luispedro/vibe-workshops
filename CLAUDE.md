@@ -1,8 +1,11 @@
 # vibe-workshops
 
 Teaching material for a hands-on workshop on coding agents, given by Luis Pedro
-Coelho. Source is markdown; pandoc builds a reveal.js deck and two PDF handouts
-(student and instructor) from the *same* file.
+Coelho. Source is markdown; pandoc builds a reveal.js deck and two handouts
+(student and instructor), each as PDF and as HTML, from the *same* file. The
+HTML handouts carry a copy button on every prompt, and everything is published
+to GitHub Pages (<https://luispedro.github.io/vibe-workshops/>) on each push to
+`main`.
 
 ## Structure: two parts, 90 minutes each
 
@@ -95,6 +98,13 @@ so there is usually nothing to mark up by hand:
 | ```` ```bash ```` (or `sh`/`shell`/`console`/`zsh`) | ⌨ *Type this in the shell* |
 | ```` ```claude ````                                | ✳ *Type this to Claude*    |
 
+**One prompt per ```` ```claude ```` fence, with no `>` or other prompt
+marker.** The box label already says what to do, a `>` gets typed literally,
+and the HTML handout's copy button copies the whole fence as one prompt. Two
+prompts (or `/model` and `/usage`) are two fences. A multi-line prompt is fine
+inside one fence: it is pasted as a unit, and the conventions slide teaches
+`\` then Enter for typing one.
+
 **Things to remember** — a closed box, lighter as the material gets more
 optional:
 
@@ -147,10 +157,11 @@ From inside a workshop directory (`1__intro/` or `2__science/`), or with
 `make -C 1__intro`:
 
 ```bash
-make            # deck + both handouts
+make            # deck + both handouts, as PDF and HTML
 make slides     # just the reveal.js deck
 make handouts   # student + instructor PDFs
-make check      # fails if instructor material reached the student handout
+make html       # student + instructor HTML, with copy buttons
+make check      # fails if instructor material reached a student handout
 make slides-pdf # beamer fallback deck
 make docx       # .docx handouts, for editing
 make clean
@@ -160,7 +171,9 @@ Run these inside the pixi environment (`pixi shell`, or prefix with
 `pixi run`): `pixi.toml` at the repo root provides pandoc, tectonic (the PDF
 engine, a self-contained XeTeX), DejaVu fonts, poppler, make, Graphviz and
 Python with matplotlib, pinned by `pixi.lock`. Do not rely on system tools. From the root, `pixi run build` /
-`check` / `clean` cover both workshops. The first PDF build needs network for
+`check` / `clean` cover both workshops, and `pixi run site` assembles the GitHub
+Pages site in `build/site/` (`common/site.sh`; the workflow in
+`.github/workflows/pages.yml` runs `check` and `site`). The first PDF build needs network for
 tectonic to fetch LaTeX packages. First `make slides` needs network
 to fetch reveal.js; the result is self-contained and works offline. `build/` is
 gitignored repo-wide.

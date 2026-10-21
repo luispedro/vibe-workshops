@@ -39,7 +39,7 @@ non-case-study material and wrap-up. Slides stay thin — this is typed live.
 ```
 
 ```claude
-> 
+
 ```
 
 # Wrap-up
