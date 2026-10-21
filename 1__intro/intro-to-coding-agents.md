@@ -222,6 +222,14 @@ Hello, claude
 - plain text → chat with super-powers (we'll see it in a minute)
 - `/` → commands for claude code
 
+::: handout
+`/model` shows which model you are using and lets you switch (e.g., between
+Opus, Sonnet and Haiku). Larger models are better at harder tasks, but use up
+your limits faster. `/usage` shows how much of your plan's usage limits you
+have used, and when they reset. If you hit a limit mid-workshop, switching to a
+smaller model with `/model` is the quickest way to keep going.
+:::
+
 ## Controlling claude
 
 | Key / command          | What it does                              |
@@ -380,6 +388,18 @@ safety classifier decide whether to allow the command.
 
 This has changed fast, and will likely change again. Other harnesses may
 handle permissions quite differently.
+
+::: handout
+When Claude asks, you will typically see three choices:
+
+1. **Yes**: run this once.
+2. **Yes, and don't ask again**: allow this kind of command from now on, in
+   this project.
+3. **No**: refuse, and tell Claude what to do differently instead.
+
+Read the command before saying yes. Shift+Tab cycles the permission modes, for
+example one that accepts file edits without asking.
+:::
 
 # Interlude: tokens, context, and what is actually happening
 
@@ -591,6 +611,13 @@ Reasoning traces
 The model will output tokens that it then uses to output more tokens before
 finally deciding to output user-visible tokens.
 
+::: handout
+Reasoning tokens are output tokens: they are billed at the (more expensive)
+output price and count against your usage limits, even though you mostly do
+not see them. More reasoning helps on hard problems, but it is slower and
+costs more.
+:::
+
 ## Bottom line
 
 ::: remember
@@ -665,6 +692,13 @@ Plot the quality score (completeness - 5 * contamination) against genome size.
 ```claude
 Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot the number of ARGs vs. the quality score.
 ```
+
+::: handout
+This part is open exploration, discussed live as a demo. The results will be
+different for everyone: each Claude makes its own choices of plot, taxonomic
+level and wording, and comments on the results in its own way. Interpreting
+and checking results like these is what Workshop 2 is about.
+:::
 
 ## Claude commentary
 
