@@ -17,22 +17,30 @@ date: "2026"
     - `git diff`
 - Ideally, you know Python
 - You know the basic concept of conda/pixi
-- On Windows: you work in WSL (a Linux shell), not PowerShell
+- On Windows: WSL (a Linux shell) is recommended
 
 ::: handout
 Everything in this workshop assumes a Linux-style shell (macOS and Linux
 terminals both qualify). On Windows, use the Windows Subsystem for Linux (WSL)
 and follow along in the Ubuntu terminal; the pre-workshop checklist explains
-how to set it up. Keep the project in your Linux home folder (`~`); your
+how to set it up.
+
+Using PowerShell instead is fine, but then you are on your own: the examples
+are Linux-style, and you are assumed to be comfortable translating them, as I
+am not a Windows expert.
+
+In WSL, keep the project in your Linux home folder (`~`); your
 Windows files are at `/mnt/c/Users/<your Windows name>/`, and `explorer.exe .`
 opens the current folder in Windows Explorer (handy for copying in the data
 and for looking at plots).
 :::
 
 ::: instructor
-Ask Windows users to check that they are in the Ubuntu (WSL) terminal now, not
-PowerShell: `uname` should print `Linux`. Someone in PowerShell will hit a wall
-at the first `ls -l` or `pixi` command, and it is cheaper to catch it here.
+Ask Windows users to check that they are in the Ubuntu (WSL) terminal now:
+`uname` should print `Linux`. Someone who is in PowerShell by accident will hit
+a wall at the first `ls -l` or `pixi` command, and it is cheaper to catch it
+here. PowerShell by choice is fine, but say plainly that you cannot help with
+Windows-specific problems.
 :::
 
 ## Workshop mechanics

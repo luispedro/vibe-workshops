@@ -6,10 +6,16 @@ about 15–20 minutes (longer on Windows, which first needs WSL; see section 0).
 Please do it at least a day ahead: fixing installs in the room takes time away
 from the workshop.
 
-**On Windows, we use the Windows Subsystem for Linux (WSL).** The workshop is
-done in a Linux-style shell, and every command here and in the workshop assumes
-one. Windows users work inside WSL, which gives you a real Linux (Ubuntu)
-terminal on your Windows laptop. PowerShell and CMD are not supported.
+**On Windows, we recommend the Windows Subsystem for Linux (WSL).** The
+workshop is done in a Linux-style shell, and every command here and in the
+workshop assumes one. WSL gives you a real Linux (Ubuntu) terminal on your
+Windows laptop, so you can follow along exactly as written.
+
+You can use PowerShell instead if you prefer, but then we assume you are
+comfortable translating Linux-style commands to Windows on your own: all the
+examples are Linux-style, and the instructor does not know Windows well enough
+to help with Windows-specific problems. In that case, skip section 0 and use
+the Windows instructions on the official install pages linked below.
 
 ## What you must already know
 
@@ -49,7 +55,8 @@ ready.
 
 ## 0. Windows only: WSL
 
-Skip this section on macOS and Linux.
+Skip this section on macOS and Linux (and on Windows if you have chosen to use
+PowerShell).
 
 Install WSL ([official
 instructions](https://learn.microsoft.com/en-us/windows/wsl/install)). Open
@@ -153,7 +160,7 @@ reply, then type `/exit` to quit.
 | Symptom                                                           | Fix                                                                                                                       |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `command not found` (or `not recognized`) right after installing  | Open a new terminal. If it persists, the install folder is not on your `PATH`: `~/.local/bin` for `claude`, `~/.pixi/bin` for `pixi` |
-| Windows: `'curl' is not recognized`, or `The token '&&' is not a valid statement separator` | You are in PowerShell or CMD, not WSL; open **Ubuntu** from the Start menu and run the command there |
+| Windows: `'curl' is not recognized`, or `The token '&&' is not a valid statement separator` | You are in PowerShell or CMD, not WSL; open **Ubuntu** from the Start menu and run the command there (or, if you chose PowerShell, use the Windows instructions on the official page) |
 | Windows: `wsl --install` fails, or mentions virtualization        | Run PowerShell as administrator; if it still fails, virtualization may be off in the BIOS. Contact the instructor ahead of time |
 | Claude says your account has no access                            | The free plan does not include Claude Code. On a Team or Enterprise account, ask your administrator                       |
 | Downloads fail or hang on a work network                          | A proxy or firewall may block them; try from home or a phone hotspot                                                      |
