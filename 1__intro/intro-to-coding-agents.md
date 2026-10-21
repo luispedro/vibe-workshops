@@ -362,6 +362,15 @@ If Claude does not commit to main, you can ask it to do so:
 Commit to main
 ```
 
+::: instructor
+Once the plot exists, look at the code with the room, interactively: this is
+not on the slide. Run `git log --oneline` and `git show` on screen, open the
+script Claude wrote, and ask Claude to explain it, e.g. "Show me the code that
+made the stacked bar plot and explain it briefly." Keep it short (2–3 min):
+the point is the habit of looking at what the agent did, which part 2 covers in
+depth.
+:::
+
 ## Permission prompts
 
 Claude may ask for permission to run commands. This is a safety feature.
