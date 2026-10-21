@@ -172,7 +172,8 @@ Run these inside the pixi environment (`pixi shell`, or prefix with
 engine, a self-contained XeTeX), DejaVu fonts, poppler, make, Graphviz and
 Python with matplotlib, pinned by `pixi.lock`. Do not rely on system tools. From the root, `pixi run build` /
 `check` / `clean` cover both workshops, and `pixi run site` assembles the GitHub
-Pages site in `build/site/` (`common/site.sh`; the workflow in
+Pages site in `build/site/` (`common/site.sh`; a workshop's `data/` is published
+both as-is and as `data.zip`; the workflow in
 `.github/workflows/pages.yml` runs `check` and `site`). The first PDF build needs network for
 tectonic to fetch LaTeX packages. First `make slides` needs network
 to fetch reveal.js; the result is self-contained and works offline. `build/` is

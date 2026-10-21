@@ -16,11 +16,11 @@ instructor.
     - the workshop will be using Linux, so if they are on Windows they should
       either be proficient with PowerShell and able to work independently, or
       have WSL installed
-- [ ] **Point attendees to the data files** on GitHub
-      (<https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data>):
+- [ ] **Point attendees to the data files**, `data.zip` on the workshop site
+      (<https://luispedro.github.io/vibe-workshops/1__intro/data.zip>):
       the table and the email with the incomplete notes. Step 4 runs `git add
-      data`, so tell attendees to download them in advance, ready to copy into
-      a `data/` folder in the project they create in Step 1.
+      data`, so tell attendees to download it in advance; unzipped, it is the
+      `data/` folder to copy into the project they create in Step 1.
 - [ ] Ask attendees to bring a charged laptop (and a charger).
 
 ## The day before
@@ -75,12 +75,12 @@ beforehand.
      checklist explains how) or be comfortable translating the commands to
      PowerShell on your own.
 
-2. Download the data files (a table and an email) from:
+2. Download the data files (a table and an email) and unzip them:
 
-   https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data
+   https://luispedro.github.io/vibe-workshops/1__intro/data.zip
 
-   Keep them somewhere you can find them. During the workshop, we will copy
-   them into a data/ folder in a new project. This simulates the situation
+   Keep the data/ folder somewhere you can find it. During the workshop, we
+   will copy it into a new project. This simulates the situation
    where I am your collaborator and I send you some data to work with.
 
 3. Bring your laptop, charged, and its charger.
@@ -110,7 +110,7 @@ A reminder that the workshop "Coding Agents: an Introduction" is tomorrow,
   If you did it a while ago, run `claude update` to get the latest version.
 - Have the data files ready (see the previous email). If you have not
   downloaded them yet, they are at
-  https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data
+  https://luispedro.github.io/vibe-workshops/1__intro/data.zip
 - Bring your laptop, charged, and its charger.
 - Paid Claude plans have usage limits. Avoid heavy use of Claude right before
   the workshop, so you do not run out halfway through!

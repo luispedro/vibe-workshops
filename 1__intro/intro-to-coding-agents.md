@@ -136,8 +136,7 @@ reproducible environments...
 A few tables → visualization in Python with matplotlib and polars. The tables
 are in `data/` and the task is to explore them.
 
-Download them from GitHub:
-<https://github.com/luispedro/vibe-workshops/tree/main/1__intro/data>
+Download them: <https://luispedro.github.io/vibe-workshops/1__intro/data.zip>
 
 ::: handout
 The data on dogs comes from a real study:
@@ -332,13 +331,14 @@ session. The Scheme 3 diagram comes back to it.
 ## Step 4: look at the data
 
 ::: handout
-If you have not downloaded the data yet, fetch it into `data/` from the shell:
+If you have not downloaded the data yet, fetch it into `data/` from the shell
+(the same files as in `data.zip`, without needing `unzip`):
 
 ```bash
 mkdir -p data
 cd data
-curl -LO https://raw.githubusercontent.com/luispedro/vibe-workshops/main/1__intro/data/SHD_bins_MIMAG_report.csv
-curl -LO https://raw.githubusercontent.com/luispedro/vibe-workshops/main/1__intro/data/dataset_email.txt
+curl -LO https://luispedro.github.io/vibe-workshops/1__intro/data/SHD_bins_MIMAG_report.csv
+curl -LO https://luispedro.github.io/vibe-workshops/1__intro/data/dataset_email.txt
 cd ..
 ```
 :::

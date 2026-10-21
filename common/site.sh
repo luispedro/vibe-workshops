@@ -35,6 +35,9 @@ echo '$title$' > "$title_tpl"
     if [ -f "$dir/pre-workshop-checklist.md" ]; then
       printf -- '- **Before the workshop:** [pre-workshop checklist](%s/blob/main/%s/pre-workshop-checklist.md)\n' "$REPO" "$dir"
     fi
+    if [ -d "$dir/data" ]; then
+      printf -- '- **Data:** [data.zip](%s/data.zip)\n' "$dir"
+    fi
     printf -- '- **Notes, with copy buttons:** [web](%s/%s__student.html) · [PDF](%s/%s__student.pdf)\n' "$dir" "$stem" "$dir" "$stem"
     printf -- '- **Slides:** [deck](%s/%s__slides.html)\n' "$dir" "$stem"
     printf -- '- **Instructor notes:** [web](%s/%s__instructor.html) · [PDF](%s/%s__instructor.pdf)\n' "$dir" "$stem" "$dir" "$stem"

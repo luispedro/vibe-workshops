@@ -243,6 +243,13 @@ SITE_FILES := $(BUILD)/$(STEM)__slides.html \
 site: $(SITE_FILES)
 	mkdir -p $(SITE_DIR)
 	cp $(SITE_FILES) $(SITE_DIR)/
+	# A workshop's data/ goes up as-is (for curl) and as data.zip (for a browser);
+	# unzipping it gives a data/ folder.
+	if [ -d data ]; then \
+	  cp -r data $(SITE_DIR)/ && \
+	  rm -f $(SITE_DIR)/data.zip && \
+	  python -m zipfile -c $(abspath $(SITE_DIR))/data.zip data; \
+	fi
 
 clean:
 	rm -rf $(BUILD)
