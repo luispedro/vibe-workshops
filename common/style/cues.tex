@@ -3,6 +3,12 @@
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 
+% Long prompts (and URLs in them) would otherwise run off the page: wrap code
+% blocks, plain and highlighted, instead of letting them overflow.
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines,breakanywhere}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+
 % DO family -- something to type.
 \definecolor{cueShell}{HTML}{37474F}   % slate: the terminal
 \definecolor{cueClaude}{HTML}{D97757}  % coral: Claude

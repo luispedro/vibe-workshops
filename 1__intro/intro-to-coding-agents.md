@@ -150,7 +150,7 @@ Let's set guidelines for claude
 
 ## Two ways to do this
 
-1. Write a `CLAUDE.md` file with the guidelines using a standard text editor
+1. Write a `CLAUDE.md` file with the guidelines in a text editor
 2. Ask claude to write it for you
 
 ```claude
@@ -241,7 +241,7 @@ Different systems use different tokenizations too.
 For our purposes, if you think that a token is a word/punctuation, you're
 probably in the right ballpark.
 
-## Scheme 1: directly interacting with the model
+## Scheme 1: talking directly to the model
 
 You type
 
@@ -249,17 +249,19 @@ You type
 
 ↓
 
-`Good` `morn` `ing` `,` `claude` `!` → 6 tokens
+[`Good` `morn` `ing` `,` `claude` `!`]{.tokens} → 6 tokens
 
 ⟿ *Magic* ⟿
 
-→ `Good` … `, Luis!` ⟵ 6 tokens
+→ [`Good` … `, Luis!`]{.tokens} ⟵ 6 tokens
 
 ## Scheme 1, second turn
 
 "How are you today?"
 
-↓ → tokens **+ context!**
+↓
+
+tokens **+ context!**
 
 ::: remember
 The model has no memory between calls. The *entire* conversation is re-sent
@@ -344,7 +346,7 @@ any stored memories, the conversation so far, and the tool definitions. Then the
 
 Scheme 3 showed one command. The important part is that it does not stop at one:
 
-```{.dot width=85%}
+```{.dot width=75%}
 digraph loop {
   rankdir=LR; bgcolor=transparent; nodesep=0.7; ranksep=0.7;
   node [fontname="DejaVu Sans", fontsize=16, shape=box, style="rounded,filled",
@@ -432,7 +434,7 @@ worth reading about once the basics are comfortable. We will not cover them.
 
 # Back to the case study
 
-## Step 6: exploration
+## Step 6: exploration {.shrink}
 
 Some potential prompts
 
@@ -449,16 +451,18 @@ Some potential prompts
 ```
 
 ```claude
-> Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot
-  the number of ARGs vs. the quality score.
+> Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot the number of ARGs vs. the quality score.
 ```
 
 ## Claude commentary
 
 ![](media/claude-comment-arg.png)
 
-This will likely be different for you (the results are not deterministic). You
-can ask follow up questions, for example
+This will likely be different for you (the results are not deterministic).
+
+## Follow-up questions
+
+You can ask follow up questions, for example
 
 ```claude
 > why does it matter that it is part of their normal genomes and not acquired resistance?
@@ -481,7 +485,7 @@ pre-existing project and want to start using claude.
 
 You should now know
 
-- how to ask claude for code
+- how to ask `claude` for code
 - what `CLAUDE.md` is (including what `/init` does)
 - what "context" is and how to work with it
 

@@ -38,6 +38,9 @@
    overrides the small size the deck uses for other code. */
 .reveal .cue pre         { margin: 0; background: transparent; font-size: 0.62em; }
 .reveal .cue pre code    { padding: 0; background: transparent; }
+/* ...and at that size a long prompt would run off the slide: wrap it, even
+   inside a URL, rather than clip it. */
+.reveal .cue pre code    { white-space: pre-wrap; overflow-wrap: anywhere; }
 /* pandoc wraps highlighted code in an extra div.sourceCode whose margin
    would otherwise open a gap between the label and the first command. */
 .reveal .cue div.sourceCode { margin: 0; }
@@ -67,3 +70,8 @@
    size the boxes that carry one apply to their body text. */
 .reveal .cue-aside .cue-label     { font-size: 0.47em; }
 .reveal .cue-reference .cue-label { font-size: 0.49em; }
+
+/* [`Good` `morn` `ing`]{.tokens}: each code span is one token, drawn as a chip
+   so the boundaries inside a word are visible from the back of the room. */
+.reveal .tokens code     { background: #eceff1; border-radius: 3px;
+                           padding: 0 0.12em; margin: 0 0.06em; }
