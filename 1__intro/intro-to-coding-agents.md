@@ -16,7 +16,6 @@ date: "2026"
     - `git add` / `commit`
     - `git diff`
 - Ideally, you know Python
-- You know the basic concept of conda/pixi
 - On Windows: WSL (a Linux shell) is recommended
 
 ::: handout
@@ -115,7 +114,7 @@ models/harnesses are constantly changing.
 ## Best practices from the old typed code world still apply
 
 ::: remember
-Best practices that applied to human readable code, also apply to AI-generated
+Best practices that applied to human-written code, also apply to AI-generated
 code. If anything, agents make them more powerful.
 :::
 
@@ -343,19 +342,19 @@ There is a table & an email from Luis with some incomplete notes
 Write a document called data.md with the structure of the data
 ```
 
-::: handout
-I would sometimes type this out, but often it would be based on multi-turn
-talking.
-:::
-
-
 ## Step 5: basic plots
 
 ```claude
 Plot the data. I want to see a stacked bar plot of different qulity categories.
 ```
 
-First example, a fairly specific request: we specify the type of plot we want.
+First example, a fairly specific request: we specify the type of plot we want,
+but we still leave out a lot of details. This includes column names (which the
+model should be able to figure out reliably), but also style choices.
+
+::: remember
+The process is not deterministic. We will have different plots.
+:::
 
 ::: instructor
 The typo ("qulity") is deliberate: type it as written. Point out that Claude
@@ -513,8 +512,8 @@ linear relationship; if on a subscription, you want to avoid usage limits.
 
 ## Scheme 2: caching
 
-Providers cache the state, so if you reply fast, you don't pay full price for
-the previous bits of conversation.
+Providers cache the state, so if you reply within a few minutes, you don't pay
+full price for the previous bits of conversation.
 
 ![Toy numbers: 20 tokens typed and 200 answered per turn.](media/token-growth){width=80%}
 
@@ -624,7 +623,7 @@ costs more.
 - the token count is not what you see on screen
 - every message includes all previous messages
 - you type a tiny fraction of the tokens
-- caching changes things
+- caching helps
 :::
 
 ## Limiting context size
@@ -672,6 +671,24 @@ worth reading about once the basics are comfortable. We will not cover them.
 :::
 
 # Back to the case study
+
+## Clean up the session
+
+```claude
+/context
+```
+
+```claude
+/exit
+```
+
+We should see a session ID that lets us resume the session later.
+
+Alternatively, we can just `/clear` and start a new session:
+
+```claude
+/clear
+```
 
 ## Step 6: exploration {.shrink}
 
