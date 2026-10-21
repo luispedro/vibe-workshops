@@ -53,3 +53,12 @@
   left=8pt, right=8pt, top=5pt, bottom=5pt,
   fontupper=\small,
   before upper={\cuelabel{cueReference}{☰\ \ REFERENCE {\textperiodcentered} FOR LATER}}}
+
+% Tokens -- [`bio` `informatics`]{.tokens}: each token a grey chip, matching
+% .tokens in slides.css, so the boundaries inside a word are visible in print.
+% The thin outline keeps the chip visible on tinted boxes and in greyscale.
+\definecolor{tokenBg}{HTML}{ECEFF1}
+\definecolor{tokenRule}{HTML}{90A4AE}
+\newcommand{\tokchip}[1]{\tcbox[on line, colback=tokenBg, colframe=tokenRule,
+  boxrule=0.4pt, arc=1.5pt, boxsep=0pt, left=1.5pt, right=1.5pt,
+  top=0pt, bottom=0pt]{\strut#1}}

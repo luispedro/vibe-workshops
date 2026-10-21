@@ -71,7 +71,7 @@
 .reveal .cue-aside .cue-label     { font-size: 0.47em; }
 .reveal .cue-reference .cue-label { font-size: 0.49em; }
 
-/* [`Good` `morn` `ing`]{.tokens}: each code span is one token, drawn as a chip
+/* [`bio` `informatics`]{.tokens}: each code span is one token, drawn as a chip
    so the boundaries inside a word are visible from the back of the room. */
 .reveal .tokens code     { background: #eceff1; border-radius: 3px;
                            padding: 0 0.12em; margin: 0 0.06em; }

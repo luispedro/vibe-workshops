@@ -89,4 +89,20 @@ function Div(el)
   end
 end
 
-return {{CodeBlock = CodeBlock, Div = Div}}
+-- [`bio` `informatics`]{.tokens}: each code span is one token. The deck draws
+-- them as chips in slides.css; here the PDFs get the same chips from cues.tex,
+-- and docx, which has no inline boxes, gets brackets so the boundaries inside
+-- a word stay visible.
+function Span(el)
+  if not has_class(el, "tokens") or is_html then return nil end
+  return el:walk {
+    Code = function(c)
+      if is_latex then
+        return {pandoc.RawInline("latex", "\\tokchip{"), c, pandoc.RawInline("latex", "}")}
+      end
+      return {pandoc.Str("["), c, pandoc.Str("]")}
+    end
+  }
+end
+
+return {{CodeBlock = CodeBlock, Div = Div, Span = Span}}
