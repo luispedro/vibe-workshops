@@ -33,7 +33,7 @@ echo '$title$' > "$title_tpl"
 
     printf '## %s\n\n' "$title"
     if [ -f "$dir/pre-workshop-checklist.md" ]; then
-      printf -- '- **Before the workshop:** [pre-workshop checklist](%s/blob/main/%s/pre-workshop-checklist.md)\n' "$REPO" "$dir"
+      printf -- '- **Before the workshop:** [pre-workshop checklist](%s/pre-workshop-checklist.html)\n' "$dir"
     fi
     if [ -d "$dir/data" ]; then
       printf -- '- **Data:** [data.zip](%s/data.zip)\n' "$dir"

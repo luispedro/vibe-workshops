@@ -5,11 +5,14 @@
 --   DO   -- something the reader types. Solid left bar, monospace body.
 --            ```bash / ```sh / ```shell / ```console   -> "type in the shell"
 --            ```claude                                 -> "type to Claude"
+--            ```powershell                             -> "type in PowerShell"
 --   KNOW -- something the reader should carry away. Full box, decreasing
 --            weight as the material becomes more optional:
 --            ::: remember   filled   -- the point of the slide
 --            ::: aside      tinted   -- advanced / tangent
 --            ::: reference  dashed   -- not covered, here for later
+--   ONLY -- material for some readers only, so the rest can skip it:
+--            ::: windows    blue box -- Windows-specific steps
 --
 -- Add {.no-cue} to a code block that is *output* or a diagram rather than
 -- something to type: ```{.bash .no-cue}
@@ -21,9 +24,12 @@
 local CUES = {
   shell     = {label = "⌨  Type this in the shell", cls = "cue-shell",     env = "cueshell"},
   claude    = {label = "✳  Type this to Claude",    cls = "cue-claude",    env = "cueclaude"},
+  -- Styled (and given a copy button) as a shell box; only the label differs.
+  powershell = {label = "⌨  Type this in PowerShell", cls = "cue-shell",   env = "cuepowershell"},
   remember  = {label = "★  Remember",               cls = "cue-remember",  env = "cueremember"},
   aside     = {label = "⊳  Aside · advanced",       cls = "cue-aside",     env = "cueaside"},
   reference = {label = "☰  Reference · for later",  cls = "cue-reference", env = "cuereference"},
+  windows   = {label = "⊞  Windows only",           cls = "cue-windows",   env = "cuewindows"},
 }
 
 -- Code-block languages that mean "the reader types this at a shell prompt".
@@ -70,6 +76,8 @@ function CodeBlock(el)
     -- "claude" is not a language pandoc can highlight; drop it so the block
     -- renders as plain verbatim rather than as an unknown-language warning.
     el.classes = {}
+  elseif has_class(el, "powershell") then
+    kind = "powershell"
   else
     for _, c in ipairs(el.classes) do
       if SHELL_LANGS[c] then kind = "shell" break end
@@ -79,9 +87,9 @@ function CodeBlock(el)
   return box(kind, {el})
 end
 
--- The KNOW family, most to least prominent. Checked in this order so that a
--- Div carrying two of them resolves predictably.
-local DIV_CUES = {"remember", "aside", "reference"}
+-- The KNOW family, most to least prominent, then the ONLY family. Checked in
+-- this order so that a Div carrying two of them resolves predictably.
+local DIV_CUES = {"remember", "aside", "reference", "windows"}
 
 function Div(el)
   for _, kind in ipairs(DIV_CUES) do

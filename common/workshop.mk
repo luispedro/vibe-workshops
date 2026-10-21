@@ -111,6 +111,14 @@ HTML_OPTS := -t html5 -s --embed-resources \
              --css=$(STYLE)/handout.css \
              --include-after-body=$(STYLE)/copy-buttons.html
 
+# The attendees' pre-workshop checklist, if this workshop has one: a page of
+# its own, styled like the handouts (cues, copy buttons). Its leading # heading
+# becomes the page title, so the .md still reads well on GitHub.
+CHECKLIST      := $(wildcard pre-workshop-checklist.md)
+CHECKLIST_HTML := $(CHECKLIST:%.md=$(BUILD)/%.html)
+CHECKLIST_OPTS := $(filter-out --toc --toc-depth=2,$(HTML_OPTS)) \
+                  --shift-heading-level-by=-1
+
 STUDENT_SUB := Workshop $(WORKSHOP) — student notes
 INSTR_SUB   := Workshop $(WORKSHOP) — instructor notes
 
@@ -122,7 +130,8 @@ slides:    $(BUILD)/$(STEM)__slides.html
 handouts:  student instructor
 student:   $(BUILD)/$(STEM)__student.pdf
 instructor:$(BUILD)/$(STEM)__instructor.pdf
-html:      $(BUILD)/$(STEM)__student.html $(BUILD)/$(STEM)__instructor.html
+html:      $(BUILD)/$(STEM)__student.html $(BUILD)/$(STEM)__instructor.html \
+           $(CHECKLIST_HTML)
 
 # Optional extras: a printable/offline-safe deck, and Word versions of the
 # handouts for anyone who needs to edit them.
@@ -203,6 +212,9 @@ $(BUILD)/$(STEM)__instructor.html: $(INSTR_DEPS) $(HTML_DEPS) $(FIGS_SVG) | $(BU
 	    --lua-filter=$(FILTERS)/cues.lua \
 	    -o $@ $(SRC)
 
+$(BUILD)/pre-workshop-checklist.html: pre-workshop-checklist.md $(CUES_DEPS) $(HTML_DEPS) | $(BUILD)
+	$(PANDOC) $(CHECKLIST_OPTS) --lua-filter=$(FILTERS)/cues.lua -o $@ $<
+
 $(BUILD)/$(STEM)__student.docx: $(STUDENT_DEPS) $(FIGS_PNG) | $(BUILD)
 	$(PANDOC) -M subtitle="$(STUDENT_SUB)" \
 	    $(RESOURCES) --default-image-extension=png \
@@ -238,7 +250,8 @@ SITE     ?= ../build/site
 SITE_DIR := $(SITE)/$(notdir $(CURDIR))
 SITE_FILES := $(BUILD)/$(STEM)__slides.html \
               $(BUILD)/$(STEM)__student.html $(BUILD)/$(STEM)__student.pdf \
-              $(BUILD)/$(STEM)__instructor.html $(BUILD)/$(STEM)__instructor.pdf
+              $(BUILD)/$(STEM)__instructor.html $(BUILD)/$(STEM)__instructor.pdf \
+              $(CHECKLIST_HTML)
 
 site: $(SITE_FILES)
 	mkdir -p $(SITE_DIR)

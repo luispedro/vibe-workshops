@@ -7,8 +7,8 @@ instructor.
 ## About a week before
 
 - [ ] **Send attendees their checklist**
-      (<https://luispedro.github.io/vibe-workshops/>, or link
-      `pre-workshop-checklist.md` directly), together with the data (see [the
+      (<https://luispedro.github.io/vibe-workshops/1__intro/pre-workshop-checklist.html>, also linked from
+      <https://luispedro.github.io/vibe-workshops/>), together with the data (see [the
       draft email](#a-week-before-checklist-and-data)). Emphasize that:
     - a **paid** Claude account: the free plan does not include Claude Code
     - the self-test (TSV → scatter plot → git commit): the workshop does not
@@ -61,7 +61,7 @@ beforehand.
 
 1. Follow the pre-workshop checklist, at least a day before the workshop:
 
-   https://github.com/luispedro/vibe-workshops/blob/main/1__intro/pre-workshop-checklist.md
+   https://luispedro.github.io/vibe-workshops/1__intro/pre-workshop-checklist.html
 
    It takes about 15-20 minutes (longer on Windows). By the end, git, pixi and
    claude should all run in a terminal. In particular:
@@ -106,7 +106,7 @@ A reminder that the workshop "Coding Agents: an Introduction" is tomorrow,
 [time], in [room].
 
 - If you have not done the pre-workshop checklist yet, please do it today:
-  https://github.com/luispedro/vibe-workshops/blob/main/1__intro/pre-workshop-checklist.md
+  https://luispedro.github.io/vibe-workshops/1__intro/pre-workshop-checklist.html
   If you did it a while ago, run `claude update` to get the latest version.
 - Have the data files ready (see the previous email). If you have not
   downloaded them yet, they are at

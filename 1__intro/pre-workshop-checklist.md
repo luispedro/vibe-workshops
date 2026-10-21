@@ -6,6 +6,7 @@ about 15–20 minutes (longer on Windows, which first needs WSL; see section 0).
 Please do it at least a day ahead: fixing installs in the room takes time away
 from the workshop.
 
+::: windows
 **On Windows, we recommend the Windows Subsystem for Linux (WSL).** The
 workshop is done in a Linux-style shell, and every command here and in the
 workshop assumes one. WSL gives you a real Linux (Ubuntu) terminal on your
@@ -16,6 +17,7 @@ comfortable translating Linux-style commands to Windows on your own: all the
 examples are Linux-style, and the instructor does not know Windows well enough
 to help with Windows-specific problems. In that case, skip section 0 and use
 the Windows instructions on the official install pages linked below.
+:::
 
 ## What you must already know
 
@@ -43,10 +45,12 @@ start, at roughly 2–3 hours each:
 `polars` libraries. You can follow along without knowing Python, but it will be
 easier if you do.
 
+::: remember
 **A quick self-test:** if you would not be able to take a TSV file and use
 Python (or R) to generate a scatter plot of one column against another and
 then commit that code to a git repository, this workshop is not suitable for
 you (at least, not yet).
+:::
 
 You will also need:
 
@@ -60,6 +64,7 @@ ready.
 
 ## 0. Windows only: WSL
 
+::: windows
 Skip this section on macOS and Linux (and on Windows if you have chosen to use
 PowerShell).
 
@@ -94,6 +99,7 @@ name>/`, and `explorer.exe .` opens the current folder in Windows Explorer.
 Installing WSL needs administrator rights, and a hardware setting
 (virtualization) that is usually on. If your laptop is managed by IT and you
 cannot install it, contact the instructor before the workshop.
+:::
 
 ## 1. Pixi
 
@@ -101,10 +107,11 @@ Pixi manages the Python environment for the workshop project. Install it with
 one command ([official
 instructions](https://pixi.prefix.dev/latest/installation/)):
 
-| System               | Install                                       |
-| -------------------- | --------------------------------------------- |
-| macOS / Linux / WSL  | `curl -fsSL https://pixi.sh/install.sh \| sh` |
-| macOS with Homebrew  | `brew install pixi`                           |
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
+```
+
+On macOS with Homebrew, you can use `brew install pixi` instead.
 
 Then **close the terminal and open a new one**, so it picks up the new `PATH`.
 If you already had pixi, update it with `pixi self-update` (or
@@ -133,10 +140,11 @@ Install the `claude` command-line tool ([official
 instructions](https://code.claude.com/docs/en/setup)). You do not need
 administrator rights.
 
-| System               | Install                                           |
-| -------------------- | ------------------------------------------------- |
-| macOS / Linux / WSL  | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| macOS with Homebrew  | `brew install --cask claude-code`                 |
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+On macOS with Homebrew, you can use `brew install --cask claude-code` instead.
 
 The installer shows no progress while it downloads; give it a minute. Then
 **open a new terminal**.
@@ -146,12 +154,16 @@ assumes a recent version. Run `claude update` (or `brew upgrade claude-code`)
 the day before.
 
 **Log in.** Start Claude Code in any folder and follow the browser prompts.
-Choose your paid Claude account. (In WSL, if no browser opens, copy the
-link that Claude prints into your Windows browser.)
+Choose your paid Claude account.
 
 ```bash
 claude
 ```
+
+::: windows
+In WSL, if no browser opens, copy the link that Claude prints into your
+Windows browser.
+:::
 
 If it asks whether you trust the folder, say yes. Type `Hello` and wait for a
 reply, then type `/exit` to quit.

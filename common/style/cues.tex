@@ -16,6 +16,8 @@
 \definecolor{cueRemember}{HTML}{B26A00}
 \definecolor{cueAside}{HTML}{5A6B7C}
 \definecolor{cueReference}{HTML}{8A8A8A}
+% ONLY family -- for some readers only.
+\definecolor{cueWindows}{HTML}{0067B8}
 
 % tcolorbox zeroes \parskip inside the box, which runs multi-paragraph
 % material together. Restore it (locally to the box) alongside the label.
@@ -36,6 +38,12 @@
   left=8pt, right=6pt, top=5pt, bottom=5pt,
   before upper={\cuelabel{cueClaude}{✳\ \ TYPE THIS TO CLAUDE}}}
 
+\newtcolorbox{cuepowershell}{enhanced, breakable, sharp corners,
+  colback=cueShell!4, colframe=cueShell,
+  boxrule=0pt, leftrule=3pt,
+  left=8pt, right=6pt, top=5pt, bottom=5pt,
+  before upper={\cuelabel{cueShell}{⌨\ \ TYPE THIS IN POWERSHELL}}}
+
 % KNOW: a closed box. Weight drops as the material gets more optional.
 \newtcolorbox{cueremember}{enhanced, breakable, sharp corners,
   colback=cueRemember!8, colframe=cueRemember, boxrule=1pt,
@@ -53,6 +61,12 @@
   left=8pt, right=8pt, top=5pt, bottom=5pt,
   fontupper=\small,
   before upper={\cuelabel{cueReference}{☰\ \ REFERENCE {\textperiodcentered} FOR LATER}}}
+
+% ONLY: a closed box in its own colour, so readers it is not for can skip it.
+\newtcolorbox{cuewindows}{enhanced, breakable, sharp corners,
+  colback=cueWindows!5, colframe=cueWindows, boxrule=1pt,
+  left=8pt, right=8pt, top=5pt, bottom=5pt,
+  before upper={\cuelabel{cueWindows}{⊞\ \ WINDOWS ONLY}}}
 
 % Tokens -- [`bio` `informatics`]{.tokens}: each token a grey chip, matching
 % .tokens in slides.css, so the boundaries inside a word are visible in print.

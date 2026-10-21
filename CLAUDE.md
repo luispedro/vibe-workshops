@@ -97,6 +97,7 @@ so there is usually nothing to mark up by hand:
 | -------------------------------------------------- | -------------------------- |
 | ```` ```bash ```` (or `sh`/`shell`/`console`/`zsh`) | ⌨ *Type this in the shell* |
 | ```` ```claude ````                                | ✳ *Type this to Claude*    |
+| ```` ```powershell ````                            | ⌨ *Type this in PowerShell* |
 
 **One prompt per ```` ```claude ```` fence, with no `>` or other prompt
 marker.** The box label already says what to do, a `>` gets typed literally,
@@ -113,6 +114,9 @@ optional:
 | `::: remember`   | ★ *Remember*              | filled, boxed     |
 | `::: aside`      | ⊳ *Aside · advanced*      | tinted, thin rule |
 | `::: reference`  | ☰ *Reference · for later* | dashed outline    |
+
+**Things for some readers only** — a blue box, so everyone else can skip it:
+`::: windows` renders as ⊞ *Windows only*.
 
 A code block that is *output*, not something to type, opts out with
 `{.no-cue}`:
@@ -173,7 +177,8 @@ engine, a self-contained XeTeX), DejaVu fonts, poppler, make, Graphviz and
 Python with matplotlib, pinned by `pixi.lock`. Do not rely on system tools. From the root, `pixi run build` /
 `check` / `clean` cover both workshops, and `pixi run site` assembles the GitHub
 Pages site in `build/site/` (`common/site.sh`; a workshop's `data/` is published
-both as-is and as `data.zip`; the workflow in
+both as-is and as `data.zip`, and its `pre-workshop-checklist.md` as an HTML
+page styled like the handouts; the workflow in
 `.github/workflows/pages.yml` runs `check` and `site`). The first PDF build needs network for
 tectonic to fetch LaTeX packages. First `make slides` needs network
 to fetch reveal.js; the result is self-contained and works offline. `build/` is
