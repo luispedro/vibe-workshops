@@ -4,18 +4,19 @@ Case-study session: using Claude Code for scientific exploration. Builds on
 Workshop 1 and does not re-teach the basics. One source file, three audiences.
 
 ```
-agents-for-science.md  --+--> build/…__slides.html      reveal.js deck
-                         +--> build/…__student.pdf      student handout
-                         +--> build/…__instructor.pdf   instructor handout
+agents-for-science.md  --+--> build/…__slides.html             reveal.js deck
+                         +--> build/…__student.{pdf,html}      student handout
+                         +--> build/…__instructor.{pdf,html}   instructor handout
 ```
 
 ## Building
 
 ```bash
-make            # deck + both handouts
+make            # deck + both handouts, as PDF and HTML
 make slides     # just the deck
 make handouts   # just the two PDFs
-make check      # assert no instructor material reached the student handout
+make html       # just the two HTML handouts (copy button on every prompt)
+make check      # assert no instructor material reached the student handouts
 make clean
 ```
 
@@ -111,7 +112,7 @@ git add data
 ```
 
 ```claude
-> Read the files in data/
+Read the files in data/
 ```
 
 ::: remember

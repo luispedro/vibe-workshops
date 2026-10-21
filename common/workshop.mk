@@ -11,8 +11,11 @@
 # One source file, three audiences:
 #
 #   $(SRC)  --+--> build/$(STEM)__slides.html      (reveal.js)
-#             +--> build/$(STEM)__student.pdf
-#             +--> build/$(STEM)__instructor.pdf
+#             +--> build/$(STEM)__student.{pdf,html}
+#             +--> build/$(STEM)__instructor.{pdf,html}
+#
+# The HTML handouts carry a copy button on every "type this" box, and are what
+# `make site` publishes to GitHub Pages (see ../common/site.sh).
 #
 # Which material lands where is decided by Div/Span classes in the source
 # (.instructor / .handout / .slides); see ../common/filters/*.lua.
@@ -56,6 +59,7 @@ STUDENT_DEPS  := $(SRC) $(FILTERS)/handout-student.lua $(STYLE)/handout.yaml \
                  $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua
 INSTR_DEPS    := $(SRC) $(FILTERS)/handout-instructor.lua $(STYLE)/handout.yaml \
                  $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua
+HTML_DEPS     := $(STYLE)/handout.css $(STYLE)/copy-buttons.html
 
 PANDOC := pandoc
 
@@ -98,17 +102,27 @@ HANDOUT_OPTS := --pdf-engine=$(PDF_ENGINE) \
                 $(HIGHLIGHT) \
                 -V documentclass=article
 
+# Single self-contained files (figures and diagrams inlined), so the same file
+# works from GitHub Pages or opened from disk.
+HTML_OPTS := -t html5 -s --embed-resources \
+             --toc --toc-depth=2 \
+             $(RESOURCES) --default-image-extension=svg \
+             $(HIGHLIGHT) \
+             --css=$(STYLE)/handout.css \
+             --include-after-body=$(STYLE)/copy-buttons.html
+
 STUDENT_SUB := Workshop $(WORKSHOP) — student notes
-INSTR_SUB   := Workshop $(WORKSHOP) — instructor notes (do not distribute)
+INSTR_SUB   := Workshop $(WORKSHOP) — instructor notes
 
-.PHONY: all slides handouts student instructor slides-pdf docx clean
+.PHONY: all slides handouts student instructor html slides-pdf docx site clean
 
-all: slides handouts
+all: slides handouts html
 
 slides:    $(BUILD)/$(STEM)__slides.html
 handouts:  student instructor
 student:   $(BUILD)/$(STEM)__student.pdf
 instructor:$(BUILD)/$(STEM)__instructor.pdf
+html:      $(BUILD)/$(STEM)__student.html $(BUILD)/$(STEM)__instructor.html
 
 # Optional extras: a printable/offline-safe deck, and Word versions of the
 # handouts for anyone who needs to edit them.
@@ -173,6 +187,22 @@ $(BUILD)/$(STEM)__instructor.pdf: $(INSTR_DEPS) $(FIGS_PDF) | $(BUILD)
 	    --lua-filter=$(FILTERS)/cues.lua \
 	    -o $@ $(SRC)
 
+$(BUILD)/$(STEM)__student.html: $(STUDENT_DEPS) $(HTML_DEPS) $(FIGS_SVG) | $(BUILD)
+	$(PANDOC) $(HTML_OPTS) \
+	    -M subtitle="$(STUDENT_SUB)" \
+	    --lua-filter=$(FILTERS)/handout-student.lua \
+	    $(DIAGRAM) \
+	    --lua-filter=$(FILTERS)/cues.lua \
+	    -o $@ $(SRC)
+
+$(BUILD)/$(STEM)__instructor.html: $(INSTR_DEPS) $(HTML_DEPS) $(FIGS_SVG) | $(BUILD)
+	$(PANDOC) $(HTML_OPTS) \
+	    -M subtitle="$(INSTR_SUB)" \
+	    --lua-filter=$(FILTERS)/handout-instructor.lua \
+	    $(DIAGRAM) \
+	    --lua-filter=$(FILTERS)/cues.lua \
+	    -o $@ $(SRC)
+
 $(BUILD)/$(STEM)__student.docx: $(STUDENT_DEPS) $(FIGS_PNG) | $(BUILD)
 	$(PANDOC) -M subtitle="$(STUDENT_SUB)" \
 	    $(RESOURCES) --default-image-extension=png \
@@ -188,13 +218,31 @@ $(BUILD)/$(STEM)__instructor.docx: $(INSTR_DEPS) $(FIGS_PNG) | $(BUILD)
 # --- checks ------------------------------------------------------------------
 
 # Fails if any instructor-only wording survives into a student-facing build.
+# The HTML handout is read back through pandoc so that only its text is
+# searched, not the inlined CSS and scripts.
 .PHONY: check
-check: student slides
+check: student slides $(BUILD)/$(STEM)__student.html
 	@! pdftotext $(BUILD)/$(STEM)__student.pdf - | grep -qi "instructor" \
 	    || { echo "FAIL: instructor material in the student handout"; exit 1; }
+	@! $(PANDOC) -f html -t plain $(BUILD)/$(STEM)__student.html | grep -qi "instructor" \
+	    || { echo "FAIL: instructor material in the student HTML handout"; exit 1; }
 	@! grep -q 'Not%20found' $(BUILD)/$(STEM)__slides.html \
 	    || { echo "FAIL: reveal.js was not embedded in the slides"; exit 1; }
 	@echo "OK: no instructor material leaked into the student handout"
+
+# --- GitHub Pages ------------------------------------------------------------
+
+# Copy this workshop's outputs into the site tree; ../common/site.sh runs this
+# for every workshop and writes the index page.
+SITE     ?= ../build/site
+SITE_DIR := $(SITE)/$(notdir $(CURDIR))
+SITE_FILES := $(BUILD)/$(STEM)__slides.html \
+              $(BUILD)/$(STEM)__student.html $(BUILD)/$(STEM)__student.pdf \
+              $(BUILD)/$(STEM)__instructor.html $(BUILD)/$(STEM)__instructor.pdf
+
+site: $(SITE_FILES)
+	mkdir -p $(SITE_DIR)
+	cp $(SITE_FILES) $(SITE_DIR)/
 
 clean:
 	rm -rf $(BUILD)

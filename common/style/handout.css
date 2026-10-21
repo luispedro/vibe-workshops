@@ -1,0 +1,131 @@
+/* HTML handouts: the same content as the PDFs, read in a browser next to the
+   terminal, with a copy button on every "type this" box (copy-buttons.html).
+   The cue colours match slides.css and cues.tex. */
+
+:root {
+  color-scheme: light;
+  --text:      #263238;
+  --muted:     #607d8b;
+  --rule:      #cfd8dc;
+  --link:      #1f5fa8;
+  --code-bg:   #f5f7f8;
+  --shell:     #37474f;
+  --claude:    #d97757;
+  --claude-dk: #c05f3f;
+  --remember:  #b26a00;
+  --aside:     #5a6b7c;
+  --reference: #8a8a8a;
+}
+
+html { background: #fff; }
+body {
+  margin: 0 auto;
+  max-width: 46rem;
+  padding: 2rem 16px 4rem;
+  font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "DejaVu Sans", sans-serif;
+  color: var(--text);
+  background: #fff;
+}
+
+a { color: var(--link); }
+a:visited { color: #5a3e8f; }
+
+h1, h2, h3 { line-height: 1.25; margin: 2em 0 0.5em; }
+h1 { font-size: 1.6rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.2em; }
+h2 { font-size: 1.25rem; }
+
+/* Title block. */
+header#title-block-header { margin-bottom: 2rem; }
+header .title    { font-size: 2rem; margin: 0 0 0.2em; border: 0; }
+header .subtitle { font-size: 1.15rem; color: var(--muted); margin: 0; }
+header .author, header .date { margin: 0.2em 0; color: var(--muted); }
+
+/* Table of contents. */
+nav#TOC {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.6em 1.2em;
+  font-size: 0.92rem;
+}
+nav#TOC ul { padding-left: 1.2em; margin: 0.2em 0; }
+nav#TOC > ul { padding-left: 0; list-style: none; }
+nav#TOC > ul > li { margin-top: 0.4em; font-weight: 600; }
+nav#TOC > ul > li li { font-weight: normal; }
+
+/* Code. */
+code { font-family: "DejaVu Sans Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 0.9em; }
+pre {
+  background: var(--code-bg);
+  padding: 0.6em 0.8em;
+  overflow-x: auto;
+  border-radius: 3px;
+}
+pre code { font-size: 0.88rem; }
+div.sourceCode { margin: 1em 0; background: transparent; }
+
+/* --- content-type cues (see filters/cues.lua) -------------------------- */
+
+.cue { margin: 1.2em 0; padding: 0.55em 0.9em; position: relative; }
+.cue > :first-child { margin-top: 0; }
+.cue > :last-child  { margin-bottom: 0; }
+.cue-label {
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  margin-bottom: 0.35em;
+}
+
+/* DO: something to type. Long prompts wrap rather than scroll, so the whole
+   prompt is visible before copying it. */
+.cue-shell, .cue-claude { padding-right: 5.5em; }
+.cue-shell  { border-left: 4px solid var(--shell);  background: #37474f0a; }
+.cue-claude { border-left: 4px solid var(--claude); background: #d9775714; }
+.cue-shell  .cue-label { color: var(--shell); }
+.cue-claude .cue-label { color: var(--claude-dk); }
+.cue pre, .cue div.sourceCode { margin: 0; background: transparent; padding: 0; }
+.cue pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.copy-button {
+  position: absolute; top: 0.5em; right: 0.6em;
+  font: 600 0.78rem/1 system-ui, sans-serif;
+  padding: 0.4em 0.75em;
+  border: 1px solid currentColor; border-radius: 3px;
+  background: #fff; cursor: pointer;
+}
+.cue-shell  .copy-button { color: var(--shell); }
+.cue-claude .copy-button { color: var(--claude-dk); }
+.copy-button:hover { background: #f0f0f0; }
+.copy-button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+/* KNOW: something to carry away, in decreasing weight. */
+.cue-remember  { border: 2px solid var(--remember); background: #b26a0014; border-radius: 3px; }
+.cue-remember  .cue-label { color: #8a5200; }
+.cue-aside     { border: 1px solid #5a6b7c73; background: #5a6b7c0d; border-radius: 3px; font-size: 0.95em; }
+.cue-aside     .cue-label { color: var(--aside); }
+.cue-reference { border: 1px dashed var(--reference); border-radius: 3px; font-size: 0.92em; color: #555; }
+.cue-reference .cue-label { color: #777; }
+
+/* [`bio` `informatics`]{.tokens}: one chip per token. */
+.tokens code {
+  background: #eceff1; border: 1px solid #cfd8dc; border-radius: 3px;
+  padding: 0 0.15em; margin: 0 0.05em;
+}
+
+/* Teaching notes (instructor handout only, from handout-instructor.lua). */
+.teaching-note blockquote {
+  margin: 1.2em 0; padding: 0.5em 0.9em;
+  border-left: 4px solid #7e57c2; background: #7e57c20f;
+}
+
+blockquote { margin: 1em 0; padding: 0 1em; border-left: 3px solid var(--rule); color: #455a64; }
+
+figure { margin: 1.2em 0; text-align: center; }
+img { max-width: 100%; height: auto; }
+figcaption { font-size: 0.85rem; color: var(--muted); }
+
+table { border-collapse: collapse; margin: 1em 0; }
+th, td { border-bottom: 1px solid var(--rule); padding: 0.3em 0.7em; text-align: left; }
+
+@media print {
+  .copy-button { display: none; }
+  .cue-shell, .cue-claude { padding-right: 0.9em; }
+}

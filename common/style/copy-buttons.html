@@ -1,0 +1,53 @@
+<!-- Copy buttons for the HTML handouts: one per "type this" box (the cue-shell
+     and cue-claude boxes from filters/cues.lua). Each box holds exactly one
+     code block, so a button copies exactly one prompt or one set of shell
+     commands. Included with --include-after-body; see common/workshop.mk. -->
+<script>
+(function () {
+  // execCommand is deprecated but synchronous, and works from https:// and
+  // from a file opened on disk alike; the async clipboard API is the fallback.
+  function copyText(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (ok) return Promise.resolve();
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return Promise.reject();
+  }
+
+  // If copying is refused, select the prompt so Ctrl+C / Cmd+C still works.
+  function selectContents(el) {
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
+  document.querySelectorAll(".cue-shell, .cue-claude").forEach(function (box) {
+    var code = box.querySelector("pre code") || box.querySelector("pre");
+    if (!code) return;
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "copy-button";
+    button.textContent = "Copy";
+    button.addEventListener("click", function () {
+      // No trailing newline: the reader presses Enter themselves.
+      copyText(code.textContent.replace(/\s+$/, "")).then(
+        function () { button.textContent = "Copied"; },
+        function () { selectContents(code); button.textContent = "Selected"; });
+      setTimeout(function () { button.textContent = "Copy"; }, 1800);
+    });
+    box.appendChild(button);
+  });
+})();
+</script>

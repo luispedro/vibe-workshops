@@ -1,0 +1,63 @@
+# Build every workshop's deck and handouts and publish them to GitHub Pages,
+# so the web handouts (with copy buttons) always match main.
+#
+# Same build as locally: `pixi run check`, then `pixi run site` (common/site.sh)
+# assembles build/site/. Pages must be set to deploy from "GitHub Actions"
+# (Settings → Pages → Source).
+
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push supersedes a queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: prefix-dev/setup-pixi@v0.11.2
+        with:
+          pixi-version: v0.81.0
+          cache: true
+          locked: true
+
+      # tectonic fetches its LaTeX packages on first use; keep them between runs.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ hashFiles('pixi.lock', 'common/style/cues.tex') }}
+          restore-keys: tectonic-
+
+      - name: Check that no instructor material reaches the student handouts
+        run: pixi run check
+
+      - name: Assemble the site
+        run: pixi run site
+
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: build/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

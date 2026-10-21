@@ -3,18 +3,19 @@
 One source file, three audiences.
 
 ```
-intro-to-coding-agents.md  --+--> build/…__slides.html      reveal.js deck
-                             +--> build/…__student.pdf      student handout
-                             +--> build/…__instructor.pdf   instructor handout
+intro-to-coding-agents.md  --+--> build/…__slides.html             reveal.js deck
+                             +--> build/…__student.{pdf,html}      student handout
+                             +--> build/…__instructor.{pdf,html}   instructor handout
 ```
 
 ## Building
 
 ```bash
-make            # deck + both handouts
+make            # deck + both handouts, as PDF and HTML
 make slides     # just the deck
 make handouts   # just the two PDFs
-make check      # assert no instructor material reached the student handout
+make html       # just the two HTML handouts (copy button on every prompt)
+make check      # assert no instructor material reached the student handouts
 make clean
 ```
 

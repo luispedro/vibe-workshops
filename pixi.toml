@@ -5,6 +5,7 @@
 #
 #   pixi run build          # both workshops: deck + both handouts
 #   pixi run check          # both workshops: no instructor leak into student PDF
+#   pixi run site           # both workshops, assembled for GitHub Pages
 #   pixi run make -C 1__intro slides    # any single make target
 #
 # PDFs are typeset with tectonic (a self-contained XeTeX) rather than a system
@@ -35,4 +36,6 @@ python = ">=3.15.0,<3.16"
 [tasks]
 build = "make -C 1__intro && make -C 2__science"
 check = "make -C 1__intro check && make -C 2__science check"
-clean = "make -C 1__intro clean && make -C 2__science clean"
+clean = "make -C 1__intro clean && make -C 2__science clean && rm -rf build"
+# GitHub Pages: every deck and handout plus an index page, in build/site/
+site = "bash common/site.sh"

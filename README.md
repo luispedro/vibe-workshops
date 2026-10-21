@@ -18,6 +18,10 @@ later, when it is offered again.
 
 ## Attending?
 
+The slides and notes, including a web version with a copy button on every
+prompt, are at <https://luispedro.github.io/vibe-workshops/>.
+
+
 Read [`1__intro/pre-workshop-checklist.md`](1__intro/pre-workshop-checklist.md)
 and do it **at least a day before**. In short: you need `git`, `pixi` and
 `claude` working in a terminal. You need a **paid Claude account**: the free

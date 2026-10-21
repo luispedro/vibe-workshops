@@ -26,7 +26,10 @@ function Div(el)
     else
       table.insert(content, 1, pandoc.Para{pandoc.Strong(LABEL)})
     end
-    return pandoc.BlockQuote(content)
+    -- The Div only gives the HTML handout a class to style; LaTeX and docx
+    -- render it transparently.
+    return pandoc.Div({pandoc.BlockQuote(content)},
+                      pandoc.Attr("", {"teaching-note"}, {}))
   end
   if has_class(el, "slides") then return {} end
   if has_class(el, "handout") then return el.content end
