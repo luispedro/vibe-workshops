@@ -107,9 +107,9 @@ models/harnesses are constantly changing.
 2. **Auto-complete / basic assistant**. You will see this in a modern IDE or
    even Google Docs or Word if you have the right subscription. You type, the
    model suggests completions.
-3. **Full agent use.** The agent runs commands and re-evaluates afterwards,
-   potentially then running further commands without further requests or
-   requests for clarification.
+3. **Full agent use.** An LLM in a loop with tools: it reads files and runs
+   commands, sees the results, and decides what to do next, without you typing
+   each step.
 
 
 ## Best practices from the old typed code world still apply
@@ -555,7 +555,8 @@ any stored memories, the conversation so far, and the tool definitions. Then the
 
 ## Scheme 3b: the loop
 
-Scheme 3 showed one command. The important part is that it does not stop at one:
+Scheme 3 showed one command. The important part is that it does not stop at
+one. This is the "LLM in a loop with tools" from the start:
 
 ```{.dot width=75%}
 digraph loop {
