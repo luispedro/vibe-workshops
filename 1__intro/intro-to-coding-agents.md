@@ -132,9 +132,6 @@ This is what you type to claude
 - New line in a prompt without sending it: `\` then Enter
 - Or copy & paste from <https://luispedro.github.io/vibe-workshops/>
 
-You can use `CTRL+Z` to suspend a command in the terminal, and `fg` to bring it
-back. This works for `claude` as well.
-
 ::: handout
 Each box is one prompt: type or paste all of it, then press Enter once.
 
@@ -199,6 +196,41 @@ Hello, claude
 
 - plain text → chat with super-powers (we'll see it in a minute)
 - `/` → commands for claude code
+
+## Controlling claude
+
+| Key / command          | What it does                              |
+| ---------------------- | ----------------------------------------- |
+| Esc                    | **stop claude** mid-task                  |
+| Esc Esc / `/rewind`    | go back to an earlier message             |
+| Shift+Tab              | cycle permission modes                    |
+| `/exit`                | quit (`claude --continue` resumes)        |
+
+::: handout
+Esc is the most important key: if Claude is heading in the wrong direction,
+stop it and say what you want instead. Nothing is lost, and you can type a
+correction straight away.
+
+`/rewind` (or Esc twice) can also undo the file edits Claude made since that
+message, but not the effects of commands it ran. Git is the real safety net.
+
+::: reference
+| Key / command          | What it does                                      |
+| ---------------------- | ------------------------------------------------- |
+| ↑                      | previous prompt                                   |
+| `!ls`                  | run a shell command without leaving claude        |
+| `claude --continue`    | resume the most recent session in this folder     |
+| `claude --resume`      | pick an older session to resume                   |
+| Ctrl+Z, then `fg`      | suspend claude and bring it back (macOS/Linux only) |
+:::
+:::
+
+::: instructor
+Demo Esc live: ask for something long ("Write a 1000-word essay about dogs"),
+press Esc after a few lines, and point out that the prompt is back and nothing
+broke. Do not linger on Shift+Tab: permission modes come up again on the
+"Permission prompts" slide.
+:::
 
 ## Step 3: guidelines
 
