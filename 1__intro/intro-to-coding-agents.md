@@ -17,6 +17,23 @@ date: "2026"
     - `git diff`
 - Ideally, you know Python
 - You know the basic concept of conda/pixi
+- On Windows: you work in WSL (a Linux shell), not PowerShell
+
+::: handout
+Everything in this workshop assumes a Linux-style shell (macOS and Linux
+terminals both qualify). On Windows, use the Windows Subsystem for Linux (WSL)
+and follow along in the Ubuntu terminal; the pre-workshop checklist explains
+how to set it up. Keep the project in your Linux home folder (`~`); your
+Windows files are at `/mnt/c/Users/<your Windows name>/`, and `explorer.exe .`
+opens the current folder in Windows Explorer (handy for copying in the data
+and for looking at plots).
+:::
+
+::: instructor
+Ask Windows users to check that they are in the Ubuntu (WSL) terminal now, not
+PowerShell: `uname` should print `Linux`. Someone in PowerShell will hit a wall
+at the first `ls -l` or `pixi` command, and it is cheaper to catch it here.
+:::
 
 ## Workshop mechanics
 
@@ -221,7 +238,7 @@ message, but not the effects of commands it ran. Git is the real safety net.
 | `!ls`                  | run a shell command without leaving claude        |
 | `claude --continue`    | resume the most recent session in this folder     |
 | `claude --resume`      | pick an older session to resume                   |
-| Ctrl+Z, then `fg`      | suspend claude and bring it back (macOS/Linux only) |
+| Ctrl+Z, then `fg`      | suspend claude and bring it back                  |
 :::
 :::
 

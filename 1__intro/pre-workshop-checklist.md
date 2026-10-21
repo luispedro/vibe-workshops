@@ -2,8 +2,14 @@
 
 Before the workshop, make sure `git`, `pixi` and `claude` all run in a terminal
 on your laptop, and that `claude` is logged in to a paid account. This takes
-about 15–20 minutes. Please do it at least a day ahead: fixing installs in the
-room takes time away from the workshop.
+about 15–20 minutes (longer on Windows, which first needs WSL; see section 0).
+Please do it at least a day ahead: fixing installs in the room takes time away
+from the workshop.
+
+**On Windows, we use the Windows Subsystem for Linux (WSL).** The workshop is
+done in a Linux-style shell, and every command here and in the workshop assumes
+one. Windows users work inside WSL, which gives you a real Linux (Ubuntu)
+terminal on your Windows laptop. PowerShell and CMD are not supported.
 
 ## What you must already know
 
@@ -33,12 +39,49 @@ easier if you do.
 
 You will also need:
 
-- [ ] A laptop running macOS, Linux, or Windows, where you can install software
+- [ ] A laptop running macOS, Linux, or Windows with WSL, where you can install
+      software
 - [ ] A paid Claude account (Pro, Max, Team or Enterprise). The free plan does
       not include Claude Code
 
 Each section below ends with a check command. If every check passes, you are
 ready.
+
+## 0. Windows only: WSL
+
+Skip this section on macOS and Linux.
+
+Install WSL ([official
+instructions](https://learn.microsoft.com/en-us/windows/wsl/install)). Open
+PowerShell **as administrator** (right-click → *Run as administrator*) and run:
+
+```powershell
+wsl --install
+```
+
+This installs Ubuntu. **Restart the computer** when it asks. Then open
+**Ubuntu** from the Start menu; the first time, it asks you to pick a Linux
+username and password (they do not need to match your Windows ones).
+
+From here on, **do everything in the Ubuntu terminal**, both for the rest of
+this page and in the workshop. Use the macOS / Linux commands below.
+
+```bash
+uname
+git --version
+```
+
+- [ ] `uname` prints `Linux`
+- [ ] `git --version` prints a version (if not: `sudo apt update && sudo apt
+      install git`)
+
+Work in your Linux home folder (`cd ~`), not under `/mnt/c/`: it is much
+faster. Your Windows files are still reachable at `/mnt/c/Users/<your Windows
+name>/`, and `explorer.exe .` opens the current folder in Windows Explorer.
+
+Installing WSL needs administrator rights, and a hardware setting
+(virtualization) that is usually on. If your laptop is managed by IT and you
+cannot install it, contact the instructor before the workshop.
 
 ## 1. Pixi
 
@@ -46,12 +89,10 @@ Pixi manages the Python environment for the workshop project. Install it with
 one command ([official
 instructions](https://pixi.prefix.dev/latest/installation/)):
 
-| System               | Install                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------ |
-| macOS / Linux        | `curl -fsSL https://pixi.sh/install.sh \| sh`                                        |
-| macOS with Homebrew  | `brew install pixi`                                                                  |
-| Windows (PowerShell) | `powershell -ExecutionPolicy Bypass -c "irm -useb https://pixi.sh/install.ps1 \| iex"` |
-| Windows (winget)     | `winget install prefix-dev.pixi`                                                     |
+| System               | Install                                       |
+| -------------------- | --------------------------------------------- |
+| macOS / Linux / WSL  | `curl -fsSL https://pixi.sh/install.sh \| sh` |
+| macOS with Homebrew  | `brew install pixi`                           |
 
 Then **close the terminal and open a new one**, so it picks up the new `PATH`.
 If you already had pixi, update it with `pixi self-update` (or
@@ -84,18 +125,17 @@ administrator rights.
 | -------------------- | ------------------------------------------------- |
 | macOS / Linux / WSL  | `curl -fsSL https://claude.ai/install.sh \| bash` |
 | macOS with Homebrew  | `brew install --cask claude-code`                 |
-| Windows (PowerShell) | `irm https://claude.ai/install.ps1 \| iex`        |
-| Windows (winget)     | `winget install Anthropic.ClaudeCode`             |
 
 The installer shows no progress while it downloads; give it a minute. Then
 **open a new terminal**.
 
 **Already have it? Update it.** Claude Code changes quickly and the workshop
-assumes a recent version. Run `claude update` (or `brew upgrade claude-code` /
-`winget upgrade Anthropic.ClaudeCode`) the day before.
+assumes a recent version. Run `claude update` (or `brew upgrade claude-code`)
+the day before.
 
 **Log in.** Start Claude Code in any folder and follow the browser prompts.
-Choose your paid Claude account:
+Choose your paid Claude account. (In WSL, if no browser opens, copy the
+link that Claude prints into your Windows browser.)
 
 ```bash
 claude
@@ -113,7 +153,7 @@ reply, then type `/exit` to quit.
 | Symptom                                                           | Fix                                                                                                                       |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `command not found` (or `not recognized`) right after installing  | Open a new terminal. If it persists, the install folder is not on your `PATH`: `~/.local/bin` for `claude`, `~/.pixi/bin` for `pixi` |
-| Windows: `The token '&&' is not a valid statement separator`      | You are in PowerShell; use the PowerShell command from the table                                                          |
-| Windows: `'irm' is not recognized`                                | You are in CMD; open PowerShell instead                                                                                   |
+| Windows: `'curl' is not recognized`, or `The token '&&' is not a valid statement separator` | You are in PowerShell or CMD, not WSL; open **Ubuntu** from the Start menu and run the command there |
+| Windows: `wsl --install` fails, or mentions virtualization        | Run PowerShell as administrator; if it still fails, virtualization may be off in the BIOS. Contact the instructor ahead of time |
 | Claude says your account has no access                            | The free plan does not include Claude Code. On a Team or Enterprise account, ask your administrator                       |
 | Downloads fail or hang on a work network                          | A proxy or firewall may block them; try from home or a phone hotspot                                                      |
