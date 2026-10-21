@@ -50,6 +50,11 @@ Sometimes, I will explicitly ask whether you are following along. If you are, pu
 
 If you followed this, put the green post-it up!
 
+::: instructor
+Hand out the post-its before starting: one green and one red each. The rest of
+the preparation is in `instructor-checklist.md`.
+:::
+
 ## Today: low-risk usage of coding agents
 
 We are going to work on

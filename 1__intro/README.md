@@ -134,6 +134,8 @@ So splitting a slide in two means splitting a `##` section in two.
 
 ```
 intro-to-coding-agents.md      the source; edit this
+pre-workshop-checklist.md      what attendees do before the day
+instructor-checklist.md        what the instructor does before the day
 media/token-growth.py          writes the Scheme 2 plot; built into build/media/
 Makefile                       SRC/STEM/WORKSHOP, then includes the shared rules
 ../common/workshop.mk          all the build rules, shared by every workshop

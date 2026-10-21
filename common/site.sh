@@ -37,7 +37,11 @@ echo '$title$' > "$title_tpl"
     fi
     printf -- '- **Notes, with copy buttons:** [web](%s/%s__student.html) · [PDF](%s/%s__student.pdf)\n' "$dir" "$stem" "$dir" "$stem"
     printf -- '- **Slides:** [deck](%s/%s__slides.html)\n' "$dir" "$stem"
-    printf -- '- **Instructor notes:** [web](%s/%s__instructor.html) · [PDF](%s/%s__instructor.pdf)\n\n' "$dir" "$stem" "$dir" "$stem"
+    printf -- '- **Instructor notes:** [web](%s/%s__instructor.html) · [PDF](%s/%s__instructor.pdf)\n' "$dir" "$stem" "$dir" "$stem"
+    if [ -f "$dir/instructor-checklist.md" ]; then
+      printf -- '- **Instructor checklist:** [before the workshop](%s/blob/main/%s/instructor-checklist.md)\n' "$REPO" "$dir"
+    fi
+    printf '\n'
   done
 } | pandoc -s -t html5 --embed-resources \
       --css=common/style/handout.css \
