@@ -27,6 +27,10 @@ start, at roughly 2–3 hours each:
 - [The Unix Shell](https://swcarpentry.github.io/shell-novice/)
 - [Version Control with Git](https://swcarpentry.github.io/git-novice/)
 
+**Python** is useful. The examples are in Python and use the `matplotlib` and
+`polars` libraries. You can follow along without knowing Python, but it will be
+easier if you do.
+
 You will also need:
 
 - [ ] A laptop running macOS, Linux, or Windows, where you can install software
