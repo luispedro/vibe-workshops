@@ -625,9 +625,10 @@ Each time round: the model emits a tool call, the harness runs it, **the output
 is appended to the context**, and the model can decide what to do next until it
 eventually decides to output text for you.
 
-## Scheme 4: models talk to themselves
+## Scheme 4: Reasoning models
 
-Reasoning traces
+[Like people](https://www.nature.com/articles/s41598-025-22647-2), models talk
+to themselves.
 
 The model will output tokens that it then uses to output more tokens before
 finally deciding to output user-visible tokens.
