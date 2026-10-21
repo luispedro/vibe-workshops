@@ -254,9 +254,41 @@ Write a CLAUDE.md file with the following guidelines:
   - Document any decisions
 ```
 
+::: remember
+`CLAUDE.md` is read at the start of every session in this folder, so what it
+says applies to every conversation in the project.
+:::
+
+::: handout
+`CLAUDE.md` is a plain text file that Claude Code loads into the context at the
+start of every session, so its contents apply to every conversation in that
+project. You can edit it with any text editor, at any time.
+
+Once Claude has written it, open it and read it. Claude often writes more than
+you asked for. Reading what the agent wrote, and trimming it, is a good first
+habit. Then commit it:
+
+```bash
+git add CLAUDE.md
+git commit -m 'Add CLAUDE.md'
+```
+
+::: remember
+`CLAUDE.md` is written for Claude, not for people. Edit it for content (is
+anything wrong, missing or superfluous?), not for style. Polishing the prose is
+wasted effort.
+:::
+:::
+
 ::: instructor
 First multi-line prompt: remind the room that Enter sends, so either `\` then
 Enter at the end of each line, or paste it from the web handout.
+
+Once Claude is done, open `CLAUDE.md` on screen and read it with the room. Point
+out anything Claude added that was not asked for, and trim it live. Then
+commit. Trim for content only: the file is for Claude, not for humans, so
+clunky wording is fine. Say plainly what the file is: it is loaded at the start of every
+session. The Scheme 3 diagram comes back to it.
 :::
 
 ## Step 4: look at the data
@@ -625,6 +657,24 @@ pre-existing project and want to start using claude.
 ```claude
 /init
 ```
+
+::: handout
+Here a `CLAUDE.md` already exists, so `/init` updates it. Compare your
+hand-made version with the generated one:
+
+```bash
+git diff CLAUDE.md
+```
+
+Edit it down to what is useful and commit, or run `git checkout CLAUDE.md` to
+go back to your own version.
+:::
+
+::: instructor
+Run `git diff CLAUDE.md` live and go through it with the room: what did `/init`
+keep from our guidelines, what did it add from looking at the project (`pixi`
+commands, the data layout from `data.md`)? Ask whether anything should go.
+:::
 
 ## Wrap-up
 
