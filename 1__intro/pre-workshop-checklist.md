@@ -43,6 +43,11 @@ start, at roughly 2–3 hours each:
 `polars` libraries. You can follow along without knowing Python, but it will be
 easier if you do.
 
+**A quick self-test:** if you would not be able to take a TSV file and use
+Python (or R) to generate a scatter plot of one column against another and
+then commit that code to a git repository, this workshop is not suitable for
+you (at least, not yet).
+
 You will also need:
 
 - [ ] A laptop running macOS, Linux, or Windows with WSL, where you can install
