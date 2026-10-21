@@ -140,7 +140,7 @@ $(BUILD)/$(STEM)__slides.html: $(SLIDE_DEPS) $(FIGS_SVG) | $(BUILD)
 
 # Beamer has no speaker-notes pane, so drop_notes strips the instructor
 # material rather than printing it onto the slides.
-$(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) $(FIGS_PDF) | $(BUILD)
+$(BUILD)/$(STEM)__slides.pdf: $(SLIDE_DEPS) $(CUES_TEX) $(FIGS_PDF) | $(BUILD)
 	$(PANDOC) -t beamer -o $@ \
 	    --slide-level=2 $(HIGHLIGHT) \
 	    $(RESOURCES) --default-image-extension=pdf \
