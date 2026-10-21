@@ -214,7 +214,8 @@ Claude may ask for permission to run commands. This is a safety feature.
 Depending on the permission mode, Claude either asks you or lets an internal
 safety classifier decide whether to allow the command.
 
-This has changed over time and may change again.
+This has changed fast, and will likely change again. Other harnesses may
+handle permissions quite differently.
 
 # Interlude: tokens, context, and what is actually happening
 
@@ -275,6 +276,14 @@ Two pricing schemes:
 
 1. Per token (typically, different for input vs output)
 2. Subscription with usage limits
+
+Current API prices: <https://claude.com/pricing#api>
+
+::: instructor
+Open the pricing page live rather than quoting numbers: prices change, and the
+page shows input, output and cache-read prices side by side, which sets up
+Scheme 2 (caching).
+:::
 
 ::: remember
 Either way, using fewer tokens is better. If paying per-token, it's a direct
