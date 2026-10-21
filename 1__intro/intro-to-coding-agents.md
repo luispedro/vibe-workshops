@@ -211,7 +211,8 @@ If Claude does not commit to main, you can ask it to do so:
 
 Claude may ask for permission to run commands. This is a safety feature.
 
-The current default mode is to use an internal safety classifier that decides whether to allow the command.
+Depending on the permission mode, Claude either asks you or lets an internal
+safety classifier decide whether to allow the command.
 
 This has changed over time and may change again.
 
@@ -219,7 +220,7 @@ This has changed over time and may change again.
 
 ## Building up a picture
 
-Let's start with a simple [oversimplified]{.underline} scheme and slowly build up
+Let's start with a simple (in fact, oversimplified) scheme and slowly build up
 towards a more accurate picture.
 
 ::: handout
@@ -270,7 +271,7 @@ every single turn.
 
 ## Pricing
 
-Two basic models:
+Two pricing schemes:
 
 1. Per token (typically, different for input vs output)
 2. Subscription with usage limits
@@ -382,7 +383,7 @@ finally deciding to output user-visible tokens.
 ## Bottom line
 
 ::: remember
-- the token count is also not what you see on screen
+- the token count is not what you see on screen
 - every message includes all previous messages
 - you type a tiny fraction of the tokens
 - caching changes things
