@@ -753,6 +753,24 @@ You should now know
 - what `CLAUDE.md` is (including what `/init` does)
 - what "context" is and how to work with it
 
+## Other coding agents
+
+Claude Code is not the only one:
+
+- Codex (OpenAI)
+- Gemini CLI (Google)
+- opencode (open source, works with many models)
+
+At the level we worked at today, the concepts are the same.
+
+::: handout
+Tokens, context, a harness running tools in a loop, a project file of
+guidelines (`AGENTS.md`, `GEMINI.md`, or `CLAUDE.md`): all of today's ideas
+carry over to the other agents. The commands and keys differ, and so do the
+details of permissions and pricing. Which one you end up using is mostly a
+matter of personal preference and of what your institution makes available.
+:::
+
 ## Discussion. Q&A
 
 Questions?
