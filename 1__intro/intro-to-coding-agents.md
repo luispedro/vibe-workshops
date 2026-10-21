@@ -26,6 +26,36 @@ Sometimes, I will explicitly ask whether you are following along. If you are, pu
 
 If you followed this, put the green post-it up!
 
+## Today: low-risk usage of coding agents
+
+We are going to work on
+
+1. public data
+2. code that is, or will soon be, public
+3. without any other privacy or data sovereignty concerns
+
+This is the _minimal risk_ scenario
+
+::: handout
+Anything Claude reads (files, command output, data) is sent to the model
+provider. Today that does not matter much as we are working with publicly
+available data and our code can be made public.
+
+However, before using an agent on sensitive data (e.g., medical data), be sure
+to check what policies apply to the data and what provisions are in place
+(e.g., local or sovereign models).
+:::
+
+::: instructor
+This sets the question aside as out of scope for the introduction. You can
+mention that there are very useful bioinformatics applications where we use
+public data and push to GitHub where these questions do not arise, while in
+other cases, there are very real concerns about privacy and compliance.
+
+If someone asks about their own sensitive data: everything Claude reads leaves
+the machine.
+:::
+
 ## Learning goals
 
 This is an intro to using coding agents. At the end of the session, you should
