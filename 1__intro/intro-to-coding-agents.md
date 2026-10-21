@@ -350,12 +350,17 @@ Write a document called data.md with the structure of the data
 ## Step 5: basic plots
 
 ```claude
-Plot the data. I want to see a stacked bar plot of different qulity categories.
+Plot the data.
+I want to see a stacked bar plot of different qulity categories.
 ```
 
+Fairly specific: we name the plot type, but leave out columns and style.
+
+::: handout
 First example, a fairly specific request: we specify the type of plot we want,
 but we still leave out a lot of details. This includes column names (which the
 model should be able to figure out reliably), but also style choices.
+:::
 
 ::: remember
 The process is not deterministic. We will have different plots.
@@ -366,7 +371,6 @@ The typo ("qulity") is deliberate: type it as written. Point out that Claude
 does not care: typos and sloppy phrasing in prompts are fine, no need to go
 back and fix them.
 :::
-
 
 If Claude does not commit to main, you can ask it to do so:
 
@@ -642,11 +646,6 @@ Two reasons:
 
 ## Tools: `/clear` and `/compact`
 
-```{.no-cue}
-/clear
-/compact
-```
-
 ::: remember
 - `/clear`: wipe the conversation. Equivalent to exiting and starting a new
   session.
@@ -708,11 +707,14 @@ Do it for family and genus as well.
 ```
 
 ```claude
-Plot the quality score (completeness - 5 * contamination) against genome size.
+Plot the quality score (completeness - 5 * contamination)
+against genome size.
 ```
 
 ```claude
-Download `https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1` and match it against the MAGs. Plot the number of ARGs vs. the quality score.
+Download this file and match it against the MAGs:
+https://zenodo.org/records/16356977/files/SHD1_ARGs_MAGs.csv.gz?download=1
+Plot the number of ARGs vs. the quality score.
 ```
 
 ::: handout
@@ -730,10 +732,11 @@ This will likely be different for you (the results are not deterministic).
 
 ## Follow-up questions
 
-You can ask follow up questions, for example
+You can ask follow-up questions, for example
 
 ```claude
-why does it matter that it is part of their normal genomes and not acquired resistance?
+why does it matter that it is part of their normal genomes
+and not acquired resistance?
 ```
 
 Again, the answer will likely be different for you, but for me the answers were
