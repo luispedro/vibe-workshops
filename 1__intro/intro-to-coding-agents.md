@@ -247,15 +247,52 @@ probably in the right ballpark.
 
 You type
 
-"Good morning, claude!"
+"Good morning, Claude, let's work on bioinformatics!"
 
 ↓
 
-[`Good` `morn` `ing` `,` `claude` `!`]{.tokens} → 6 tokens
+[`Good` `morning` `,` `Claude` `,` `let` `'s` `work` `on` `bio` `informatics` `!`]{.tokens} → 12 tokens
 
 ⟿ *Magic* ⟿
 
 → [`Good` … `, Luis!`]{.tokens} ⟵ 6 tokens
+
+::: handout
+::: aside
+Tokenization is a bit more complicated than "a word or a piece of a word".
+Tokens are learned from how often pieces of text appear in the training data,
+not from a dictionary, so:
+
+- **The same word can cost different amounts.** In every tokenizer we checked,
+  `Claude` is one token, but lowercase `claude` is two:
+  [`cla` `ude`]{.tokens} (or [`cl` `aude`]{.tokens}).
+- **Common words are one token; rarer ones split.** `quality` is one token, but
+  the typo `qulity` is two or three: [`qul` `ity`]{.tokens}, or
+  [`q` `ul` `ity`]{.tokens}. `bioinformatics` is
+  [`bio` `informatics`]{.tokens}, but `bioinformatic` (without the *s*) is
+  three: [`bio` `inform` `atic`]{.tokens}. `metagenomics` is
+  [`met` `agen` `omics`]{.tokens}.
+- **Different tokenizers disagree.** The sentence on this slide is 12 tokens
+  in most tokenizers, but 11 in OpenAI's newer ones, which keep `let's`
+  whole. `Enterobacteriaceae` is anything from 3 to 6 tokens. One tokenizer
+  (DeepSeek-V3) has the whole of `Bioinformatics`, capitalised, as a single
+  token.
+
+Checked with open tokenizers: OpenAI `o200k_base` and `cl100k_base`, Qwen3,
+DeepSeek-V3, gpt-oss and Mistral-Nemo. Claude's tokenizer is not public, so its
+exact splits may differ, but the pattern is the same.
+:::
+:::
+
+::: instructor
+Keep this simple on stage: a token is roughly a word, and long or rare words
+split. The 12 is from open tokenizers (OpenAI's newer ones give 11, and
+Claude's tokenizer is not public), so do not defend the exact number.
+
+If someone asks, or the room is ahead of time: lowercase `claude` is two
+tokens (`cla` `ude`) while `Claude` is one, and the Step 5 typo `qulity` splits
+while `quality` does not. Details are in the handout aside.
+:::
 
 ## Scheme 1, second turn
 
