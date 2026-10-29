@@ -215,11 +215,16 @@ Besides the goals, non-goals, technological choices and milestones from
 
 Anything else is fine: a tool from your own work is better.
 
-This exercise should take ~15 minutes. After the first 5 minutes, you should have chosen an idea and then spend the next 5–10 minutes iterating with `claude` and by editing the plan yourself. Then, we can have a discussion about the plans in the room.
+About 15 minutes, then a discussion:
+
+1. _5 minutes_: pick an idea and get a first plan
+2. _5–10 minutes_: iterate, with `claude` and by editing the plan yourself
+3. Discussion of the plans in the room
 
 ::: instructor
-About 20–25 minutes in total, following the timings on the slide. In the
-discussion, look at two or three plans from the room.
+About 20–25 minutes in total: ~15 minutes of work, following the timings on
+the slide, then 5–10 minutes of discussion. In the discussion, look at two or
+three plans from the room.
 
 This is a thought exercise: there is no data, and nobody should be running
 anything.
