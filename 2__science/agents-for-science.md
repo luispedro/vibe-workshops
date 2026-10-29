@@ -231,6 +231,26 @@ People who are stuck choosing: tell them to take the first idea. People
 outside microbiome: their own work is better than any of these.
 :::
 
+::: handout
+**A reflection:** I used to argue that one should separate scientific code into
+code that is part of a single paper, which I called _Extended Methods_, and
+code that is meant to be used by others as a _tool_. I even wrote a
+perspective paper about it ([Coelho, _PLOS Comput Biol_
+2024](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011920)).
+
+In particular, I argued that elevating code from Extended Methods to a tool
+takes a lot of effort (roughly 5–10×), and so it is not always worth doing.
+I also argued that maintenance is a large cost that one should consider before
+deciding to make a piece of code into a tool.
+
+With agents, though, the cost of going from Extended Methods to a tool is much
+lower, and it may make sense to use the full infrastructure of a tool (_e.g._,
+full test coverage, CI) even for code that is only used in a single paper.
+Maintenance is still a cost, but it is much lower than before. For example, a
+failure after an update of a dependency can generally be fixed with a single
+prompt to the agent.
+:::
+
 ## Similar structure for reviewing projects
 
 ```claude
