@@ -25,17 +25,20 @@ This session does not present _best practices_! These are still being discovered
 
 ::: handout
 This session presents a _working_ approach and shows a few examples from my own work. I am very happy to learn about other approaches!
-
-Unlike the first workshop, we cannot run these live due to time constraints.
 :::
 
 ## Structure of the session
 
-1. Using `claude` for longer-term projects: more than a single-shot prompt
+1. Using `claude` for longer-term projects in bioinformatics: more than a single-shot prompt
 2. Using `claude` for computational biology: from a vague question to a complete analysis
 
-Both of these are presented as case studies.
+Both of these are presented as case studies with an exercise in part 1.
 
+Unlike for the first workshop, we will not be running these live due to time constraints.
+
+::: instructor
+Mention that _bioinformatics_ is about building tools and _computational biology_ is about answering questions with data. The former is more structured, the latter is more open-ended.
+:::
 
 # Using `claude` for longer-term projects
 
@@ -105,12 +108,10 @@ of unverified code. Ask the room: what is the equivalent of `tests/` for your
 analysis?
 :::
 
-## More examples: luish and rewrites.bio
+## Another example: luish
 
 - [luish](https://github.com/luispedro/luish/blob/bdb9f18b5152b7db354e280b4339342d475a926d/PLAN.md):
   a shell from scratch, in Rust. 349 commits in a month
-- [rewrites.bio](https://rewrites.bio/): a collection of rewrites of
-  bioinformatics tools in Rust, each with a plan and a test suite
 
 ::: handout
 **luish.** [luish](https://github.com/luispedro/luish) is a POSIX shell written
@@ -214,15 +215,11 @@ Besides the goals, non-goals, technological choices and milestones from
 
 Anything else is fine: a tool from your own work is better.
 
-A few checkpoints:
-
-1. _5 minutes_: pick a project and get an initial version
-2. _5–10 minutes_: iterate
-3. _10–15 minutes_: discussion
+This exercise should take ~15 minutes. After the first 5 minutes, you should have chosen an idea and then spend the next 5–10 minutes iterating with `claude` and by editing the plan yourself. Then, we can have a discussion about the plans in the room.
 
 ::: instructor
-About 20–30 minutes in total, following the checkpoints on the slide. In
-the discussion, look at two or three plans from the room.
+About 20–25 minutes in total, following the timings on the slide. In the
+discussion, look at two or three plans from the room.
 
 This is a thought exercise: there is no data, and nobody should be running
 anything.
@@ -297,6 +294,12 @@ The reason why this is harder is that it is less clear what _correct_ means.
 :::
 
 
+## The data
+
+We will work with the same dog gut microbiome dataset as in Workshop 1, but now we will focus on extra-chromosomal elements (ECEs).
+
+We extracted the ECEs from the assemblies and want to know how they replicate.
+
 ## The question
 
 [`analysis.md`](https://github.com/luispedro/dogs-ece-replication/blob/beb043d01737a1d455a69a5dc931259cb6d5eeaa/analysis.md):
@@ -322,6 +325,10 @@ can be identified?
 - Use jug + python + matplotlib to coordinate the analysis and
   generate plots.
 ```
+
+::: instructor
+Note that the phrasing is still short and vague.
+:::
 
 ## Asking `claude` to plan the analysis
 
@@ -358,13 +365,13 @@ Every time you run this, you will get a different result.
 Not even just a different result, but potentially a completely different analysis!
 :::
 
-## Wait an hour or two and check the results
+## It takes a few hours
 
 This ran for a bit over 2 hours on my laptop, independently without further
 human intervention.
 
 
-![Token usage over the run, as shown by opencode](media/token-usage.png){width=40%}
+![Context and cost, as shown by opencode](media/token-usage.png){width=40%}
 
 Full outputs: [dogs-ece-replication](https://github.com/luispedro/dogs-ece-replication),
 starting with [`REPORT.md`](https://github.com/luispedro/dogs-ece-replication/blob/beb043d01737a1d455a69a5dc931259cb6d5eeaa/REPORT.md)
@@ -403,3 +410,6 @@ Criticize the analysis that Claude performed in this project.
 These are all evolving practices
 :::
 
+## Discussion. Q&A
+
+Questions?
