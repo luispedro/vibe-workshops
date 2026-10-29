@@ -147,6 +147,47 @@ emphasize for science: the analysis equivalent is a sanity check, a known
 result to reproduce, or a stopping point where you look at the data yourself.
 :::
 
+## Bioinformatics tools ported to Rust
+
+::: reference
+- [rewrites.bio](https://rewrites.bio): principles for AI-assisted rewrites —
+  credit the authors, match outputs exactly, disclose how it was done
+- [RustQC](https://seqera.io/blog/rustqc/): 15 RNA-seq QC tools in one, >60×
+  faster
+- [Henriksson lab](https://www.henlab.org/files/2026_rust_translation_preprint.pdf):
+  ~20 tools (BWA-MEM2, minimap2, DIAMOND, HMMER, Kraken2, Prokka, htslib, …)
+- fgumi, fastVEP, RastQC, sshash-rs, rust-fastqtl, dada2-rs, …
+:::
+
+::: handout
+All of these are from 2026, and almost all describe themselves as experimental.
+Speed and correctness claims are the authors' own.
+
+| Rust port | Original (language) | Notes |
+| --------- | ------------------- | ----- |
+| [RustQC](https://github.com/seqeralabs/RustQC) | dupRadar (R), featureCounts (C), 8 RSeQC modules (Python), preseq, `samtools` stats, Qualimap RNA-Seq | Seqera, with Claude Code. featureCounts counts byte-identical; MultiQC reads the outputs unchanged. Weeks of validation |
+| [fgumi](https://github.com/fulcrumgenomics/fgumi) | part of fgbio (Scala) | Fulcrum Genomics |
+| [fastVEP](https://github.com/Huang-lab/fastVEP) | VEP (Perl), Nirvana (C#) | Huang lab, with a bioRxiv preprint |
+| [RastQC](https://github.com/Huang-lab/RastQC) | FastQC (Java) | Huang lab; drop-in replacement |
+| [sshash-rs](https://github.com/COMBINE-lab/sshash-rs) | sshash (C++) | COMBINE-lab |
+| [rust-fastqtl](https://github.com/huangnengCSU/rust-fastqtl) | fastqtl (C++, unmaintained) | |
+| [dada2-rs](https://github.com/HPCBio/dada2-rs) | DADA2 (R/C++) | HPCBio; AI-assisted commits labelled; follows rewrites.bio |
+| [henriksson-lab](https://github.com/orgs/henriksson-lab/repositories) | BWA-MEM2, minimap2, STAR, DIAMOND, MUSCLE, HMMER, Kraken2, Prodigal, Prokka, SKESA, FastQC, AMRFinderPlus, htslib, Bio-Formats, … | Claude Code and Codex, 11 weeks. Naive prompts lost most features; one function at a time, checked by static analysis, worked. BLAST failed twice |
+
+[rewrites.bio](https://rewrites.bio) is Seqera's set of principles that grew out
+of RustQC. [Heng Li's "The AI rewrite
+dilemma"](https://lh3.github.io/2026/04/17/the-ai-rewrite-dilemma) is the view
+from a maintainer whose tools get rewritten: in favour on technical grounds, but
+"empathy matters more than technical benefit or legal correctness".
+:::
+
+::: instructor
+Do not present the list; point at it and move on (under a minute). The one
+thing to say: every port that worked had an oracle, the original tool's
+outputs. RustQC matches featureCounts byte for byte; Henriksson found that
+"translate this" without checks gave code missing most features.
+:::
+
 ## Use a `working-memory.md` file
 
 
