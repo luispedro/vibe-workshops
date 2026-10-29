@@ -21,7 +21,7 @@ trap 'rm -f "$title_tpl"' EXIT
 echo '$title$' > "$title_tpl"
 
 {
-  printf -- '---\ntitle: "Vibe Sciencing Workshops"\nsubtitle: "Hands-on workshops on coding agents, by Luis Pedro Coelho"\n---\n\n'
+  printf -- '---\ntitle: "Vibe Sciencing Workshops"\nsubtitle: "Hands-on workshops on coding agents, by [Luis Pedro Coelho](https://luispedro.org)"\n---\n\n'
   printf 'Source, and how to build it yourself: <%s>\n\n' "$REPO"
 
   for mk in [0-9]__*/Makefile; do
@@ -46,6 +46,7 @@ echo '$title$' > "$title_tpl"
     fi
     printf '\n'
   done
+  printf '## Feedback\n\nFor feedback, please open an issue at <%s/issues> or [email Luis](mailto:luis@luispedro.org).\n' "$REPO"
 } | pandoc -s -t html5 --embed-resources \
       --css=common/style/handout.css \
       -o "$SITE/index.html"

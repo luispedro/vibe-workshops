@@ -1,9 +1,15 @@
 ---
 title: "Coding Agents: an Introduction"
 subtitle: "Workshop 1"
-author: "Luis Pedro Coelho"
+author: "[Luis Pedro Coelho](https://luispedro.org)"
 date: "2026"
 ---
+
+::: handout
+Feedback, corrections and questions are very welcome. The best ways to reach
+me are to open an issue at <https://github.com/luispedro/vibe-workshops/issues>
+or to email me at <luis@luispedro.org>.
+:::
 
 # Prerequisites & learning goals
 
