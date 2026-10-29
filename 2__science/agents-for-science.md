@@ -16,7 +16,8 @@ date: "2026"
 ## Learning goals
 
 - Understand how we can use `claude` for longer-term projects
-- Perhaps expand your understanding of what is possible with `claude`
+- Expand your understanding of what is possible with `claude`
+
 
 ::: aside
 This session does not present _best practices_! These are still being discovered (and even changing with model/harness updates).
@@ -176,6 +177,59 @@ The best is a _clear, automatable (verifiable) definition of correctness_
 
 Migrations are a perfect example: the old code is assumed to be correct and the new code is verified against it.
 
+## Hands-on: plan a tool
+
+Pick a tool you would find useful and write its `PLAN.md` with `claude`.
+Only the plan for today.
+
+```bash
+mkdir plan-exercise
+cd plan-exercise
+claude
+```
+
+```claude
+I would like to write a tool that ... Help me write a plan for it, then save it to 'PLAN.md'. Do not start implementing it.
+```
+
+::: remember
+You can specify as much or as little detail as you want.
+:::
+
+::: handout
+Besides the goals, non-goals, technological choices and milestones from
+"Create a PLAN.md", ask yourself:
+
+- What goes in and what comes out (file formats, a figure, a report)?
+- For a visualisation, tests can check the numbers but not the picture. Have
+  the tool write out the table behind each figure, and put "look at the plot"
+  in the plan as an explicit step.
+:::
+
+## Some ideas, or bring your own
+
+- A visual quality report for metagenomic bins
+- A coverage and GC-skew plot for contigs, from a BAM file
+- A summary of antibiotic-resistance genes across samples (RGI)
+
+Anything else is fine: a tool from your own work is better.
+
+A few checkpoints:
+
+1. _5 minutes_: pick a project and get an initial version
+2. _5–10 minutes_: iterate
+3. _10–15 minutes_: discussion
+
+::: instructor
+About 20–30 minutes in total, following the checkpoints on the slide. In
+the discussion, look at two or three plans from the room.
+
+This is a thought exercise: there is no data, and nobody should be running
+anything.
+
+People who are stuck choosing: tell them to take the first idea. People
+outside microbiome: their own work is better than any of these.
+:::
 
 ## Similar structure for reviewing projects
 

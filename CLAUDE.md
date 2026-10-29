@@ -28,7 +28,8 @@ the fix.
   Assumes only basic git, some Python, and a paid Claude account.
 - **`2__science`** is the follow-up, as two case studies. First, longer-term
   projects driven by a `PLAN.md` and a `working-memory.md` (NGLess Haskell →
-  Rust, luish, rewrites.bio), and reviewing projects the same way. Second,
+  Rust, luish, rewrites.bio), reviewing projects the same way, and a hands-on
+  exercise where attendees plan (but do not build) a tool of their own. Second,
   computational biology: a vague question about ECE replication, a plan
   written by Claude, a two-hour unattended run, and a critique by another
   model. The question, plan, report and full outputs of that run are in

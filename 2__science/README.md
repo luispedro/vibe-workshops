@@ -3,8 +3,9 @@
 Two case studies, presented rather than typed along: using Claude Code for
 longer-term projects driven by a `PLAN.md` (NGLess, luish, rewrites.bio), and
 for computational biology, going from a vague question to a complete analysis
-(ECE replication). Builds on Workshop 1 and does not re-teach the basics. One
-source file, three audiences.
+(ECE replication). One short hands-on exercise: attendees write a `PLAN.md`
+for a tool of their choice, without implementing it. Builds on Workshop 1 and
+does not re-teach the basics. One source file, three audiences.
 
 ```
 agents-for-science.md  --+--> build/…__slides.html             reveal.js deck
