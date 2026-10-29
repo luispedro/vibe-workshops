@@ -15,16 +15,25 @@ date: "2026"
 
 ## Learning goals
 
-::: instructor
-Fill in once the case study is chosen. Keep to three bullets, and repeat them
-verbatim in the Wrap-up so the session closes on the same three.
+- Understand how we can use `claude` for longer-term projects
+- Perhaps expand your understanding of what is possible with `claude`
+
+::: aside
+This session does not present _best practices_! These are still being discovered (and even changing with model/harness updates).
 :::
 
+::: handout
+This session presents a _working_ approach and shows a few examples from my own work. I am very happy to learn about other approaches!
+
+Unlike the first workshop, we cannot run these live due to time constraints.
+:::
 
 ## Structure of the session
 
-1. Using `claude` for longer-term projects
-2. Case study
+1. Using `claude` for longer-term projects: more than a single-shot prompt
+2. Using `claude` for computational biology: from a vague question to a complete analysis
+
+Both of these are presented as case studies.
 
 
 # Using `claude` for longer-term projects
@@ -95,16 +104,14 @@ of unverified code. Ask the room: what is the equivalent of `tests/` for your
 analysis?
 :::
 
-## More examples: luish and geniza
+## More examples: luish and rewrites.bio
 
 - [luish](https://github.com/luispedro/luish/blob/bdb9f18b5152b7db354e280b4339342d475a926d/PLAN.md):
   a shell from scratch, in Rust. 349 commits in a month
-- [geniza](https://github.com/luispedro/geniza/blob/6174d7d1363206d7c57baef0a5d5fbc558407c7c/PLAN.md):
-  a mail archiver, in Python. `DESIGN.md` first; 62 commits in 5 days
+- [rewrites.bio](https://rewrites.bio/): a collection of rewrites of
+  bioinformatics tools in Rust, each with a plan and a test suite
 
 ::: handout
-Both links are to the plan as it was first committed.
-
 **luish.** [luish](https://github.com/luispedro/luish) is a POSIX shell written
 in Rust. There was no old code to port, so the plan (700 lines, written on 26
 September 2026) had to supply what the NGLess test suite supplied:
@@ -128,47 +135,13 @@ replaced zsh as my default shell.
 As the project matured, the plan shrank (700 → 228 lines) and the goals moved
 to a separate, human-written `GOALS.md`. Some of the original non-goals (arrays,
 `[[ ]]`) are now features: the plan is a starting point, not a contract.
-
-**geniza.** [geniza](https://github.com/luispedro/geniza) is a one-way mail
-archiver (Python 3.15, pixi). Here the specification was written first, as a
-separate `DESIGN.md` (now ~1,500 lines) built up over a conversation. The plan
-(261 lines) was then derived from it, and a `CLAUDE.md` recorded the project
-conventions and the invariants that must never be broken (*e.g.*, the server
-is never modified). All three were committed on 24 October 2026, before any
-code.
-
-The plan is split into milestones M0–M10, and every milestone ends in
-something you can run, with a **Done when**:
-
-```markdown
-### M0 — Project skeleton
-
-- `pyproject.toml` with `[tool.pixi.*]`, `pixi.lock`, the `src/` layout,
-  an argparse CLI with no-op subcommands, and the pixi tasks.
-- `tests/corpus/`: synthetic messages covering every case the design names
-  [...]
-
-**Done when:** `pixi run test` and `pixi run lint` pass on a fresh clone.
-```
-
-Two more features of this plan are worth copying:
-
-- **Gates.** The first milestones need no network and write nothing; they
-  produce statistics on real mail. The plan says to stop after M3 and look,
-  because those numbers set defaults that the design deliberately left open.
-  This is where the human decides, not the agent.
-- **Status at the top.** Each milestone is marked done (and how it was
-  verified) as it is completed, so `PLAN.md` doubles as the project's progress
-  report. Day-to-day state goes into `working-memory.md` (next slide).
-
-By 28 October (5 days, 62 commits): milestones M0–M7 done, M8 (JMAP sync) in
-progress, with ~9.7k lines of Python and slightly more (~10.1k) lines of tests.
 :::
 
 ::: instructor
-Common thread across all three: the plan defines how "done" is checked (test
-suite, spec + reference implementation, "done when" + gates). That is the part
-to emphasize for science: the analysis equivalent is a sanity check, a known
+Common thread across both: the plan defines how "done" is checked (the
+existing test suite for NGLess; POSIX, with `dash` as the reference
+implementation, and later the Oils spec tests for luish). That is the part to
+emphasize for science: the analysis equivalent is a sanity check, a known
 result to reproduce, or a stopping point where you look at the data yourself.
 :::
 
@@ -196,6 +169,13 @@ Every so often, you can ask `claude` to clean up the `working-memory.md` file.
 ```claude
 Please clean up the 'working-memory.md' file to remove any information that is no longer relevant to the current state of the project. Make sure it only contains context that will help a new session pick up where we left off.
 ```
+
+## What are good projects for this approach?
+
+The best is a _clear, automatable (verifiable) definition of correctness_
+
+Migrations are a perfect example: the old code is assumed to be correct and the new code is verified against it.
+
 
 ## Similar structure for reviewing projects
 
@@ -232,33 +212,120 @@ NB: The numbers `#8` and `#9` refer to the issue numbers in the review files and
 Make a note that claude will often categorize issues into groups, so there may be numbers and letters or hierarchical numbering. The important thing is that the user can find the issue in the review file and remove it when fixed.
 :::
 
-# The case study
+# Using `claude` for computational biology
 
-## The dataset
+This is the harder setting! Give `claude` a dataset and a question, and let it explore the data.
 
-::: instructor
-90 minutes total. Budget: ~15 min setup, ~55 min case study, ~20 min the
-non-case-study material and wrap-up. Slides stay thin — this is typed live.
+It will operationalize your question into a set of analyses and run them.
+
+::: remember
+The reason why this is harder is that it is less clear what _correct_ means.
 :::
+
 
 ## The question
 
-# Exploration
+[`analysis.md`](https://github.com/luispedro/dogs-ece-replication/blob/beb043d01737a1d455a69a5dc931259cb6d5eeaa/analysis.md):
 
-## Step 1
+```text
+# ECE replication
 
-```bash
+## Data
+
+Data is available at https://zenodo.org/records/16356977. In
+particular, I want to analyse the extra-chromosomal elements (ECEs).
+
+## Question
+
+How do the ECEs replicate? Is it different between the different
+types of ECEs? Are there patterns in the replication mechanisms that
+can be identified?
+
+## Technology
+
+- Use pixi to install the necessary packages in a reproducible way
+  (do not rely on the system python).
+- Use jug + python + matplotlib to coordinate the analysis and
+  generate plots.
 ```
+
+## Asking `claude` to plan the analysis
 
 ```claude
-
+See the desired analysis in 'analysis.md'. Please sketch out how to operationalise it
 ```
+
+::: handout
+Between these two prompts there is usually some back and forth: read the
+sketch, correct what is wrong, and ask again.
+:::
+
+```claude
+Save this plan to a file called 'PLAN.md'.
+```
+
+## What did `claude` come up with?
+
+[`PLAN.md`](https://github.com/luispedro/dogs-ece-replication/blob/beb043d01737a1d455a69a5dc931259cb6d5eeaa/PLAN.md)
+
+Here is where you can iterate with `claude` or other models to refine the plan.
+
+## Running it
+
+```claude
+Execute the analysis in PLAN.md
+```
+
+Let it run.
+
+::: remember
+Every time you run this, you will get a different result.
+
+Not even just a different result, but potentially a completely different analysis!
+:::
+
+## Wait an hour or two and check the results
+
+This ran for a bit over 2 hours on my laptop, independently without further
+human intervention.
+
+
+![Token usage over the run, as shown by opencode](media/token-usage.png){width=40%}
+
+Full outputs: [dogs-ece-replication](https://github.com/luispedro/dogs-ece-replication),
+starting with [`REPORT.md`](https://github.com/luispedro/dogs-ece-replication/blob/beb043d01737a1d455a69a5dc931259cb6d5eeaa/REPORT.md)
+
+::: handout
+I ran this with _Claude Opus 5.5_ from within `opencode`, which shows the token usage, but it should otherwise be equivalent to using the `claude` command line tool.
+:::
+
+::: handout
+From my point-of-view, this was a single-shot prompt, but from its
+point-of-view, it was iterative:
+
+By monitoring the process, it was clear that it ran analyses, then re-assessed
+the process, changed the code, and re-ran the analyses.
+:::
+
+## We can ask for critique
+
+I actually asked _Luna_ (the OpenAI model) to critique the analysis:
+
+```{.no-cue}
+Criticize the analysis that Claude performed in this project.
+```
+
+(Anecdotally, the models enjoy critiquing each other.) The critique:
+[`luna-review.md`](https://github.com/luispedro/dogs-ece-replication/blob/beb043d01737a1d455a69a5dc931259cb6d5eeaa/luna-review.md)
 
 # Wrap-up
 
-## What we did
+- You can use `claude` for longer-term projects, both in bioinformatics and computational biology
+- You can use `claude` to review projects and fix issues
+- Separate `PLAN.md`/`review.md` from execution
+- Use a `working-memory.md` file to keep track of the state of the project and the context small
 
-## Where to go next
-
-::: reference
+::: remember
+These are all evolving practices
 :::
+

@@ -52,13 +52,16 @@ FIGS_SVG      := $(FIG_SCRIPTS:%.py=$(BUILD)/%.svg)
 FIGS_PDF      := $(FIG_SCRIPTS:%.py=$(BUILD)/%.pdf)
 FIGS_PNG      := $(FIG_SCRIPTS:%.py=$(BUILD)/%.png)
 RESOURCES     := --resource-path=.:$(BUILD)
+# Static images (screenshots and the like) are referenced with their extension,
+# ![](media/NAME.png), and used as-is; listed here only so editing one rebuilds.
+MEDIA_STATIC  := $(wildcard media/*.png media/*.jpg media/*.jpeg)
 
 SLIDE_DEPS    := $(SRC) $(FILTERS)/slides.lua $(STYLE)/slides.css $(CUES_DEPS) \
-                 $(FILTERS)/diagram.lua
+                 $(FILTERS)/diagram.lua $(MEDIA_STATIC)
 STUDENT_DEPS  := $(SRC) $(FILTERS)/handout-student.lua $(STYLE)/handout.yaml \
-                 $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua
+                 $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua $(MEDIA_STATIC)
 INSTR_DEPS    := $(SRC) $(FILTERS)/handout-instructor.lua $(STYLE)/handout.yaml \
-                 $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua
+                 $(CUES_DEPS) $(CUES_TEX) $(FILTERS)/diagram.lua $(MEDIA_STATIC)
 HTML_DEPS     := $(STYLE)/handout.css $(STYLE)/copy-buttons.html
 
 PANDOC := pandoc

@@ -12,22 +12,30 @@ to GitHub Pages (<https://luispedro.github.io/vibe-workshops/>) on each push to
 ```
 common/       shared build machinery — Makefile rules, pandoc filters, styles
 1__intro/     Workshop 1 — Coding Agents: an Introduction
-2__science/   Workshop 2 — Coding Agents for Science (case study; scaffold only)
+2__science/   Workshop 2 — Coding Agents for Science (two case studies)
 ```
 
-Each workshop directory holds only its own source markdown, a README, and a
-three-line `Makefile` that sets `SRC`/`STEM`/`WORKSHOP` and includes
-`../common/workshop.mk`. Nothing in `common/` is copied per workshop — fix it
-once and every part gets the fix.
+Each workshop directory holds its own source markdown, a README, a
+`pre-workshop-checklist.md`, a three-line `Makefile` that sets
+`SRC`/`STEM`/`WORKSHOP` and includes `../common/workshop.mk`, and whatever
+content it needs (`media/`, `data/`).
+Nothing in `common/` is copied per workshop — fix it once and every part gets
+the fix.
 
 - **`1__intro`** is the completely introductory session: what a coding agent is,
   how to ask Claude for code, `CLAUDE.md` and `/init`, and what "context" is and
   how to manage it (`/clear`, `/compact`, compaction, caching, the tool loop).
   Assumes only basic git, some Python, and a paid Claude account.
-- **`2__science`** is the follow-up: a longer case study, focused on using Claude
-  Code for scientific exploration — data analysis, plotting, iterating on an
-  analysis, checking what the agent actually did. It builds on part 1 and does
-  not re-teach the basics.
+- **`2__science`** is the follow-up, as two case studies. First, longer-term
+  projects driven by a `PLAN.md` and a `working-memory.md` (NGLess Haskell →
+  Rust, luish, rewrites.bio), and reviewing projects the same way. Second,
+  computational biology: a vague question about ECE replication, a plan
+  written by Claude, a two-hour unattended run, and a critique by another
+  model. The question, plan, report and full outputs of that run are in
+  <https://github.com/luispedro/dogs-ece-replication>. It builds on part 1 and
+  does not re-teach the basics. Its examples run for hours, so they are shown
+  rather than typed along; the ```` ```claude ```` fences are still the
+  prompts that were used.
 
 **Each part targets 90 minutes.** This is the hard budget when adding material:
 if a section grows, something else has to shrink. Roughly, plan for slides to be
@@ -36,9 +44,10 @@ own machines.
 
 ## It is hands-on, so slides are deliberately thin
 
-The workshop is performed live: the instructor types, the room types along. Many
-points are meant to be **demonstrated rather than spelled out on a slide** — the
-slide is a cue and a landmark, not the explanation.
+Part 1 is performed live: the instructor types, the room types along. Part 2
+is presented, but the same rules apply. Many points are meant to be
+**demonstrated rather than spelled out on a slide** — the slide is a cue and a
+landmark, not the explanation.
 
 Practical consequences when editing:
 
@@ -144,6 +153,8 @@ Do not draw diagrams in ASCII. Two mechanisms, both rendered at build time:
   the path given as its first argument; the build runs it into
   `build/media/NAME.{svg,pdf,png}`. Reference it *without* an extension,
   `![caption](media/NAME){width=80%}`, and each output picks its own format.
+- **Screenshots**: a static `media/NAME.png`, referenced *with* its extension
+  and given alt text, `![what it shows](media/NAME.png)`.
 
 Check the result on the slide, not just in the handout: the deck is 1280×800
 and a figure plus a heading and a line of text fills it.

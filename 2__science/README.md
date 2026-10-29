@@ -1,7 +1,10 @@
 # Workshop 2 — Coding Agents for Science
 
-Case-study session: using Claude Code for scientific exploration. Builds on
-Workshop 1 and does not re-teach the basics. One source file, three audiences.
+Two case studies, presented rather than typed along: using Claude Code for
+longer-term projects driven by a `PLAN.md` (NGLess, luish, rewrites.bio), and
+for computational biology, going from a vague question to a complete analysis
+(ECE replication). Builds on Workshop 1 and does not re-teach the basics. One
+source file, three audiences.
 
 ```
 agents-for-science.md  --+--> build/…__slides.html             reveal.js deck
@@ -136,6 +139,8 @@ So splitting a slide in two means splitting a `##` section in two.
 ```
 agents-for-science.md          the source; edit this
 Makefile                       SRC/STEM/WORKSHOP, then includes the shared rules
+pre-workshop-checklist.md      published on the site as a styled HTML page
+media/token-usage.png          screenshot used in the deck (static, not a script)
 ../common/workshop.mk          all the build rules, shared by every workshop
 ../common/filters/slides.lua             .instructor -> speaker notes, drop .handout
 ../common/filters/handout-student.lua    drop .instructor, unwrap .handout
