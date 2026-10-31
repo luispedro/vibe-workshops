@@ -181,3 +181,13 @@ reply, then type `/exit` to quit.
 | Windows: `wsl --install` fails, or mentions virtualization        | Run PowerShell as administrator; if it still fails, virtualization may be off in the BIOS. Contact the instructor ahead of time |
 | Claude says your account has no access                            | The free plan does not include Claude Code. On a Team or Enterprise account, ask your administrator                       |
 | Downloads fail or hang on a work network                          | A proxy or firewall may block them; try from home or a phone hotspot                                                      |
+
+
+## Alternatives to claude
+
+Conceptually, there is nothing in the workshop that is specific to Claude Code,
+but the examples are written for it. If you want to use another system, you
+will need to adapt the examples and it is your responsibility to make sure it
+works and to deal with any minor frictions (_e.g._, `opencode` uses `/models`
+(plural) instead of `/model` (singular), and the model names are different).
+
