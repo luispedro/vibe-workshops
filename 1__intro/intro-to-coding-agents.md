@@ -100,6 +100,12 @@ know
 - what `CLAUDE.md` is (including what `/init` does)
 - what "context" is and how to work with it
 
+::: handout
+Part of the theory of these workshops is that AI agents are still under-used in
+bioinformatics and part of the reason is that people are still underestimating
+what they can do.
+
+:::
 
 ## A note on this field
 

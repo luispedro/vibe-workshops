@@ -30,8 +30,25 @@ This session does not present _best practices_! These are still being discovered
 :::
 
 ::: handout
-This session presents a _working_ approach and shows a few examples from my own work. I am very happy to learn about other approaches!
+As I wrote in the first workshop, I think that the most important thing is to
+understand what is possible, and then to try to have these abilities in your
+toolbox and _top of mind_ when you are doing your work.
+
+This session presents a _working_ approach and shows a few examples from my own
+work. I am very happy to learn about other approaches!
 :::
+
+## The missing middle
+
+There is a gap between the single-shot prompts of Workshop 1 and the
+longer-term projects we will discuss here.
+
+- _Skills_: a fancy way to organise & share markdown files
+- _Parallel worktrees_: multiple agents working at the same time
+- _Subagents_: agents that can call other agents
+
+I do not think these are as important as they seemed back in the early days of
+the field (2025).
 
 ## Structure of the session
 
