@@ -127,20 +127,6 @@ models/harnesses are constantly changing.
    commands, sees the results, and decides what to do next, without you typing
    each step.
 
-
-## Best practices from the old typed code world still apply
-
-::: remember
-Best practices that applied to human-written code, also apply to AI-generated
-code. If anything, agents make them more powerful.
-:::
-
-::: handout
-Version control, small commits, tests, clear naming, documented decisions,
-reproducible environments...
-:::
-
-
 # Case study
 
 ## The task
@@ -356,8 +342,8 @@ cd ..
 :::
 
 ```bash
-git add data
-git commit -m 'DAT add data from dogs'
+ls data/
+cat data/dataset_email.txt
 ```
 
 ::: instructor
@@ -794,6 +780,18 @@ go back to your own version.
 Run `git diff CLAUDE.md` live and go through it with the room: what did `/init`
 keep from our guidelines, what did it add from looking at the project (`pixi`
 commands, the data layout from `data.md`)? Ask whether anything should go.
+:::
+
+## Best practices from the old typed code world still apply
+
+::: remember
+Best practices that applied to human-written code, also apply to AI-generated
+code. If anything, agents make them more powerful.
+:::
+
+::: handout
+Version control, small commits, tests, clear naming, documented decisions,
+reproducible environments...
 :::
 
 ## Wrap-up
