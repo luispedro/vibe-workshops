@@ -181,6 +181,17 @@ wording, ask for a different plot, follow their own curiosity. Seeing how
 Claude reacts to *their* variation teaches more than reproducing mine.
 :::
 
+## The results are not deterministic
+
+::: remember
+LLMs are not deterministic. You will get different results from the same prompt.
+
+This also results in different behaviours: depending on how your instructions are
+interpreted, Claude may directly commit to main or ask permission or not commit
+at all. It may also choose different plots, or different ways to visualize the
+same data. This is normal and expected.
+:::
+
 ## Step 1: set up basics
 
 ```bash
