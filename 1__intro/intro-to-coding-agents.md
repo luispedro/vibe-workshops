@@ -801,8 +801,23 @@ code. If anything, agents make them more powerful.
 :::
 
 ::: handout
-Version control, small commits, tests, clear naming, documented decisions,
-reproducible environments...
+For a good reference, see
+
+> Taschuk M, Wilson G (2017) Ten simple rules for making research software more
+> robust. PLOS Computational Biology 13(4): e1005412.
+> [https://doi.org/10.1371/journal.pcbi.1005412](https://doi.org/10.1371/journal.pcbi.1005412)
+
+Their number one rule is _use version control_. This was always good advice. It
+was especially good when you were working with a team, rather than by yourself.
+While it is nice on a solo project to be able to go back to a previous version,
+the big advantage of version control is to manage inputs from multiple
+collaborators. In the agent era, the collaborators can be LLMs.
+
+Testing is another example: it was always good advice, but it did require extra
+effort which was not always worth it. Now, with agents, adding tests is a lot
+easier, and the benefits are even greater as the agents can run the tests at
+every step and self-correct.
+
 :::
 
 ## Wrap-up
