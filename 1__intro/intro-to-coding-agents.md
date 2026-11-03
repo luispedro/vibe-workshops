@@ -946,3 +946,8 @@ matter of personal preference and of what your institution makes available.
 ## Discussion. Q&A
 
 Questions?
+
+::: remember
+The handouts have more than the slides: notes, asides and references for
+later. Read them at <https://luispedro.github.io/vibe-workshops/>
+:::

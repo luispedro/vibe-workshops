@@ -544,3 +544,8 @@ These are all evolving practices
 ## Discussion. Q&A
 
 Questions?
+
+::: remember
+The handouts have more than the slides: notes, asides and references for
+later. Read them at <https://luispedro.github.io/vibe-workshops/>
+:::
