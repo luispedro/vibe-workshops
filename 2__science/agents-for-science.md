@@ -333,17 +333,20 @@ Besides the goals, non-goals, technological choices and milestones from
 
 ## Some ideas, or bring your own
 
-- A visual quality report for metagenomic bins
-- A coverage and GC-skew plot for contigs, from a BAM file
-- A summary of antibiotic-resistance genes across samples (RGI)
+| Idea                                | Outputs             |
+| ----------------------------------- | ------------------- |
+| Quality report for metagenomic bins | Navigable webpage   |
+| Coverage and GC skew per contig     | Stats/plots         |
+| Resistance genes across samples     | Stats/plots/webpage |
 
-Anything else is fine: a tool from your own work is better.
+A tool from your own work is better than any of these!
 
-About 15 minutes, then a discussion:
+::: remember
+How verifiable can you make it?
+:::
 
-1. _5 minutes_: pick an idea and get a first plan
-2. _5–10 minutes_: iterate, with `claude` and by editing the plan yourself
-3. Discussion of the plans in the room
+**~15 minutes:** 5 for a first plan, 5–10 to iterate on it (with `claude` and
+by hand), then we discuss.
 
 ::: instructor
 About 20–25 minutes in total: ~15 minutes of work, following the timings on
