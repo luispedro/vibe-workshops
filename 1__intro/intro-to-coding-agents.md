@@ -546,15 +546,56 @@ linear relationship; if on a subscription, you want to avoid usage limits.
 Providers cache the state, so if you reply within a few minutes, you don't pay
 full price for the previous bits of conversation.
 
-![Toy numbers: 20 tokens typed and 200 answered per turn.](media/token-growth){width=80%}
+```{.dot width=100%}
+digraph turns {
+  rankdir=TB; bgcolor=transparent; nodesep=0.5; ranksep=0.1;
+  node [fontname="DejaVu Sans", fontsize=16, shape=box, style="rounded,filled",
+        fillcolor=white, color="#37474f", fontcolor="#263238", penwidth=1.5, margin="0.18,0.1"];
+  edge [fontname="DejaVu Sans", fontsize=13, color="#37474f", fontcolor="#37474f", penwidth=1.5, arrowsize=0.8];
+
+  turn1 [shape=plain, style="", label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="8" color="#37474f">
+      <tr><td border="0"><font point-size="13" color="transparent">spacer</font></td></tr>
+      <tr><td bgcolor="#f6d9cd"><font point-size="12" color="#607d8b">prompt 1</font><br/>Good morning, Claude,<br/>let's work on<br/>bioinformatics!</td></tr>
+      <tr><td border="0"><font point-size="13" color="#607d8b">new: full price</font></td></tr>
+    </table>>];
+
+  turn2 [shape=plain, style="", label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="8" color="#37474f">
+      <tr><td colspan="3" border="0"><font point-size="13" color="transparent">spacer</font></td></tr>
+      <tr><td bgcolor="#eceff1"><font point-size="12" color="#607d8b">prompt 1</font><br/>Good morning, Claude,<br/>let's work on<br/>bioinformatics!</td>
+          <td bgcolor="#eceff1"><font point-size="12" color="#607d8b">response 1</font><br/>Good morning, Luis!<br/>…</td>
+          <td bgcolor="#f6d9cd"><font point-size="12" color="#607d8b">prompt 2</font><br/>How do I interpret<br/>the outputs<br/>of CheckM2?</td></tr>
+      <tr><td colspan="2" border="0"><font point-size="13" color="#607d8b">sent before: cached, cheaper</font></td>
+          <td border="0"><font point-size="13" color="#607d8b">new</font></td></tr>
+    </table>>];
+
+  model1 [label="model", fillcolor="#d97757", fontcolor=white, color="#d97757"];
+  model2 [label="model", fillcolor="#d97757", fontcolor=white, color="#d97757"];
+  resp1  [label="Good morning, Luis!\n…", color="#d97757"];
+  resp2  [label="CheckM2 reports\ncompleteness and\ncontamination…", color="#d97757"];
+
+  label1 [label=<<b>turn 1</b>>, shape=plain, style=""];
+  label2 [label=<<b>turn 2</b>>, shape=plain, style=""];
+
+  {rank=same; label1; turn1; model1; resp1}
+  {rank=same; label2; turn2; model2; resp2}
+  label1 -> turn1 [style=invis, minlen=0];
+  label2 -> turn2 [style=invis, minlen=0];
+  turn1 -> model1 -> resp1;
+  turn2 -> model2 -> resp2;
+  label1 -> label2 [style=invis];
+}
+```
 
 ::: handout
 Because every turn re-sends the whole conversation, the total sent grows with
-the *square* of the number of turns. With caching, the part the provider has
-already seen is billed at a fraction of the normal price (about 10% for a cache
-read at Anthropic), which flattens the curve but does not make it go away. The
-cache expires after a few minutes of inactivity, after which the next turn pays
-full price again.
+the *square* of the number of turns: turn 2 re-sends everything from turn 1,
+the model's answer included, and only then your new prompt. With caching, the
+part the provider has already seen is billed at a fraction of the normal price
+(about 10% for a cache read at Anthropic). That makes each turn cheaper, but the
+request still grows every turn. The cache expires after a few minutes of
+inactivity, after which the next turn pays full price again.
 :::
 
 ## Scheme 3: there is a harness
