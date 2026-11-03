@@ -834,6 +834,49 @@ keep from our guidelines, what did it add from looking at the project (`pixi`
 commands, the data layout from `data.md`)? Ask whether anything should go.
 :::
 
+::: handout
+::: reference
+**Files Claude Code treats as special.** These are read without being asked
+for:
+
+- `CLAUDE.md`, in the project folder or in `.claude/CLAUDE.md`: loaded at the
+  start of every session. Those in parent folders are loaded too; those in
+  subfolders are loaded once Claude works on a file in that subfolder.
+- `CLAUDE.local.md`: your personal notes for this project, loaded alongside
+  `CLAUDE.md`. Keep it out of git.
+- `~/.claude/CLAUDE.md`: your personal instructions, for every project.
+- `AGENTS.md`: the vendor-neutral equivalent, read by Codex, opencode and
+  others. Recent versions of Claude Code read it, but by default only when
+  there is no `CLAUDE.md`. To use both, put the line `@AGENTS.md` in
+  `CLAUDE.md` (`@path` pulls another file in).
+- `.claude/rules/*.md`: more instructions, optionally limited to some paths.
+- `.claude/settings.json` (shared) and `.claude/settings.local.json`
+  (personal): settings, such as which commands may run without asking. Not
+  instructions.
+- `.claude/skills/`, `.claude/agents/`, `.mcp.json`: skills, subagents and MCP
+  servers, which we do not cover.
+- Auto memory, in `~/.claude/projects/<project>/memory/`: notes Claude writes
+  for itself and reads back in later sessions.
+
+**Files that are only conventions.** Claude Code gives these no special
+treatment. They work because a prompt or `CLAUDE.md` tells Claude to read and
+update them, or because Claude finds them while exploring:
+
+- `README.md`: written for people, but agents read it too.
+- `PLAN.md`: the plan for a long project (part 2).
+- `TODO.md`, `NOTES.md`, `CHANGELOG.md`: whatever you find useful.
+
+For a convention file to be used every session, mention it in `CLAUDE.md`, for
+example "See `PLAN.md` for the plan." The details change between versions:
+<https://code.claude.com/docs/en/memory> and
+<https://code.claude.com/docs/en/claude-directory>.
+
+Today, we also used `data.md`, and in the next session we will use
+`working-memory.md`. These are not special file names, but the patterns are
+useful.
+:::
+:::
+
 ## Best practices from the old typed code world still apply
 
 ::: remember
