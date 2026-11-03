@@ -242,6 +242,68 @@ The best is a _clear, automatable (verifiable) definition of correctness_
 
 Migrations are a perfect example: the old code is assumed to be correct and the new code is verified against it.
 
+## Making your domains (more) verifiable
+
+1. **Mathematical proof**: rarely achievable for bioinformatics
+2. **Exact check**: checking the answer is easy and fast
+3. **Known reference**: compare against a trusted output
+4. **Invariants**: check properties of the output, not the output itself
+5. **Plausibility**: what you expect to see, but no ground truth
+6. **Diff and judge**: compare to the last version; a human decides
+7. **Judgement only**: a human (or another model) needs to evaluate it
+
+::: remember
+Think about how to move your problem as high as possible!
+:::
+
+::: handout
+Real projects may hit several of these:
+
+1. **Mathematical proof.** Perhaps relevant for a new algorithm, where we can
+   prove that the implementation is correct. Otherwise, rarely achievable for
+   bioinformatics.
+2. **Exact check.** Sorting: the output is in order and has exactly the same
+   records as the input; together, these two checks _are_ the definition of
+   sorting. Gene calls: extract each predicted ORF from the genome, translate
+   it, and compare it with the reported protein (this catches off-by-one and
+   strand errors).
+3. **Known reference.** A strong version is where you can have an _oracle_ that
+   can apply to any input. For example, ports, where the original tool is the
+   oracle (NGLess Haskell → Rust; RustQC vs featureCounts). Perhaps you can
+   have a slower version as a reference (e.g., BLAST vs. DIAMOND, which agree only within a tolerance, as DIAMOND
+   trades some sensitivity for speed). As a weaker
+   version, you can have some known input/output pairs (e.g., simulated data)
+   and check those, or check the classification of reference genomes whose
+   taxonomy you already know.
+4. **Invariants.** Reads are conserved: input = kept + filtered, mapped +
+   unmapped = total. Relative abundances sum to 1, counts are never negative,
+   every sample in the metadata is in the table. Each contig is in at most one
+   bin. Predicted genes have a length divisible by 3, a start codon, and no
+   internal stops. Reverse complement applied twice is the identity. Parse →
+   write → parse round trips: your tool writes a file that can be read back in
+   and gives the same data structure (this misses bugs shared by the reader and
+   the writer). Passing these does not make a result right, but failing any of them makes it wrong.
+5. **Plausibility.** Gut profiles where the expected phyla dominate, and dog
+   guts look like dog guts. Technical replicates sit closer together than
+   biological replicates in a PCoA. Antibiotic exposure lowers alpha diversity.
+6. **Diff and judge.** When code changes, does the output change?
+7. **Judgement only.** The output is what it is and you have to decide if it
+   makes sense.
+
+Climbing a rung: simulate a community and binning moves from 5 to 3; write
+"technical replicates are closer than biological ones" as a test and it moves
+from 5 to 4; save today's outputs on ten samples and you have a 6 where you had
+nothing.
+:::
+
+::: instructor
+About two minutes. Point out that migrations are rung 3, which is why they work
+so well. The line to land is the box: you can climb. Then ask the room which
+rung the tool they are about to plan sits on, and have them keep that question
+in mind during the exercise. Rung 7 is a pointer to the ECE case study, where
+the critique comes from a second model.
+:::
+
 ## Hands-on: plan a tool
 
 Pick a tool you would find useful and write its `PLAN.md` with `claude`.
