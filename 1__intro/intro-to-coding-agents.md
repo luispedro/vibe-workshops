@@ -195,6 +195,8 @@ same data. This is normal and expected.
 ## Step 1: set up basics
 
 ```bash
+mkdir vibe-workshop-1
+cd vibe-workshop-1
 git init
 pixi init
 git add .
@@ -338,6 +340,15 @@ session. The Scheme 3 diagram comes back to it.
 :::
 
 ## Step 4: look at the data
+
+Put the `data.zip` file in the project folder and unzip it:
+
+```bash
+unzip data.zip
+rm data.zip
+git add data/
+git commit -m 'Add data'
+```
 
 ::: handout
 If you have not downloaded the data yet, fetch it into `data/` from the shell
