@@ -218,6 +218,28 @@ See 'working-memory.md' for context. Continue working until you have made a self
 
 Let it run, use `/clear` to clear the context, and repeat until you are finished.
 
+::: handout
+The name `working-memory.md` is my own convention; nothing in Claude Code
+treats it specially. The pattern is widely used, though: keep the state of a
+long task in a file, start each session with a fresh context that reads it,
+and update it before stopping. Some other versions of it:
+
+- Anthropic's [harness for long-running
+  agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
+  uses `claude-progress.txt`, a feature list and the git log, read at the
+  start of every session.
+- Anthropic's [context engineering
+  guide](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+  calls it *structured note-taking* (e.g., a `NOTES.md` outside the context).
+- Cline's [Memory Bank](https://docs.cline.bot/prompting/cline-memory-bank) is
+  a `memory-bank/` folder, with `activeContext.md` and `progress.md` for the
+  current state.
+- [Manus](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)
+  keeps a `todo.md` that the agent rewrites as it goes.
+- Geoffrey Huntley's [Ralph loop](https://ghuntley.com/ralph/) runs the agent
+  in a shell loop, each time with a fresh context and a plan file on disk.
+:::
+
 ## Keep `working-memory.md` out of git
 
 This is a matter of personal preference, but I keep `working-memory.md` out of git because it is scratch state for the agent, not part of the project history.
