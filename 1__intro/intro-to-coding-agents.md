@@ -360,6 +360,8 @@ cd data
 curl -LO https://luispedro.github.io/vibe-workshops/1__intro/data/SHD_bins_MIMAG_report.csv
 curl -LO https://luispedro.github.io/vibe-workshops/1__intro/data/dataset_email.txt
 cd ..
+git add data/
+git commit -m 'Add data'
 ```
 :::
 
