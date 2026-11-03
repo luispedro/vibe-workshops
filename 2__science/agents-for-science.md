@@ -131,15 +131,13 @@ of unverified code. Ask the room: what is the equivalent of `tests/` for your
 analysis?
 :::
 
-## Another example: luish
-
-- [luish](https://github.com/luispedro/luish/blob/bdb9f18b5152b7db354e280b4339342d475a926d/PLAN.md):
-  a shell from scratch, in Rust. 349 commits in a month
-
 ::: handout
-**luish.** [luish](https://github.com/luispedro/luish) is a POSIX shell written
-in Rust. There was no old code to port, so the plan (700 lines, written on 26
-September 2026) had to supply what the NGLess test suite supplied:
+**Another example: luish.** [luish](https://github.com/luispedro/luish) is a
+POSIX shell written from scratch in Rust. There was no old code to port, so the
+plan
+([`PLAN.md`](https://github.com/luispedro/luish/blob/bdb9f18b5152b7db354e280b4339342d475a926d/PLAN.md),
+700 lines, written on 26 September 2026) had to supply what the NGLess test
+suite supplied:
 
 - goals: POSIX conformance; as fast as `dash`; plugins in Python, at no cost
   unless loaded; arguments, variables and filenames as arbitrary bytes;
