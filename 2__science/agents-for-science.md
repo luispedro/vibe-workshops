@@ -50,6 +50,45 @@ longer-term projects we will discuss here.
 I do not think these are as important as they seemed back in the early days of
 the field (2025).
 
+::: handout
+::: reference
+**Skills.** A skill is a folder holding a `SKILL.md`. The file opens with a
+short `description`, followed by instructions, and the folder can also hold
+reference files and scripts. Until a task matches the description, Claude
+sees only the description, so an unused skill costs almost no context. Put
+skills in `~/.claude/skills/<name>/` to use them in all your projects, or in
+`.claude/skills/<name>/` to commit them with one project. You can also run a
+skill yourself by typing `/<name>`.
+
+- *How to write one:* the
+  [Claude Code skills docs](https://code.claude.com/docs/en/skills) and
+  Anthropic's
+  [authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
+- *Why they exist:* Anthropic's
+  [engineering post](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills),
+  and Simon Willison's
+  [*Claude Skills are awesome, maybe a bigger deal than MCP*](https://simonwillison.net/2025/Oct/16/claude-skills/).
+- *Not just Claude:* the format is an open standard,
+  [agentskills.io](https://agentskills.io), and
+  [Codex reads skills too](https://developers.openai.com/codex/skills).
+- *Examples:* [anthropics/skills](https://github.com/anthropics/skills); for
+  science,
+  [K-Dense-AI/claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills)
+  and Anthropic's
+  [Claude for Life Sciences](https://www.anthropic.com/news/claude-for-life-sciences).
+- *Sharing a set of skills:*
+  [plugins](https://code.claude.com/docs/en/plugins) and
+  [plugin marketplaces](https://code.claude.com/docs/en/plugin-marketplaces).
+
+**Ship a skill with your tool.** If you maintain a tool, a skill in its
+repository teaches agents how to use it. My skills for
+[Jug](https://github.com/luispedro/jug/tree/main/jug/skills/jug),
+[NGLess](https://github.com/ngless-toolkit/ngless/tree/main/skills) and
+[SemiBin](https://github.com/BigDataBiology/SemiBin/tree/main/SemiBin/skills/semibin)
+are examples.
+:::
+:::
+
 ## Structure of the session
 
 1. Using `claude` for longer-term projects in bioinformatics: more than a single-shot prompt
