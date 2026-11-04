@@ -30,12 +30,17 @@ This session does not present _best practices_! These are still being discovered
 :::
 
 ::: handout
-As I wrote in the first workshop, I think that the most important thing is to
-understand what is possible, and then to try to have these abilities in your
-toolbox and _top of mind_ when you are doing your work.
+I think that the most important thing is to understand what is possible, and
+then to try to have these abilities in your toolbox and _top of mind_ when you
+are doing your work.
 
 This session presents a _working_ approach and shows a few examples from my own
-work. I am very happy to learn about other approaches!
+work that have worked _for me_. I am very happy to learn about other
+approaches and to discuss them.
+
+I think it is through the sharing of different approaches and experiences that
+we will eventually converge on best practices.
+
 :::
 
 ## The missing middle
