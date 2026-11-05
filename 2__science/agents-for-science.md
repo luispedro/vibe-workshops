@@ -647,6 +647,58 @@ Criticize the analysis that Claude performed in this project.
 These are all evolving practices
 :::
 
+## Good agent problems
+
+One or both of:
+
+1. A clear, automatable definition of correctness (high on the ladder)
+2. A lot of boilerplate code
+
+**Examples:**
+
+- Ports to a new language or framework; dependency upgrades
+- Making a tool faster or more memory-efficient
+- Adding tests to untested code
+- Packaging a script as a tool
+- Making a companion website for a paper
+
+::: handout
+Where each example sits, and a few more. The rung in brackets refers to the
+ladder in "Making your domains (more) verifiable".
+
+Clear correctness, because an oracle or a test exists:
+
+- **Upgrading dependencies or APIs** (Python 2 → 3, pandas 1 → 2, Snakemake
+  7 → 8, Nextflow DSL1 → DSL2) is a migration in all but name: the outputs
+  before the upgrade are the oracle [3].
+- **Making a tool faster** also has the old version as its oracle [3], and the
+  benchmark tells you whether you are done.
+- **Turning a pile of shell scripts into a Snakemake or Nextflow pipeline**:
+  the outputs should be identical to those of the scripts [3].
+- **Adding tests to untested code**: freeze today's outputs on a few inputs as
+  golden files, then refactor against them. This turns a 7 into a 6.
+- **Turning bug reports into failing tests**, then fixing them: "the test now
+  passes" is a very clear definition of done [2].
+- **Parsers and format converters** (GFF ↔ GTF, vendor formats) get a
+  round-trip invariant for free [4].
+- **Reproducing a paper's figures from its released data**: the published
+  figure is the reference [3, or 5 if only roughly].
+
+Mostly boilerplate:
+
+- **Packaging a script as a tool**: a command-line interface,
+  `pyproject.toml`, a bioconda recipe, CI, a container image. This is the
+  _Extended Methods_ → tool step, made cheap.
+- **Documentation with runnable examples**: tutorials or doctests that CI
+  executes, so the documentation is itself checked.
+- **Harmonising metadata across studies** into one schema: tedious, and
+  validating against the schema is the check.
+- **Benchmark harnesses**: run several tools on simulated data and collect the
+  results into one table.
+- **A companion website for a paper**: little to verify beyond looking at it,
+  but it is cheap to be wrong and easy to redo.
+:::
+
 ## Discussion. Q&A
 
 Questions?
