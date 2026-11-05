@@ -147,6 +147,13 @@ Technologies:
 See GOALS.md. Review the goals and write a plan for the project, then save it to 'PLAN.md'. The plan should include milestones and deliverables, and should be structured in a way that allows for iterative development and verification of correctness.
 ```
 
+::: handout
+If you look at the history of some of the projects I show next, you can see
+that the separation between `GOALS.md` and `PLAN.md` was not always kept. This
+is not strictly necessary, but I do like to separate the more human-focused
+`GOALS.md` from the more machine-focused `PLAN.md`.
+:::
+
 ## Example PLAN.md: NGLess, Haskell → Rust
 
 [The plan: `rust-migration.md`](https://github.com/ngless-toolkit/ngless/blob/e5393c800cc342e1cbf67ae280bc80e8bcf182aa/rust-migration.md)
