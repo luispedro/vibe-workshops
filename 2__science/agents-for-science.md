@@ -109,23 +109,43 @@ Mention that _bioinformatics_ is about building tools and _computational biology
 
 # Using `claude` for longer-term projects
 
-1. Create a `PLAN.md` file.
-2. Repeatedly ask `claude` to continue working on the plan until it is complete.
+1. Create a `GOALS.md` file.
+2. Ask `claude` to write a plan for the project and save it to `PLAN.md`.
+3. Repeatedly ask `claude` to continue working on the plan until it is complete.
 
 It's Markdown all the way down.
 
-## Create a PLAN.md
+## Create a GOALS.md
 
-
-```claude
-I would like to do ...
-```
-
-This can be built up over a conversation, but you want to design a spec for the project:
+`GOALS.md` is a spec for the project:
 
 - goals and non-goals
-- technological choices (_e.g._., Python 3.15, using pixi for environment management)
-- important steps, milestones, and deliverables (`claude` will often provide these)
+- technological choices (_e.g._, Python 3.15, using pixi for environment management)
+
+You can write it by hand, or build it up over a conversation with `claude`:
+
+```
+Goals:
+
+- Take a directory of FASTQ files and produce an HTML report with read counts,
+  length distributions and quality scores per sample
+
+Non-goals:
+
+- It does not need to run on platforms other than Linux
+
+Technologies:
+
+- Python & pixi
+- Use latest versions of libraries, unless there is a good reason not to
+- ...
+```
+
+## Create a PLAN.md
+
+```claude
+See GOALS.md. Review the goals and write a plan for the project, then save it to 'PLAN.md'. The plan should include milestones and deliverables, and should be structured in a way that allows for iterative development and verification of correctness.
+```
 
 ## Example PLAN.md: NGLess, Haskell → Rust
 
@@ -368,33 +388,45 @@ in mind during the exercise. Rung 7 is a pointer to the ECE case study, where
 the critique comes from a second model.
 :::
 
-## Hands-on: plan a tool
+## Hands-on: goals for a tool
 
-Pick a tool you would find useful and write its `PLAN.md` with `claude`.
-Only the plan for today.
+Pick a tool you would find useful, write its `GOALS.md`, and iterate on it
+with `claude`. If you have time, have `claude` generate a `PLAN.md` from it.
+No implementation today.
 
 ```bash
-mkdir plan-exercise
-cd plan-exercise
+mkdir goals-exercise
+cd goals-exercise
 claude
 ```
 
 ```claude
-I would like to write a tool that ... Help me write a plan for it, then save it to 'PLAN.md'. Do not start implementing it.
+I would like to write a tool that ... Help me write the goals, non-goals and technological choices for it, then save them to 'GOALS.md'. Do not write a plan or start implementing it.
 ```
 
 ::: remember
 You can specify as much or as little detail as you want.
 :::
 
+## Hands-on: iterate, then plan
+
+Iterate on `GOALS.md`: ask `claude` what is missing or ambiguous, and edit it
+yourself too.
+
+If you have time, generate the plan:
+
+```claude
+See GOALS.md. Review the goals and write a plan for the project, then save it to 'PLAN.md'. Do not start implementing it.
+```
+
 ::: handout
-Besides the goals, non-goals, technological choices and milestones from
-"Create a PLAN.md", ask yourself:
+Besides the goals, non-goals and technological choices from "Create a
+GOALS.md", ask yourself:
 
 - What goes in and what comes out (file formats, a figure, a report)?
 - For a visualisation, tests can check the numbers but not the picture. Have
-  the tool write out the table behind each figure, and put "look at the plot"
-  in the plan as an explicit step.
+  the tool write out the table behind each figure, and make "look at the plot"
+  an explicit step.
 :::
 
 ## Some ideas, or bring your own
@@ -411,13 +443,13 @@ A tool from your own work is better than any of these!
 How verifiable can you make it?
 :::
 
-**~15 minutes:** 5 for a first plan, 5–10 to iterate on it (with `claude` and
-by hand), then we discuss.
+**~15 minutes:** 5 for a first `GOALS.md`, 5–10 to iterate on it (with
+`claude` and by hand), then `PLAN.md` if you have time. Then we discuss.
 
 ::: instructor
 About 20–25 minutes in total: ~15 minutes of work, following the timings on
 the slide, then 5–10 minutes of discussion. In the discussion, look at two or
-three plans from the room.
+three `GOALS.md` files from the room (and a `PLAN.md`, if anyone got that far).
 
 This is a thought exercise: there is no data, and nobody should be running
 anything.
@@ -601,7 +633,7 @@ Criticize the analysis that Claude performed in this project.
 
 - You can use `claude` for longer-term projects, both in bioinformatics and computational biology
 - You can use `claude` to review projects and fix issues
-- Separate `PLAN.md`/`review.md` from execution
+- Separate `GOALS.md`/`PLAN.md`/`review.md` from execution
 - Use a `working-memory.md` file to keep track of the state of the project and the context small
 
 ::: remember
