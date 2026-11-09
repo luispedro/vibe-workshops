@@ -327,6 +327,21 @@ Every so often, you can ask `claude` to clean up the `working-memory.md` file.
 Please clean up the 'working-memory.md' file to remove any information that is no longer relevant to the current state of the project. Make sure it only contains context that will help a new session pick up where we left off.
 ```
 
+## Creating a CLAUDE.md file
+
+It's a good idea to also create a `CLAUDE.md` file, as we discussed last time:
+
+```claude
+/init
+```
+
+::: remember
+It does not actually matter too much where information goes. `CLAUDE.md` is special as it is read every time, so you might want to keep it short for token optimization, but models are generally good enough that it does not matter.
+
+I have started to keep `GOALS.md` and `PLAN.md` separate because **I** like to separate the more human-focused `GOALS.md` from the more machine-focused `PLAN.md`, but this is about me, not about Claude. You can keep them together if you want.
+:::
+
+
 ## What are good projects for this approach?
 
 The best is a _clear, automatable (verifiable) definition of correctness_
