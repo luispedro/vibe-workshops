@@ -142,8 +142,10 @@ The data on dogs comes from a real study:
 > Cuscó A, Duan Y, Gil F, Chklovski A, Kruthi N, Pan S, Forslund S, Lau S,
 > Löber U, Zhao X-M, Coelho LP. *Capturing global pet dog gut microbial
 > diversity and hundreds of near-finished bacterial genomes by using long-read
-> metagenomics in a Shanghai cohort.* bioRxiv (2025).
-> <https://doi.org/10.1101/2025.09.17.676595>
+> metagenomics in a Shanghai cohort.* Accepted at _Genome Biology_
+>
+> Preprint available at bioRxiv:
+> [DOI:10.1101/2025.09.17.676595](https://doi.org/10.1101/2025.09.17.676595)
 :::
 
 ## Workshop visual conventions
