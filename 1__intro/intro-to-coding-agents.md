@@ -150,6 +150,22 @@ The data on dogs comes from a real study:
 
 ## Workshop visual conventions
 
+::: slides
+A slide marked *Lecture*, like this one, has nothing to type: just follow along.
+:::
+
+::: handout
+In the deck, every slide has a label in its top right corner: *Lecture* if
+there is nothing to type, *Hands-on* if there is a command or a prompt to type.
+In these notes, the boxes below do the same job.
+:::
+
+## Workshop visual conventions II: hands-on
+
+::: slides
+A slide marked *Hands-on*, like this one, has something for you to type.
+:::
+
 ```bash
 ls -l # these are commands you run in the terminal
 ```
