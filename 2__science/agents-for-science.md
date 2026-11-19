@@ -141,7 +141,7 @@ Technologies:
 - ...
 ```
 
-## Create a PLAN.md
+## Create a PLAN.md {.lecture}
 
 ```claude
 See GOALS.md. Review the goals and write a plan for the project, then save it to 'PLAN.md'. The plan should include milestones and deliverables, and should be structured in a way that allows for iterative development and verification of correctness.
@@ -280,7 +280,7 @@ outputs. RustQC matches featureCounts byte for byte; Henriksson found that
 "translate this" without checks gave code missing most features.
 :::
 
-## Use a `working-memory.md` file
+## Use a `working-memory.md` file {.lecture}
 
 
 ```claude
@@ -311,7 +311,7 @@ and update it before stopping. Some other versions of it:
   in a shell loop, each time with a fresh context and a plan file on disk.
 :::
 
-## Keep `working-memory.md` out of git
+## Keep `working-memory.md` out of git {.lecture}
 
 This is a matter of personal preference, but I keep `working-memory.md` out of git because it is scratch state for the agent, not part of the project history.
 
@@ -319,7 +319,7 @@ This is a matter of personal preference, but I keep `working-memory.md` out of g
 echo 'working-memory.md' >> .git/info/exclude
 ```
 
-## Clean up the working memory
+## Clean up the working memory {.lecture}
 
 Every so often, you can ask `claude` to clean up the `working-memory.md` file.
 
@@ -327,7 +327,7 @@ Every so often, you can ask `claude` to clean up the `working-memory.md` file.
 Please clean up the 'working-memory.md' file to remove any information that is no longer relevant to the current state of the project. Make sure it only contains context that will help a new session pick up where we left off.
 ```
 
-## Creating a CLAUDE.md file
+## Creating a CLAUDE.md file {.lecture}
 
 It's a good idea to also create a `CLAUDE.md` file, as we discussed last time:
 
@@ -500,7 +500,7 @@ failure after an update of a dependency can generally be fixed with a single
 prompt to the agent.
 :::
 
-## Similar structure for reviewing projects
+## Similar structure for reviewing projects {.lecture}
 
 ```claude
 Please review this project, focusing on the code and write a list of all the issues to a file called 'review.md'. Be exhaustive and include any potential improvements, bugs, or areas that need clarification. Make sure to provide clear explanations for each issue you identify.
@@ -517,7 +517,7 @@ echo 'review.md' >> .git/info/exclude
 echo 'review-docs.md' >> .git/info/exclude
 ```
 
-## Fix issues from the review
+## Fix issues from the review {.lecture}
 
 ```claude
 See 'review.md' for context. When fixing issues, completely remove them from 'review.md' (do not just mark them as fixed). Fix #8
@@ -582,7 +582,7 @@ can be identified?
 Note that the phrasing is still short and vague.
 :::
 
-## Asking `claude` to plan the analysis
+## Asking `claude` to plan the analysis {.lecture}
 
 ```claude
 See the desired analysis in 'analysis.md'. Please sketch out how to operationalise it
@@ -603,7 +603,7 @@ Save this plan to a file called 'PLAN.md'.
 
 Here is where you can iterate with `claude` or other models to refine the plan.
 
-## Running it
+## Running it {.lecture}
 
 ```claude
 Execute the analysis in PLAN.md

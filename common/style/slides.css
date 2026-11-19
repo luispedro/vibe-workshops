@@ -75,3 +75,27 @@
    so the boundaries inside a word are visible from the back of the room. */
 .reveal .tokens code     { background: #eceff1; border-radius: 3px;
                            padding: 0 0.12em; margin: 0 0.06em; }
+
+/* --- slide kinds ------------------------------------------------------------
+   filters/slides.lua tags every slide as .handson (it has something to type)
+   or .lecture (it does not); `## Title {.lecture}` overrides the guess. A badge
+   in the top right corner names the kind; lecture slides also get a faint
+   tint (set as data-background-color by the filter), while hands-on slides
+   stay white so the "type this" boxes keep their contrast.                   */
+
+.reveal section.lecture,
+.reveal section.handson  { position: relative; }
+.reveal section.lecture > h1, .reveal section.lecture > h2,
+.reveal section.handson > h1, .reveal section.handson > h2 { padding-right: 3.2em; }
+.reveal section.lecture::before,
+.reveal section.handson::before {
+                           position: absolute; top: 0; right: 0;
+                           font-size: 0.42em; font-weight: bold;
+                           letter-spacing: 0.09em; padding: 0.25em 0.7em;
+                           border-radius: 3px; line-height: 1.4; }
+.reveal section.handson::before { content: "⌨  Hands-on";
+                           text-transform: uppercase;
+                           color: #fff; background: #37474f; }
+.reveal section.lecture::before { content: "Lecture";
+                           text-transform: uppercase;
+                           color: #2f5d8f; border: 1.5px solid #2f5d8f; }

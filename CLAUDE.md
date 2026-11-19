@@ -167,6 +167,16 @@ and a figure plus a heading and a line of text fills it.
 
 Splitting a slide in two means splitting a `##` section in two.
 
+### Slide kinds: hands-on or lecture
+
+In the deck, `common/filters/slides.lua` badges every slide in its top right
+corner: *Hands-on* if it has something to type (a fence that gets a "type
+this" cue), *Lecture* if it does not. Lecture slides are also faintly tinted.
+Only what reaches the slide counts; a command inside `::: handout` or
+`::: instructor` does not. Override the guess on the heading,
+`## Title {.handson}` or `{.lecture}`, or drop the badge with `{.no-tag}`.
+Part dividers (`#` with no content of their own) are left untagged.
+
 ## Building
 
 From inside a workshop directory (`1__intro/` or `2__science/`), or with
