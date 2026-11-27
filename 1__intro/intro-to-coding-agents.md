@@ -140,12 +140,10 @@ Download them: <https://luispedro.github.io/vibe-workshops/1__intro/data.zip>
 The data on dogs comes from a real study:
 
 > Cuscó A, Duan Y, Gil F, Chklovski A, Kruthi N, Pan S, Forslund S, Lau S,
-> Löber U, Zhao X-M, Coelho LP. *Capturing global pet dog gut microbial
-> diversity and hundreds of near-finished bacterial genomes by using long-read
-> metagenomics in a Shanghai cohort.* Accepted at _Genome Biology_
->
-> Preprint available at bioRxiv:
-> [DOI:10.1101/2025.09.17.676595](https://doi.org/10.1101/2025.09.17.676595)
+> Löber U, Zhao X-M, Coelho LP. *A long-read metagenomic catalog of
+> near-finished bacterial genomes from Shanghai pet dogs captures gut microbial
+> diversity across geographically distinct cohorts.* _Genome Biology_ (2026).
+> <https://doi.org/10.1186/s13059-026-04360-z>
 :::
 
 ## Workshop visual conventions
